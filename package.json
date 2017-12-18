@@ -1,0 +1,39 @@
+{
+  "name": "webrtc-chat-client",
+  "version": "1.0.0",
+  "description": "Custom element WebRTC chat client",
+  "main": "webrtc-chat-client.js",
+  "scripts": {
+    "postinstall": "mkdir -p bower_components/web-component-tester && cp -R node_modules/web-component-tester/* bower_components/web-component-tester",
+    "start": "ws -p 8080 --spa custom-dialog.html",
+    "start:ie": "ws -p 8080 --spa index-ie.html",
+    "test": "wct",
+    "clean:dist": "rm -rf dist/*",
+    "webpack": "webpack --config webpack.config.js",
+    "webpack:bundle": "webpack --config webpack.config.bundle.js",
+    "prebuild": "npm run clean:dist",
+    "build": "npm run webpack",
+    "build:bundle": "npm run webpack:bundle",
+    "reinstall": "rm -rf node_modules && npm cache clean && npm install"
+  },
+  "author": "Danny Moerkerke <danny@dannymoerkerke.nl>",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "chai": "^4.1.2",
+    "jasmine-core": "^2.8.0",
+    "local-web-server": "^2.2.4",
+    "progress-bar-webpack-plugin": "^1.10.0",
+    "sinon": "^4.0.1",
+    "strip-loader": "^0.1.2",
+    "uglifyjs-webpack-plugin": "^1.0.0-beta.2",
+    "web-component-tester": "^6.3.0",
+    "webpack": "^3.8.1"
+  },
+  "dependencies": {
+    "@webcomponents/webcomponentsjs": "^1.0.17"
+  }
+}

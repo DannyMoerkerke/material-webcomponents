@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Custom element</title>
+    </head>
+    <body>
+
+        <a href="repeater">repeater</a>
+        <div id="content"></div>
+
+        <script type="module" src="src/data-repeater.js"></script>
+
+        <script type="module">
+            import routes from './src/router.js';
+
+            const outlet = document.querySelector('#content');
+
+            var init = function() {
+                var repeater = document.querySelector('data-repeater');
+
+                repeater.data = [
+                    {language: 'javascript', type: 'both'},
+                    {language: 'scala', type: 'backend'},
+                    {language: 'haskell', type: 'backend'},
+                    {language: 'typescript', type: 'frontend'}
+                ];
+
+                setTimeout(function() {
+                    repeater.data = [
+                        {language: 'scala', type: 'backend'},
+                        {language: 'javascript', type: 'both'},
+                        {language: 'haskell', type: 'backend'},
+                        {language: 'typescript', type: 'frontend'},
+                        {language: 'PHP', type: 'backend'}
+                    ];
+                }, 2000);
+
+                setTimeout(function() {
+                    repeater.data = [
+                        {language: 'javascript', type: 'both'}
+                    ];
+                }, 4000);
+            };
+
+            routes(outlet, [{
+                url: 'repeater',
+                template: `
+                    <data-repeater>
+                        <div>
+                            <h2>{language}</h2>
+                            <p>{type}</p>
+                        </div>
+                    </data-repeater>`,
+                controller: init
+            }]);
+        </script>
+
+
+    </body>
+</html>

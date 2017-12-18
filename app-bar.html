@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+        <style>
+            body {
+                margin: 0;
+            }
+        </style>
+    </head>
+    <body>
+        <app-bar>
+            <i class="material-icons" slot="left-content">menu</i>
+            <i class="material-icons" slot="right-content">expand_more</i>
+            <i class="material-icons" slot="right-content">close</i>
+        </app-bar>
+
+        <script type="module" src="src/app-bar.js"></script>
+
+        <script>
+            document.querySelector('app-bar').addEventListener('app-bar-clicked', e => {
+                console.log(e.detail.target);
+            })
+        </script>
+    </body>
+</html>

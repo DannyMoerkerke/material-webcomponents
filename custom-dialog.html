@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+        <style>
+            body {
+                margin: 0;
+            }
+        </style>
+    </head>
+    <body>
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad animi beatae commodi consectetur distinctio eaque excepturi explicabo fugit, harum illum iure modi numquam reiciendis rem sequi soluta tenetur voluptatem voluptates.
+        </p>
+        <custom-dialog>
+            <h1 slot="header">Dialog title</h1>
+            <p slot="body">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt dolorem et, eum excepturi fugit iste maxime nisi, obcaecati officia omnis quas qui, quidem sequi. Accusamus deleniti earum quasi ratione unde!</p>
+            <div slot="footer">
+                <button>close</button>
+            </div>
+        </custom-dialog>
+
+        <button id="open">Open</button>
+
+        <script type="module" src="src/custom-dialog.js"></script>
+
+        <script>
+            document.querySelector('#open').onclick = () => {
+                document.querySelector('custom-dialog').open();
+            };
+        </script>
+
+    </body>
+</html>

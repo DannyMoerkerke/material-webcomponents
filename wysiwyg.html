@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+        <style>
+            body {
+                padding: 150px;
+            }
+            .content {
+                border: 1px solid #000000;
+                width: 500px;
+                height: 500px;
+            }
+
+        </style>
+    </head>
+    <body>
+        <text-editor content=".content">
+            <i class="material-icons" data-command="bold" slot="button">format_bold</i>
+            <i class="material-icons" data-command="italic" slot="button">format_italic</i>
+            <i class="material-icons" data-command="underline" slot="button">format_underline</i>
+            <i class="material-icons" data-command="justifyLeft" slot="button">format_align_left</i>
+            <i class="material-icons" data-command="justifyRight" slot="button">format_align_right</i>
+            <i class="material-icons" data-command="justifyFull" slot="button">format_align_justify</i>
+            <i class="material-icons" data-command="justifyCenter" slot="button">format_align_center</i>
+            <i class="material-icons" data-command="insertUnorderedList" slot="button">format_list_bulleted</i>
+            <i class="material-icons" data-command="insertOrderedList" slot="button">format_list_numbered</i>
+            <i class="material-icons" data-command="undo" slot="button">undo</i>
+            <i class="material-icons" data-command="redo" slot="button">redo</i>
+            <dropdown-menu slot="button" data-command="fontName">
+                <i class="material-icons" slot="icon">menu</i>
+                <option slot="option" value="Comic Sans MS">Comic Sans</option>
+                <option slot="option">PHP</option>
+                <option slot="option">Java</option>
+                <option slot="option">Scala</option>
+            </dropdown-menu>
+        </text-editor>
+
+        <div class="content"></div>
+
+        <script type="module" src="src/dropdown-menu.js"></script>
+        <script type="module" src="src/text-editor.js"></script>
+    </body>
+</html>

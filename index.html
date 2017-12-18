@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Custom element</title>
+
+
+    </head>
+    <body>
+
+    <div class="container">
+        <test-element></test-element>
+    </div>
+
+        <script type="module" src="src/test-element.js"></script>
+        <script>
+            customElements.whenDefined('test-element')
+            .then(() => {
+                const el = document.querySelector('test-element');
+                el.setState({language: 'scala', type: 'backend'});
+
+                setTimeout(() => {
+                    el.setState({language: 'typescript', type: 'frontend'});
+                }, 2000);
+
+                setTimeout(() => {
+                    el.setState({language: 'javascript', type: 'both'});
+                }, 4000);
+            });
+        </script>
+    </body>
+</html>

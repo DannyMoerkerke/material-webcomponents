@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+        <style>
+            body {
+                padding: 50px;
+            }
+            dropdown-menu {
+                width: 500px;
+            }
+
+        </style>
+    </head>
+    <body>
+
+        <dropdown-menu>
+            <i class="material-icons" slot="icon">menu</i>
+            <option slot="option">Javascript</option>
+            <option slot="option">PHP</option>
+            <option slot="option">Java</option>
+            <option slot="option">Scala</option>
+        </dropdown-menu>
+
+        <script type="module" src="src/dropdown-menu.js"></script>
+    </body>
+</html>

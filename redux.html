@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Custom element</title>
+
+
+    </head>
+    <body>
+
+    <div class="container">
+        <test-element></test-element>
+    </div>
+
+        <script type="module" src="src/test-element.js"></script>
+        <script type="module">
+            import createStore from './src/store.js';
+            import counter from './src/reducers/counter.js';
+
+            const store = createStore({counter: 0}, counter);
+
+            customElements.whenDefined('test-element')
+            .then(() => {
+                const el = document.querySelector('test-element');
+                el.store = store;
+
+                document.addEventListener('state-change', e => {
+                    el.store = store;
+                });
+            });
+        </script>
+    </body>
+</html>
