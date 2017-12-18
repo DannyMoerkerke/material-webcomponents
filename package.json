@@ -1,10 +1,10 @@
 {
-  "name": "webrtc-chat-client",
+  "name": "material-custom-elements",
   "version": "1.0.0",
-  "description": "Custom element WebRTC chat client",
+  "description": "Material Design Custom elements",
   "main": "webrtc-chat-client.js",
   "scripts": {
-    "postinstall": "mkdir -p bower_components/web-component-tester && cp -R node_modules/web-component-tester/* bower_components/web-component-tester",
+    "_postinstall": "mkdir -p bower_components/web-component-tester && cp -R node_modules/web-component-tester/* bower_components/web-component-tester",
     "start": "ws -p 8080 --spa custom-dialog.html",
     "start:ie": "ws -p 8080 --spa index-ie.html",
     "test": "wct",
