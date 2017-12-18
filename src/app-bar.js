@@ -13,7 +13,7 @@ export default class AppBar extends HTMLElement {
             <style>
                 #container {
                     display: grid;
-                    grid-template-columns: 1fr 10fr 1fr;
+                    grid-template-columns: 1fr 1fr 1fr;
                     padding: 15px;
                     background: var(--app-bar-background, #999999);
                 }
@@ -22,10 +22,10 @@ export default class AppBar extends HTMLElement {
                     cursor: pointer;
                 }
                 ::slotted([slot="left-content"]) {
-                    margin-right: 10px;
+                    margin-right: var(--left-content-spacing, 10px);
                 }
                 ::slotted([slot="right-content"]) {
-                    margin-left: 10px;
+                    margin-left: var(--right-content-spacing, 10px);
                 }
                 .left-content {
                     grid-column: 1 / 2;
