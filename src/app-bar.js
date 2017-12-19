@@ -11,10 +11,13 @@ export default class AppBar extends HTMLElement {
 
         shadowRoot.innerHTML = `
             <style>
+                :root {
+                    --padding-top: 15px;
+                }
                 #container {
                     display: grid;
                     grid-template-columns: 1fr 1fr 1fr;
-                    padding: 15px;
+                    padding: var(--padding-top, 15px) var(--padding-right, 15px) var(--padding-bottom, 15px) var(--padding-left, 15px)
                     background: var(--app-bar-background, #999999);
                 }
                 ::slotted([slot="left-content"]),
