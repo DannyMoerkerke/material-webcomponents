@@ -17,7 +17,10 @@ export default class AppBar extends HTMLElement {
                 #container {
                     display: grid;
                     grid-template-columns: 1fr 1fr 1fr;
-                    padding: var(--padding-top, 15px) var(--padding-right, 15px) var(--padding-bottom, 15px) var(--padding-left, 15px)
+                    padding-top: var(--padding-top, 15px);
+                    padding-right: var(--padding-right, 15px);
+                    padding-bottom: (--padding-bottom, 15px);
+                    padding-left: (--padding-left, 15px);
                     background: var(--app-bar-background, #999999);
                 }
                 ::slotted([slot="left-content"]),
