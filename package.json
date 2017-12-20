@@ -5,7 +5,7 @@
   "main": "webrtc-chat-client.js",
   "scripts": {
     "_postinstall": "mkdir -p bower_components/web-component-tester && cp -R node_modules/web-component-tester/* bower_components/web-component-tester",
-    "start": "ws -p 8080 --spa custom-dialog.html",
+    "start": "ws -p 8080 --spa icon-button.html",
     "start:ie": "ws -p 8080 --spa index-ie.html",
     "test": "wct",
     "clean:dist": "rm -rf dist/*",
