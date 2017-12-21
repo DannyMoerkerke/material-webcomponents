@@ -20,6 +20,7 @@ export default class IconButton extends HTMLElement {
                     text-align: center;
                     line-height: 50%;
                     cursor: pointer;
+                    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 10px, rgba(0, 0, 0, 0.23) 0px 3px 10px;
                 }
                 ::slotted([slot="icon"]) {
                     margin: var(--icon-spacing, 5px);
