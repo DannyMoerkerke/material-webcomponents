@@ -86,7 +86,6 @@ export default class MaterialToggleButton extends HTMLElement {
 
         this.container.addEventListener('click', e => {
             const button = e.path[0];
-            console.log(button);
 
             if(!button.classList.contains('active')) {
                 this.dispatchEvent(new CustomEvent('button-clicked', {
