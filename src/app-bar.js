@@ -17,6 +17,7 @@ export default class AppBar extends HTMLElement {
                 #container {
                     display: grid;
                     grid-template-columns: 1fr 1fr 1fr;
+                    height: 100%;
                     padding-top: var(--padding-top, 15px);
                     padding-right: var(--padding-right, 15px);
                     padding-bottom: var(--padding-bottom, 15px);
