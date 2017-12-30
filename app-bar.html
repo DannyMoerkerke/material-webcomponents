@@ -9,11 +9,17 @@
             body {
                 margin: 0;
             }
+            app-bar {
+                --app-bar-background: #000000;
+                --app-bar-font-color: #ffffff;
+            }
         </style>
     </head>
     <body>
         <app-bar>
             <i class="material-icons" slot="left-content">menu</i>
+            <button slot="right-content">Create your beer</button>
+            <a href="/login" slot="right-content">Log in</a>
             <i class="material-icons" slot="right-content">expand_more</i>
             <i class="material-icons" slot="right-content">close</i>
         </app-bar>

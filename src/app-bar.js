@@ -22,10 +22,13 @@ export default class AppBar extends HTMLElement {
                     padding-bottom: var(--padding-bottom, 15px);
                     padding-left: var(--padding-left, 15px);
                     background: var(--app-bar-background, #999999);
+                    color: var(--app-bar-font-color, #000000);
                 }
+                
                 ::slotted([slot="left-content"]),
                 ::slotted([slot="right-content"]) {
                     cursor: pointer;
+                    color: inherit;
                 }
                 ::slotted([slot="left-content"]) {
                     margin-right: var(--left-content-spacing, 10px);
