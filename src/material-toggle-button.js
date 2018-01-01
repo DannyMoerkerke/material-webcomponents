@@ -16,6 +16,7 @@ export default class MaterialToggleButton extends HTMLElement {
                 }
                 button {
                     background: var(--inactive-color, #cccccc);
+                    border-color: var(--inactive-color, #cccccc);
                     font-size: var(--button-font-size, 1em);
                     outline: none;
                     cursor: pointer;
@@ -38,10 +39,12 @@ export default class MaterialToggleButton extends HTMLElement {
                 @keyframes activate {
                     from {
                         background: var(--inactive-color, #cccccc);
+                        border-color: var(--inactive-color, #cccccc);
                         color: var(--font-inactive-color, #999999);
                     }
                     to {
                         background: var(--active-color, #999999);
+                        border-color: var(--active-color, #cccccc);
                         color: var(--font-active-color, #cccccc);
                     }
                 }
