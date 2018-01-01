@@ -15,7 +15,7 @@ export default class MaterialToggleButton extends HTMLElement {
                     display: inline-block;
                 }
                 button {
-                    background: #cccccc;
+                    background: var(--inactive-color, #cccccc);
                     font-size: var(--button-font-size, 1em);
                     outline: none;
                     cursor: pointer;
