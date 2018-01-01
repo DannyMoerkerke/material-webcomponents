@@ -37,10 +37,12 @@ export default class MaterialToggleButton extends HTMLElement {
                 
                 @keyframes activate {
                     from {
-                        background: #cccccc;
+                        background: var(--inactive-color, #cccccc);
+                        color: var(--font-inactive-color, #999999);
                     }
                     to {
                         background: var(--active-color, #999999);
+                        color: var(--font-active-color, #cccccc);
                     }
                 }
                 
