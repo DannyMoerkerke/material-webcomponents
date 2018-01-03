@@ -11,7 +11,7 @@ export default class DataRepeater extends HTMLElement {
     }
 
     set data(data) {
-        const pattern = /{(.+?)}/g;
+        const pattern = /\${(.+?)}/g;
 
         this.shadowRoot.innerHTML = data.reduce((acc, item) => {
             let match;

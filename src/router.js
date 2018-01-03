@@ -37,5 +37,6 @@ export default (outlet, routes) => {
         activateRoute(matchedRoute);
     });
 
+    console.log(location.href);
     matchRoute(location.href);
 };
