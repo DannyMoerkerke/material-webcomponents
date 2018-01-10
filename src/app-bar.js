@@ -70,32 +70,18 @@ export default class AppBar extends HTMLElement {
                     justify-content: flex-end;
                     position: static;
                 }
-                
-                @media (max-width: 375px) {
-                    #container {
-                        position: relative;
-                    }
-                    .left-content {
-                        display: none;
-                    }
-                    .right-content {
-                        display: none;
-                        flex-direction: column;
-                        grid-column: 1 / 6;
-                        width: 100%;
-                        position: absolute;
-                        top: var(--menu-top);
-                        background: var(--app-bar-background, #999999);
-                    }
+                .dropdown-menu {
+                    display: none;
+                    flex-direction: column;
+                    grid-column: 1 / 6;
+                    width: 100%;
+                    position: absolute;
+                    top: var(--menu-top);
+                    background: var(--app-bar-background, #999999);
                 }
-                
             </style>
             
-            <template id="menu-icon">
-                <i class="material-icons menu-icon">menu</i>
-            </template>
-            
-            <div id="container">
+            <template id="large">
                 <div class="left-content">
                     <slot name="left-content"></slot>
                 </div>
@@ -105,35 +91,48 @@ export default class AppBar extends HTMLElement {
                 <div class="right-content">
                     <slot name="right-content"></slot>
                 </div>
-            </div>
+            </template>
+            
+            <template id="small">
+                <i class="material-icons menu-icon">menu</i>
+                <div class="dropdown-menu">
+                    <slot name="left-content"></slot>
+                    <slot name="right-content"></slot>
+                </div>
+            </template>
+            
+            <div id="container"></div>
         `;
     }
 
     connectedCallback() {
         const container = this.shadowRoot.querySelector('#container');
-        const rightContent = this.shadowRoot.querySelector('.right-content');
         let menuOpen = false;
 
         const resize = mq => {
             if(mq.matches) {
-                const menuIcon = this.shadowRoot.querySelector('#menu-icon').content.cloneNode(true);
-                container.appendChild(menuIcon);
+                const smallContent = this.shadowRoot.querySelector('#small').content.cloneNode(true);
+                container.innerHTML = '';
+                container.appendChild(smallContent);
+                this.setupEventHandlers();
 
                 setTimeout(() => {
-                    const {height} = container.getBoundingClientRect();
-                    rightContent.style.setProperty('--menu-top', `${height}px`);
-                });
+                    const dropdownMenu = this.shadowRoot.querySelector('.dropdown-menu');
 
-                this.shadowRoot.querySelector('.menu-icon').onclick = () => {
-                    menuOpen = !menuOpen;
-                    rightContent.style.display = menuOpen ? 'flex' : 'none';
-                };
+                    const {height} = container.getBoundingClientRect();
+                    dropdownMenu.style.setProperty('--menu-top', `${height}px`);
+
+                    this.shadowRoot.querySelector('.menu-icon').onclick = () => {
+                        menuOpen = !menuOpen;
+                        dropdownMenu.style.display = menuOpen ? 'flex' : 'none';
+                    };
+                });
             }
             else {
-                if(this.shadowRoot.querySelector('.menu-icon')) {
-                    container.removeChild(this.shadowRoot.querySelector('.menu-icon'));
-                    rightContent.style.display = '';
-                }
+                const largeContent = this.shadowRoot.querySelector('#large').content.cloneNode(true);
+                container.innerHTML = '';
+                container.appendChild(largeContent);
+                this.setupEventHandlers();
             }
         };
 
@@ -141,7 +140,11 @@ export default class AppBar extends HTMLElement {
         mq.addListener(resize);
         resize(mq);
 
-        this.shadowRoot.querySelectorAll('[name$="icon"]').forEach(icon => {
+
+    }
+
+    setupEventHandlers() {
+        this.shadowRoot.querySelectorAll('[name$="content"]').forEach(icon => {
             icon.addEventListener('click', ({target}) => {
                 this.dispatchEvent(new CustomEvent('app-bar-clicked', {
                     detail: {target}
