@@ -80,6 +80,10 @@ export default class AppBar extends HTMLElement {
                     background: var(--app-bar-background, #999999);
                     z-index: 999;
                 }
+                .dropdown-menu ::slotted([slot="left-content"]),
+                .dropdown-menu ::slotted([slot="right-content"]) {
+                    margin: 10px;
+                }
             </style>
             
             <template id="large">
