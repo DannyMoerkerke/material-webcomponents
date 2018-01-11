@@ -78,6 +78,7 @@ export default class AppBar extends HTMLElement {
                     position: absolute;
                     top: var(--menu-top);
                     background: var(--app-bar-background, #999999);
+                    z-index: 999;
                 }
             </style>
             
@@ -111,6 +112,12 @@ export default class AppBar extends HTMLElement {
 
         const resize = mq => {
             if(mq.matches) {
+                const largeContent = this.shadowRoot.querySelector('#large').content.cloneNode(true);
+                container.innerHTML = '';
+                container.appendChild(largeContent);
+                this.setupEventHandlers();
+            }
+            else {
                 const smallContent = this.shadowRoot.querySelector('#small').content.cloneNode(true);
                 container.innerHTML = '';
                 container.appendChild(smallContent);
@@ -128,15 +135,9 @@ export default class AppBar extends HTMLElement {
                     };
                 });
             }
-            else {
-                const largeContent = this.shadowRoot.querySelector('#large').content.cloneNode(true);
-                container.innerHTML = '';
-                container.appendChild(largeContent);
-                this.setupEventHandlers();
-            }
         };
 
-        const mq = window.matchMedia('(max-width: 375px)');
+        const mq = window.matchMedia('(min-width: 600px)');
         mq.addListener(resize);
         resize(mq);
 
