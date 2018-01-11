@@ -41,6 +41,7 @@ export default class AppBar extends HTMLElement {
                     height: 100%;
                     padding-top: var(--spacing-top, 15px);
                     padding-bottom: var(--spacing-bottom, 15px);
+                    box-sizing: border-box;
                     background: var(--app-bar-background, #999999);
                     color: var(--app-bar-font-color, #000000);
                 }
