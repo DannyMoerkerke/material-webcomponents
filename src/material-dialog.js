@@ -9,8 +9,6 @@ export default class MaterialDialog extends HTMLElement {
 
         const shadowRoot = this.attachShadow({mode: 'open'});
 
-        this.style.display = 'none';
-
         shadowRoot.innerHTML = `
             <style>
                 #backdrop {
@@ -24,6 +22,7 @@ export default class MaterialDialog extends HTMLElement {
                     animation-duration: .2s;
                     animation-fill-mode: forwards;
                     animation-timing-function: ease-out;
+                    z-index: 9999;
                 }
                 #modal {
                     display: grid;
