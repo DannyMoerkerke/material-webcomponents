@@ -1,4 +1,4 @@
-export default class CustomDialog extends HTMLElement {
+export default class MaterialDialog extends HTMLElement {
 
     static get observedAttributes() {
         return [];
@@ -31,14 +31,27 @@ export default class CustomDialog extends HTMLElement {
                     position: absolute;
                     top: 50%;
                     left: 50%;
-                    width: 20%;
+                    width: var(--dialog-width, 20%);
+                    height: var(--dialog-height, auto);
                     background: #ffffff;
-                    padding: 15px;
                     animation-name: slidedown;
                     animation-duration: .2s;
                     animation-fill-mode: forwards;
                     animation-timing-function: ease-out;
                 }
+                header {
+                    background: var(--header-background, #ffffff);
+                }
+                main {
+                    background: var(--body-background, #ffffff);
+                }
+                footer {
+                    background: var(--footer-background, #ffffff);
+                }
+                ::slotted([slot]) {
+                    margin: 10px;
+                }
+                
                 @keyframes fadein {
                     from {
                         opacity: 0;
@@ -91,9 +104,15 @@ export default class CustomDialog extends HTMLElement {
             
             <div id="backdrop">
                 <div id="modal">
-                    <slot name="header"></slot>
-                    <slot name="body"></slot>
-                    <slot name="footer"></slot>
+                    <header>
+                        <slot name="header"></slot>
+                    </header>
+                    <main>
+                        <slot name="body"></slot>
+                    </main>
+                    <footer>
+                        <slot name="footer"></slot>
+                    </footer>
                 </div>
             </div>
         `;
@@ -103,12 +122,8 @@ export default class CustomDialog extends HTMLElement {
         this.style.display = 'none';
         this.backdrop = this.shadowRoot.querySelector('#backdrop');
 
-        this.shadowRoot.querySelector('slot[name="footer"]').addEventListener('click', () => {
-            this.close();
-        });
-
-        this.backdrop.addEventListener('click', () => {
-            if(!this.hasAttribute('modal')) {
+        this.backdrop.addEventListener('click', e => {
+            if(!this.hasAttribute('modal') && e.composedPath()[0] === this.backdrop) {
                 this.close();
             }
         })
@@ -119,7 +134,6 @@ export default class CustomDialog extends HTMLElement {
     }
 
     close() {
-
         this.backdrop.addEventListener('animationend', e => {
             if(e.animationName === 'fadeout') {
                 this.style.display = 'none';
@@ -129,18 +143,6 @@ export default class CustomDialog extends HTMLElement {
 
         this.backdrop.classList.add('close');
     }
-
-    attributeChangedCallback(attr, oldVal, newVal) {
-
-    }
-
-    disconnectedCallback() {
-
-    }
-
-    adoptedCallback() {
-
-    }
 }
 
-customElements.define('custom-dialog', CustomDialog);
+customElements.define('material-dialog', MaterialDialog);

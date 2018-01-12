@@ -9,28 +9,39 @@
             body {
                 margin: 0;
             }
+
+            #action {
+                float: right;
+            }
+
         </style>
     </head>
     <body>
         <p>
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad animi beatae commodi consectetur distinctio eaque excepturi explicabo fugit, harum illum iure modi numquam reiciendis rem sequi soluta tenetur voluptatem voluptates.
         </p>
-        <custom-dialog>
+        <material-dialog>
             <h1 slot="header">Dialog title</h1>
             <p slot="body">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt dolorem et, eum excepturi fugit iste maxime nisi, obcaecati officia omnis quas qui, quidem sequi. Accusamus deleniti earum quasi ratione unde!</p>
             <div slot="footer">
-                <button>close</button>
+                <button id="action">close</button>
             </div>
-        </custom-dialog>
+        </material-dialog>
 
         <button id="open">Open</button>
 
-        <script type="module" src="src/custom-dialog.js"></script>
+        <script type="module" src="src/material-dialog.js"></script>
 
         <script>
             document.querySelector('#open').onclick = () => {
-                document.querySelector('custom-dialog').open();
+                document.querySelector('material-dialog').open();
             };
+
+            document.querySelector('#action').onclick = () => {
+                document.querySelector('material-dialog').close();
+            };
+
+
         </script>
 
     </body>
