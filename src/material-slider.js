@@ -1,7 +1,7 @@
 export default class MaterialSlider extends HTMLElement {
 
     static get observedAttributes() {
-        return [];
+        return ['value'];
     }
 
     constructor() {
@@ -81,7 +81,7 @@ export default class MaterialSlider extends HTMLElement {
                     width: var(--thumb-size, 16px);
                     transform: scale(2) translateY(-50%);
                     transform-origin: 50% 0%;
-                    opacity: 0.1;
+                    opacity: 0.2;
                     border-radius: 50%;
                     background-color: transparent;
                     z-index: -1;
@@ -127,35 +127,44 @@ export default class MaterialSlider extends HTMLElement {
                 <output id="output"></output>
             </div>
         `;
+
+        this.input = this.shadowRoot.querySelector('input[type=range]');
+        this.host = this.input.getRootNode().host;
+        this.max = this.hasAttribute('max') ? this.getAttribute('max') : 100;
+        this.input.max = this.max;
+        this.step = this.hasAttribute('step') ? this.getAttribute('step') : 1;
+        this.input.step = this.step;
+        this.input.value = this.hasAttribute('value') ? this.getAttribute('value') : this.input.value;;
+        this.value = this.input.value;
     }
 
     connectedCallback() {
-        const input = this.shadowRoot.querySelector('input[type=range]');
-        const host = input.getRootNode().host;
-        const output = this.shadowRoot.querySelector('output');
-        const width = input.offsetWidth;
+        this.updateSlider(this.value);
 
-        const max = input.max || 100;
-        const value = input.value;
-
-
-        const updateSlider = value => {
-            const curValue = (value / max) * 100;
-            const correctionFactor = max / value;
-
-            host.style.setProperty('--cur-value', `${curValue}%`);
-            host.style.setProperty('--correction-factor', `${correctionFactor}`);
-        };
-
-        setTimeout(() => {
-            updateSlider(value);
+        this.input.addEventListener('input', e => {
+            this.value = e.target.value;
+            this.updateSlider(this.value);
         });
-
-        input.addEventListener('input', e => updateSlider(e.target.value));
     }
 
     attributeChangedCallback(attr, oldVal, newVal) {
-        
+        this.updateSlider(newVal);
+    }
+
+    updateSlider(value) {
+        const percentage = (value / this.max) * 100;
+        const correctionFactor = this.max / value;
+
+        this.host.style.setProperty('--cur-value', `${percentage}%`);
+        this.host.style.setProperty('--correction-factor', `${correctionFactor}`);
+    }
+
+    set value(value) {
+        this.setAttribute('value', value);
+    }
+
+    get value() {
+        return this.getAttribute('value');
     }
 }
 
