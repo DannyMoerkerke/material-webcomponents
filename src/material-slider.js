@@ -16,6 +16,10 @@ export default class MaterialSlider extends HTMLElement {
                     --cur-value: 50%;
                     --correction-factor: 2;
                     --thumb-color-light: #ffffff;
+                    --thumb-color-default: rgb(0, 188, 212);
+                    --track-color-default: rgb(204, 204, 204);
+                    --thumb-size-default: 16px;
+                    --track-height-default: 4px;
                 }
                 input[type=range] {
                     -webkit-appearance: none;
@@ -28,26 +32,23 @@ export default class MaterialSlider extends HTMLElement {
                 }
                 input[type=range]::-webkit-slider-runnable-track {
                     width: 100%;
-                    height: var(--track-height, 4px);
+                    height: var(--track-height, var(--track-height-default));
                     cursor: pointer;
-                    animate: 0.2s;
-                    background: var(--track-color, #cccccc);
+                    background: var(--track-color, var(--track-color-default));
                     border-radius: 1.3px;
                 }
     
                 input[type=range]::-moz-range-track {
                     width: 100%;
-                    height: var(--track-height, 4px);
+                    height: var(--track-height, var(--track-height-default));
                     cursor: pointer;
-                    animate: 0.2s;
-                    background: var(--track-color, #cccccc);
+                    background: var(--track-color, var(--track-color-default));
                     border-radius: 1.3px;
                 }
                 input[type=range]::-ms-track {
                     width: 100%;
-                    height: var(--track-height, 4px);
+                    height: var(--track-height, var(--track-height-default));
                     cursor: pointer;
-                    animate: 0.2s;
                     background: transparent;
                     border-color: transparent;
                     border-width: 16px 0;
@@ -55,59 +56,67 @@ export default class MaterialSlider extends HTMLElement {
                 }
     
                 input[type=range]::-webkit-slider-thumb {
-                    height: var(--thumb-size, 16px);
-                    width: var(--thumb-size, 16px);
+                    height: var(--thumb-size, var(--thumb-size-default));
+                    width: var(--thumb-size, var(--thumb-size-default));
                     border-radius: 50%;
-                    background: var(--thumb-color, #ffffff);
+                    background: var(--thumb-color, var(--thumb-color-default));
                     cursor: pointer;
                     -webkit-appearance: none;
-                    margin-top: calc((var(--track-height, 4px) - var(--thumb-size) ) / 2);
+                    margin-top: calc((var(--track-height, var(--track-height-default)) - var(--thumb-size, var(--thumb-size-default)) ) / 2);
                     box-shadow: 0 0 0 0 transparent;
                     transition: box-shadow 0.2s ease-in;
                 }
                 
                 input[type=range]:hover::-webkit-slider-thumb {
-                    box-shadow: 0 0 0 var(--thumb-size)  rgba(0, 188, 212, 0.1);
+                    box-shadow: 0 0 0 var(--thumb-size, var(--thumb-size-default)) var(--thumb-color-light);
                 }
                 input[type=range]:focus::-webkit-slider-thumb {
-                    box-shadow: 0 0 0 var(--thumb-size)  rgba(0, 188, 212, 0.1);
+                    box-shadow: 0 0 0 var(--thumb-size, var(--thumb-size-default)) var(--thumb-color-light);
                 }
                 
     
                 input[type=range]::-moz-range-thumb {
-                    height: var(--thumb-size, 16px);
-                    width: var(--thumb-size, 16px);
+                    height: var(--thumb-size, var(--thumb-size-default));
+                    width: var(--thumb-size, var(--thumb-size-default));
                     border-radius: 50%;
-                    background: var(--thumb-color, #ffffff);
+                    background: var(--thumb-color, var(--thumb-color-default));
                     cursor: pointer;
-                    margin-top: calc((var(--track-height, 4px) - var(--thumb-size) ) / 2);
+                    margin-top: calc((var(--track-height, var(--track-height-default)) - var(--thumb-size, var(--thumb-size-default)) ) / 2);
                     box-shadow: 0 0 0 0 transparent;
                     transition: box-shadow 0.2s ease-in;
                 }
                 
                 input[type=range]:hover::-moz-range-thumb {
-                    box-shadow: 0 0 0 var(--thumb-size) rgba(0, 188, 212, 0.1);
+                    box-shadow: 0 0 0 var(--thumb-size, var(--thumb-size-default)) var(--thumb-color-light);
                 }
                 input[type=range]:focus::-moz-range-thumb {
-                    box-shadow: 0 0 0 var(--thumb-size) rgba(0, 188, 212, 0.1);
+                    box-shadow: 0 0 0 var(--thumb-size, var(--thumb-size-default)) var(--thumb-color-light);
                 }
     
                 input[type=range]::-ms-thumb {
-                    box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
-                    border: 1px solid #000000;
-                    height: var(--thumb-size, 16px);
-                    width: var(--thumb-size, 16px);
+                    height: 16px;
+                    width: 16px;
                     border-radius: 50%;
-                    background: #ffffff;
+                    background: rgb(204, 204, 204);
                     cursor: pointer;
+                    box-shadow: 0 0 0 0 rgba(204, 204, 204, 0.1);
+                    transition: box-shadow 0.2s ease-in;
                 }
+                
+                input[type=range]:hover::-ms-thumb {
+                    box-shadow: 0 0 0 16px rgba(204, 204, 204, 0.1);
+                }
+                input[type=range]:focus::-ms-thumb {
+                    box-shadow: 0 0 0 16px rgba(204, 204, 204, 0.1);
+                }
+                
                 input[type=range]::-ms-fill-lower {
-                    background: #2a6495;
+                    background: rgb(204, 204, 204);
                     border: 0.2px solid #010101;
                     border-radius: 2.6px;
                 }
                 input[type=range]::-ms-fill-upper {
-                    background: var(--track-color, #cccccc);
+                    background: rgb(204, 204, 204);
                     border: 0.2px solid #010101;
                     border-radius: 2.6px;
                 }
@@ -129,6 +138,7 @@ export default class MaterialSlider extends HTMLElement {
             </div>
         `;
 
+        this.container = this.shadowRoot.querySelector('#container');
         this.input = this.shadowRoot.querySelector('input[type=range]');
         this.host = this.input.getRootNode().host;
         this.max = this.hasAttribute('max') ? this.getAttribute('max') : 100;
@@ -144,7 +154,9 @@ export default class MaterialSlider extends HTMLElement {
             this.value = e.target.value;
         });
 
-        const thumbColor = getComputedStyle(this.host).getPropertyValue('--thumb-color').trim();
+        const rgba = /rgba\((\d{1,3}),\s?(\d{1,3}),\s?(\d{1,3}),\s?(\d|\d\.\d+)\)/;
+        const hostStyle = getComputedStyle(this.host);
+        const thumbColor = hostStyle.getPropertyValue('--thumb-color').trim() || hostStyle.getPropertyValue('--thumb-color-default').trim();
         let thumbColorLight;
 
         if(/^#([A-Fa-f0-9]{3}){1,2}$/.test(thumbColor)) {
@@ -153,8 +165,8 @@ export default class MaterialSlider extends HTMLElement {
         else if(/rgb\((.+)\)/.test(thumbColor)) {
             thumbColorLight = thumbColor.replace(/rgb\((.+)\)/, 'rgba($1, 0.1)');
         }
-        else if(/rgba\((\d{1,3},\s?)(\d{1,3},\s?)(\d{1,3},\s?)(\d|\d\.\d+)\)/.test(thumbColor)) {
-            const matches = /rgba\((\d{1,3},\s?)(\d{1,3},\s?)(\d{1,3},\s?)(\d|\d\.\d+)\)/.exec(thumbColor);
+        else if(rgba.test(thumbColor)) {
+            const matches = rgba.exec(thumbColor);
             thumbColorLight = `rgba(${matches[1]}, ${matches[2]}, ${matches[3]}, 0.1)`;
         }
         else {
