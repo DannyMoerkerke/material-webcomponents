@@ -5,7 +5,7 @@ const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = {
     entry: {
-        app: './src/data-repeater.js'
+        app: './src/material-slider.js'
     },
     output: {
         path: path.join(__dirname, 'dist'),

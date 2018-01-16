@@ -12,12 +12,14 @@ export default class MaterialSlider extends HTMLElement {
         shadowRoot.innerHTML = `
             <style>
                 :host {
+                    display: block;
                     --cur-value: 50%;
                     --correction-factor: 2;
+                    --thumb-color-light: #ffffff;
                 }
                 input[type=range] {
                     -webkit-appearance: none;
-                    margin: 18px 0;
+                    margin: 0;
                     width: 100%;
                     z-index: 1;
                 }
@@ -60,7 +62,17 @@ export default class MaterialSlider extends HTMLElement {
                     cursor: pointer;
                     -webkit-appearance: none;
                     margin-top: calc((var(--track-height, 4px) - var(--thumb-size) ) / 2);
+                    box-shadow: 0 0 0 0 transparent;
+                    transition: box-shadow 0.2s ease-in;
                 }
+                
+                input[type=range]:hover::-webkit-slider-thumb {
+                    box-shadow: 0 0 0 var(--thumb-size)  rgba(0, 188, 212, 0.1);
+                }
+                input[type=range]:focus::-webkit-slider-thumb {
+                    box-shadow: 0 0 0 var(--thumb-size)  rgba(0, 188, 212, 0.1);
+                }
+                
     
                 input[type=range]::-moz-range-thumb {
                     height: var(--thumb-size, 16px);
@@ -69,27 +81,15 @@ export default class MaterialSlider extends HTMLElement {
                     background: var(--thumb-color, #ffffff);
                     cursor: pointer;
                     margin-top: calc((var(--track-height, 4px) - var(--thumb-size) ) / 2);
+                    box-shadow: 0 0 0 0 transparent;
+                    transition: box-shadow 0.2s ease-in;
                 }
-    
-                input[type=range]::after {
-                    display: block;
-                    position: absolute;
-                    content: ' ';
-                    top: 50%;
-                    left: calc(var(--cur-value) - calc(var(--thumb-size) / var(--correction-factor)));
-                    height: var(--thumb-size, 16px);
-                    width: var(--thumb-size, 16px);
-                    transform: scale(2) translateY(-50%);
-                    transform-origin: 50% 0%;
-                    opacity: 0.2;
-                    border-radius: 50%;
-                    background-color: transparent;
-                    z-index: -1;
-                    transition: background-color 0.2s ease-in;
+                
+                input[type=range]:hover::-moz-range-thumb {
+                    box-shadow: 0 0 0 var(--thumb-size) rgba(0, 188, 212, 0.1);
                 }
-                input[type=range]:hover::after,
-                input[type=range]:focus::after {
-                    background-color: var(--thumb-color, #ffffff);
+                input[type=range]:focus::-moz-range-thumb {
+                    box-shadow: 0 0 0 var(--thumb-size) rgba(0, 188, 212, 0.1);
                 }
     
                 input[type=range]::-ms-thumb {
@@ -116,6 +116,7 @@ export default class MaterialSlider extends HTMLElement {
                     margin: 20px;
                     width: 400px;
                     position: relative;
+                    display: flex;
                 }
                 #output {
                     position: absolute;
@@ -134,30 +135,49 @@ export default class MaterialSlider extends HTMLElement {
         this.input.max = this.max;
         this.step = this.hasAttribute('step') ? this.getAttribute('step') : 1;
         this.input.step = this.step;
-        this.input.value = this.hasAttribute('value') ? this.getAttribute('value') : this.input.value;;
+        this.input.value = this.hasAttribute('value') ? this.getAttribute('value') : this.input.value;
         this.value = this.input.value;
     }
 
     connectedCallback() {
-        this.updateSlider(this.value);
-
         this.input.addEventListener('input', e => {
             this.value = e.target.value;
-            this.updateSlider(this.value);
         });
+
+        const thumbColor = getComputedStyle(this.host).getPropertyValue('--thumb-color').trim();
+        let thumbColorLight;
+
+        if(/^#([A-Fa-f0-9]{3}){1,2}$/.test(thumbColor)) {
+            thumbColorLight = this.hexToRgbA(thumbColor);
+        }
+        else if(/rgb\((.+)\)/.test(thumbColor)) {
+            thumbColorLight = thumbColor.replace(/rgb\((.+)\)/, 'rgba($1, 0.1)');
+        }
+        else if(/rgba\((\d{1,3},\s?)(\d{1,3},\s?)(\d{1,3},\s?)(\d|\d\.\d+)\)/.test(thumbColor)) {
+            const matches = /rgba\((\d{1,3},\s?)(\d{1,3},\s?)(\d{1,3},\s?)(\d|\d\.\d+)\)/.exec(thumbColor);
+            thumbColorLight = `rgba(${matches[1]}, ${matches[2]}, ${matches[3]}, 0.1)`;
+        }
+        else {
+            throw new Error(`invalid color specified for --thumb color: ${thumbColor}`);
+        }
+
+        this.host.style.setProperty('--thumb-color-light', thumbColorLight);
     }
 
     attributeChangedCallback(attr, oldVal, newVal) {
-        this.updateSlider(newVal);
+        // this.updateSlider(newVal);
     }
 
-    updateSlider(value) {
-        const percentage = (value / this.max) * 100;
-        const correctionFactor = this.max / value;
+    hexToRgbA(hex) {
+        let c = [...hex.substring(1)];
+        if(c.length === 3) {
+            c = [c[0], c[0], c[1], c[1], c[2], c[2]];
+        }
+        c = `0x${c.join('')}`;
 
-        this.host.style.setProperty('--cur-value', `${percentage}%`);
-        this.host.style.setProperty('--correction-factor', `${correctionFactor}`);
+        return `rgba(${[(c>>16)&255, (c>>8)&255, c&255].join(',')}, 0.1)`;
     }
+
 
     set value(value) {
         this.setAttribute('value', value);
