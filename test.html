@@ -4,49 +4,12 @@
         <meta charset="UTF-8">
         <title>Title</title>
 
-        <style>
-            .container {
-                display: grid;
-                grid-gap: 60px;
-                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-                grid-template-rows: repeat(6, 100px);
-                width: 100%;
-            }
-            div {
-                font-size: 2em;
-                justify-content: center;
-                display: flex;
-                align-items: center;
-            }
-            .d1 {
-                background: red;
-            }
-            .d2 {
-                background: green;
-            }
-            .d3 {
-                background: blue;
-            }
-            .d4 {
-                background: yellow;
-            }
-            .d5 {
-                background: orange;
-            }
-            .d6 {
-                background: brown;
-            }
-
-        </style>
+        <link rel="stylesheet" href="test.css">
     </head>
     <body>
-        <section class="container">
-            <div class="d1">1</div>
-            <div class="d2">2</div>
-            <div class="d3">3</div>
-            <div class="d4">4</div>
-            <div class="d5">5</div>
-            <div class="d6">6</div>
-        </section>
+        <div class="form-group">
+            <input type="text" required="required">
+            <label class="control-label" for="input">Textfield</label><i class="bar"></i>
+        </div>
     </body>
 </html>
