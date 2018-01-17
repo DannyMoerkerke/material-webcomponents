@@ -14,15 +14,15 @@ export default class MaterialTextfield extends HTMLElement {
                 :host {
                     --active-color: #337ab7;
                 }
-                :host(.invalid) {
+                :host([invalid]) {
                     --active-color: #ff0000;
                 }
-                :host(.invalid) #bar,
-                :host(.invalid) #bar::before{
+                :host([invalid]) #bar,
+                :host([invalid]) #bar::before{
                     left: 0;
                     width: 100%;
                 }
-                :host(.invalid) .error {
+                :host([invalid]) .error {
                     display: block;
                 }
                
