@@ -92,12 +92,29 @@ export default class MaterialRadiobutton extends HTMLElement {
     }
 
     connectedCallback() {
-        this.input.addEventListener('click', () => this.setAttribute('checked', ''));
+        this.input.addEventListener('click', () => {
+            this.setAttribute('checked', '');
+
+            const {name, value} = this.input;
+
+            this.dispatchEvent(new CustomEvent('change', {
+                detail: {
+                    name,
+                    value
+                },
+                composed: true,
+                bubbles: false
+            }));
+        });
     }
 
     attributeChangedCallback(attr, oldVal, newVal) {
         if(attr === 'value' || attr === 'name') {
             this.input[attr] = newVal;
+        }
+
+        if(attr === 'value') {
+            this.input.setAttribute('value', newVal);
         }
 
         if(attr === 'label') {
@@ -110,6 +127,23 @@ export default class MaterialRadiobutton extends HTMLElement {
 
         if(attr === 'checked') {
             this.input.checked = this.hasAttribute('checked');
+        }
+    }
+
+    get value() {
+        return this.input.checked ? this.getAttribute('value') : undefined;
+    }
+
+    get checked() {
+        return this.hasAttribute('checked');
+    }
+
+    set checked(isChecked) {
+        if(isChecked) {
+            this.setAttribute('checked', '');
+        }
+        else {
+            this.removeAttribute('checked');
         }
     }
 

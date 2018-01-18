@@ -18,9 +18,26 @@
     <body>
 
         <div class="container">
-            <material-radiobutton label="Voornaam"></material-radiobutton>
+
+             <material-radiobutton label="javascript" name="language" id="test"></material-radiobutton>
+
+            <material-radiobutton-group name="language">
+                <material-radiobutton label="Javascript" value="javascript"></material-radiobutton>
+                <material-radiobutton label="Typescript" value="typescript"></material-radiobutton>
+                <material-radiobutton label="PHP" value="php" checked></material-radiobutton>
+            </material-radiobutton-group>
         </div>
 
+        <script type="module" src="src/material-radiobutton-group.js"></script>
         <script type="module" src="src/material-radiobutton.js"></script>
+
+        <script>
+            const group = document.querySelector('material-radiobutton-group');
+            group.addEventListener('change', e => {
+                setTimeout(() => console.log(group.value));
+            })
+
+            setTimeout(() => console.log(group.value));
+        </script>
     </body>
 </html>

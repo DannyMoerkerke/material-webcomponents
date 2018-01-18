@@ -140,6 +140,10 @@ export default class MaterialCheckbox extends HTMLElement {
         const label = document.createTextNode(text);
         this.label.appendChild(label);
     }
+
+    get value() {
+        return this.input.checked ? this.getAttribute('value') : undefined;
+    }
 }
 
 customElements.define('material-checkbox', MaterialCheckbox);
