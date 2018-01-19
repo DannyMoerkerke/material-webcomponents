@@ -15,15 +15,39 @@ export default class MaterialCheckbox extends HTMLElement {
                     --unchecked-color: #999999;
                     --checked-color: #337ab7;
                     --label-color: #333333;
+                    
+                    display: block;
+                    box-sizing: border-box;
+                    width: 20px;
+                    height: 20px;
                 }
                 :host([invalid]) {
                     --unchecked-color: #ff0000;
                     --checked-color: #ff0000;
                     --label-color: #ff0000;
                 }
-                #container {
-                    margin-top: 3rem;
-                    margin-bottom: 1rem;
+                :host([checked]) .ripple {
+                    animation-name: ripple;
+                    animation-duration: 0.5s;
+                    animation-timing-function: ease-out;
+                }
+                @keyframes ripple {
+                    from {
+                        box-shadow: 0 0 0 0px rgba(204, 204, 204, 0.8);
+                    }
+                    to {
+                        box-shadow: 0 0 0 16px rgba(204, 204, 204, 0.1);
+                    }                
+                }
+                .ripple {
+                    width: 1rem;
+                    height: 1rem;
+                    border-radius: 50%;
+                    position: absolute;
+                    top: 0%;
+                    left: 0%;
+                    /*transform: translate(-50%, -50%);*/
+                    transition: box-shadow 0.5s ease;
                 }
                 label {
                     position: relative;
@@ -33,14 +57,12 @@ export default class MaterialCheckbox extends HTMLElement {
                     color: var(--label-color);
                     display: block;
                 }
-                
                 input {
                     width: auto;
                     opacity: 0.00000001;
                     position: absolute;
                     left: 0;
                 }
-                
                 .checkmark {
                     color: var(--unchecked-color);
                     position: absolute;
@@ -98,7 +120,9 @@ export default class MaterialCheckbox extends HTMLElement {
             
             <div id="container">
                 <label>
-                    <input type="checkbox"><i class="checkmark"></i>
+                    <input type="checkbox">
+                    <i class="checkmark"></i>
+                    <div class="ripple"></div>
                 </label>
             </div>
         `;
@@ -108,7 +132,9 @@ export default class MaterialCheckbox extends HTMLElement {
     }
 
     connectedCallback() {
-        this.input.addEventListener('click', () => {
+        this.input.addEventListener('click', e => {
+            e.stopPropagation();
+
             if(this.input.checked) {
                 this.setAttribute('checked', '');
             }
@@ -143,6 +169,14 @@ export default class MaterialCheckbox extends HTMLElement {
 
     get value() {
         return this.input.checked ? this.getAttribute('value') : undefined;
+    }
+
+    get checked() {
+        return this.input.checked;
+    }
+
+    set checked(isChecked) {
+        this.input.checked = isChecked;
     }
 }
 

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <script src="lib/polyfill-loader.js"></script>
+
+        <style>
+            material-table {
+
+            }
+            .container {
+                width: 600px;
+            }
+        </style>
+    </head>
+    <body>
+
+        <div class="container">
+            <material-table></material-table>
+        </div>
+
+        <script type="module" src="src/material-table.js"></script>
+        <script>
+            const table = document.querySelector('material-table');
+
+            customElements.whenDefined('material-table')
+            .then(() => {
+
+            table.data = [
+                {
+                    id: 1,
+                    language: 'Javascript',
+                    scope: 'Frontend'
+                },
+                {
+                    id: 2,
+                    language: 'PHP',
+                    scope: 'Backend'
+                }
+            ];
+            })
+        </script>
+    </body>
+</html>

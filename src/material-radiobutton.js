@@ -21,6 +21,19 @@ export default class MaterialRadiobutton extends HTMLElement {
                     --checked-color: #ff0000;
                     --label-color: #ff0000;
                 }
+                :host([checked]) .ripple {
+                    animation-name: ripple;
+                    animation-duration: 0.5s;
+                    animation-timing-function: ease-out;
+                }
+                @keyframes ripple {
+                    from {
+                        box-shadow: 0 0 0 0px rgba(204, 204, 204, 0.8);
+                    }
+                    to {
+                        box-shadow: 0 0 0 16px rgba(204, 204, 204, 0.1);
+                    }                
+                }
                 #container {
                     margin-bottom: 1rem;
                 }
@@ -28,7 +41,18 @@ export default class MaterialRadiobutton extends HTMLElement {
                     width: auto;
                     opacity: 0.00000001;
                     position: absolute;
-                    left: 0;
+                    left: 1px;
+                    top: 1px;
+                }
+                .ripple {
+                    width: 1rem;
+                    height: 1rem;
+                    border-radius: 50%;
+                    position: absolute;
+                    top: 53%;
+                    left: 2.6%;
+                    transform: translate(-50%, -50%);
+                    transition: box-shadow 0.5s ease;
                 }
                 label {
                     position: relative;
@@ -71,6 +95,9 @@ export default class MaterialRadiobutton extends HTMLElement {
                 label:hover .checkmark {
                     color: var(--checked-color);
                 }
+                input:checked {
+                    border-radius: 50%;
+                }
                 input:checked ~ .checkmark::after {
                     transform: scale(0.5);
                 }
@@ -82,7 +109,9 @@ export default class MaterialRadiobutton extends HTMLElement {
             
             <div id="container">
                 <label>
-                    <input type="radio"><i class="checkmark"></i>
+                    <input type="radio">
+                    <i class="checkmark"></i>
+                    <div class="ripple"></div>
                 </label>
             </div>
         `;
