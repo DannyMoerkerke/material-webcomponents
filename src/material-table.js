@@ -11,6 +11,10 @@ export default class MaterialTable extends HTMLElement {
 
         const shadowRoot = this.attachShadow({mode: 'open'});
 
+        this._data = [];
+        this.sort = [];
+        this.sortable = [];
+
         this.css = `
             <style>
                 table {
@@ -40,6 +44,26 @@ export default class MaterialTable extends HTMLElement {
                 thead tr:first-child th {
                     border: none;
                 }
+                thead th {
+                    position: relative;
+                }
+                thead th:not(:first-child):hover:before {
+                    content: '\\2195';
+                    position: absolute;
+                    top: 11px;
+                    left: -12px;
+                }
+                
+                thead th.asc:not(:first-child):hover:before {
+                    content: '\\2193';
+                    top: 14px;
+                }
+                
+                thead th.desc:not(:first-child):hover:before {
+                    content: '\\2191';
+                    top: 14px;
+                }
+                
                 thead th,
                 tbody td {
                     text-align: left;
@@ -66,24 +90,32 @@ export default class MaterialTable extends HTMLElement {
                 }
             </style>
         `;
-
-        shadowRoot.innerHTML = `
-            <style>
-                
-            </style>
-        `;
     }
 
     connectedCallback() {
-        
+        if(this.hasAttribute('sortable')) {
+            this.sortable = this.getAttribute('sortable').split(' ');
+        }
+        if(this.hasAttribute('sort')) {
+            this.sort = this.getAttribute('sort').split(' ');
+        }
+
     }
 
     attributeChangedCallback(attr, oldVal, newVal) {
-        
     }
 
     set data(data) {
-        this.render(data);
+        this._data = data;
+
+        if(this.sort.length) {
+            this.sortData(...this.sort);
+        }
+        this.render(this._data);
+    }
+
+    get data() {
+        return this._data;
     }
     
     render(data) {
@@ -95,7 +127,7 @@ export default class MaterialTable extends HTMLElement {
                 <thead>
                     <tr>
                         <th><material-checkbox class="select-all"></material-checkbox></th>
-                         ${cols.reduce((acc, col) => `${acc}<th>${col}</th>`, ``)}
+                         ${cols.reduce((acc, col) => `${acc}${this.getHeading(col)}`, ``)}
                     </tr>
                 </thead>
                 <tbody>
@@ -110,14 +142,35 @@ export default class MaterialTable extends HTMLElement {
         this.setupEventlisteners();
     }
 
+    getHeading(col) {
+        let classes = [];
+
+        if(this.sortable.includes(col)) {
+            classes.push('sortable');
+        }
+        if(this.sort.includes(col)) {
+            const sortClass = this.sort[1] === -1 ? 'asc' : 'desc';
+            classes.push(sortClass);
+        }
+
+        const className = classes.join(' ');
+
+        return `<th class="${className}" data-col="${col}">${col}</th>`;
+    }
+
     setupEventlisteners() {
         const table = this.shadowRoot.querySelector('table');
         const tbody = table.querySelector('tbody');
         const rows = tbody.querySelectorAll('tr');
 
+        const findByTagname = tagName => node => node.tagName && node.tagName.toLowerCase() === tagName;
+        const getCheckBox = findByTagname('material-checkbox');
+        const getHeading = findByTagname('th');
+
         table.addEventListener('click', e => {
             const nodes = e.composedPath();
-            const checkbox = nodes.find(node => node.tagName && node.tagName.toLowerCase() === 'material-checkbox');
+            const checkbox = nodes.find(getCheckBox);
+            const heading = nodes.find(getHeading);
 
             if(checkbox) {
                 setTimeout(() => {
@@ -154,7 +207,37 @@ export default class MaterialTable extends HTMLElement {
                     }
                 });
             }
+            else if(heading) {
+                if(heading.classList.contains('sortable')) {
+                    const col = heading.dataset.col;
+                    const order = heading.classList.contains('asc') ? 1 : -1;
+
+                    // this.sort = [col, order];
+                    this.sortData(col, order);
+                    this.render(this._data);
+                }
+            }
         })
+    }
+
+    sortData(col, order) {
+        this._data.sort((a, b) => {
+            const colA = typeof a[col] === 'string' ? a[col].toLowerCase() : a[col];
+            const colB = typeof b[col] === 'string' ? b[col].toLowerCase() : b[col];
+
+            if(colA < colB) {
+                return order;
+            }
+            if(colA > colB) {
+                return -order;
+            }
+
+            return 0;
+        });
+
+        // this.data = this._data;
+
+        this.sort = [col, order];
     }
 
     getTableRow(row) {
