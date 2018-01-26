@@ -11,7 +11,7 @@
 
             }
             .container {
-                width: 600px;
+                width: 800px;
             }
         </style>
     </head>
@@ -27,29 +27,28 @@
 
             customElements.whenDefined('material-table')
             .then(() => {
-
-            table.data = [
-                {
-                    id: 1,
-                    language: 'Javascript',
-                    scope: 'Frontend'
-                },
-                {
-                    id: 2,
-                    language: 'PHP',
-                    scope: 'Backend'
-                },
-                {
-                    id: 3,
-                    language: 'Scala',
-                    scope: 'Backend'
-                },
-                {
-                    id: 4,
-                    language: 'CSS',
-                    scope: 'Frontend'
-                }
-            ];
+                table.data = [
+                    {
+                        id: 1,
+                        language: 'Javascript',
+                        scope: 'Frontend'
+                    },
+                    {
+                        id: 2,
+                        language: 'PHP',
+                        scope: 'Backend'
+                    },
+                    {
+                        id: 3,
+                        language: 'Scala',
+                        scope: 'Backend'
+                    },
+                    {
+                        id: 4,
+                        language: 'CSS',
+                        scope: 'Frontend'
+                    }
+                ];
             })
         </script>
     </body>

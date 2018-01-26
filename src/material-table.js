@@ -14,6 +14,7 @@ export default class MaterialTable extends HTMLElement {
         this._data = [];
         this.sort = [];
         this.sortable = [];
+        this.curPage = 1;
 
         this.css = `
             <style>
@@ -35,7 +36,7 @@ export default class MaterialTable extends HTMLElement {
                 th:last-of-type {
                     padding-right: 24px;
                 }
-                thead {
+                thead tr {
                     height: 64px;
                 }
                 thead tr:first-child {
@@ -44,24 +45,29 @@ export default class MaterialTable extends HTMLElement {
                 thead tr:first-child th {
                     border: none;
                 }
-                thead th {
+                thead th.sortable {
                     position: relative;
+                    cursor: pointer;
                 }
-                thead th:not(:first-child):hover:before {
+                thead th.sortable:not(:first-child):hover:before {
                     content: '\\2195';
                     position: absolute;
-                    top: 11px;
+                    top: 19px;
                     left: -12px;
                 }
                 
-                thead th.asc:not(:first-child):hover:before {
+                thead th.sortable.asc:not(:first-child):before {
                     content: '\\2193';
-                    top: 14px;
+                    position: absolute;
+                    top: 22px;
+                    left: -12px;
                 }
                 
-                thead th.desc:not(:first-child):hover:before {
+                thead th.sortable.desc:not(:first-child):before {
                     content: '\\2191';
-                    top: 14px;
+                    position: absolute;
+                    top: 22px;
+                    left: -12px;
                 }
                 
                 thead th,
@@ -71,7 +77,8 @@ export default class MaterialTable extends HTMLElement {
                     padding-right: 56px;
                 }
                 thead th:first-child,
-                tbody td:first-child {
+                tbody td:first-child,
+                tfoot td:first-child {
                     padding-left: 24px;
                     padding-right: 24px;
                 }
@@ -85,41 +92,111 @@ export default class MaterialTable extends HTMLElement {
                 tbody tr:not(.selected):hover {
                     background-color: #eeeeee;
                 }
-                tfoot {
+                tfoot tr {
                     height: 56px;
+                }
+                tfoot td div {
+                    display: flex;
+                }
+                button {
+                    cursor: pointer;
                 }
             </style>
         `;
+
     }
 
     connectedCallback() {
         if(this.hasAttribute('sortable')) {
             this.sortable = this.getAttribute('sortable').split(' ');
         }
+
         if(this.hasAttribute('sort')) {
-            this.sort = this.getAttribute('sort').split(' ');
+            const tmp = this.getAttribute('sort').split(' ');
+
+            if(['asc', 'desc'].includes(tmp[1])) {
+                const sort = tmp[1] === 'asc' ? -1 : 1;
+                this.sort = [tmp[0], sort];
+            }
         }
 
-    }
-
-    attributeChangedCallback(attr, oldVal, newVal) {
-    }
-
-    set data(data) {
-        this._data = data;
-
-        if(this.sort.length) {
-            this.sortData(...this.sort);
+        if(this.hasAttribute('per-page')) {
+            this.perPage = parseInt(this.getAttribute('per-page'));
+            this.curPage = 1;
         }
-        this.render(this._data);
+
+        this.start = 0;
     }
 
-    get data() {
-        return this._data;
+    handleClick(e) {
+        const tbody = this.table.querySelector('tbody');
+        const rows = tbody.querySelectorAll('tr');
+
+        const findByTagname = tagName => node => node.tagName && node.tagName.toLowerCase() === tagName;
+        const getCheckBox = findByTagname('material-checkbox');
+        const getHeading = findByTagname('th');
+        const getButton = findByTagname('button');
+
+        const nodes = e.composedPath();
+        const checkbox = nodes.find(getCheckBox);
+        const heading = nodes.find(getHeading);
+        const button = nodes.find(getButton);
+
+        if(checkbox) {
+            setTimeout(() => {
+                if(checkbox.classList.contains('select-all')) {
+                    rows.forEach(row => {
+                        const box = row.querySelector('material-checkbox');
+
+                        if(checkbox.checked) {
+                            row.classList.add('selected');
+                        }
+                        else {
+                            row.classList.remove('selected');
+                        }
+
+                        box.checked = checkbox.checked;
+                    })
+                }
+                else {
+                    let target = checkbox;
+
+                    while(target.parentNode) {
+                        if(target.tagName.toLowerCase() === 'tr') {
+                            target.classList.toggle('selected');
+
+                            break;
+                        }
+                        target = target.parentNode;
+                    }
+                }
+            });
+        }
+        else if(heading) {
+            if(heading.classList.contains('sortable')) {
+                const col = heading.dataset.col;
+                const order = heading.classList.contains('asc') ? 1 : -1;
+
+                this.sortData(col, order);
+                this.render(this._data);
+            }
+        }
+        else if(button) {
+            this.curPage = parseInt(button.dataset.page);
+            this.start = (this.curPage - 1) * this.perPage;
+            this.end = this.start + this.perPage;
+
+            this.render(this._data);
+        }
     }
-    
+
+    setupEventlisteners() {
+        this.table = this.shadowRoot.querySelector('table');
+        this.table.addEventListener('click', this.handleClick.bind(this));
+    }
+
     render(data) {
-        const cols = Object.keys(data[0]);
+        this.cols = Object.keys(data[0]);
 
         this.shadowRoot.innerHTML = `
            ${this.css}
@@ -127,19 +204,35 @@ export default class MaterialTable extends HTMLElement {
                 <thead>
                     <tr>
                         <th><material-checkbox class="select-all"></material-checkbox></th>
-                         ${cols.reduce((acc, col) => `${acc}${this.getHeading(col)}`, ``)}
+                         ${this.cols.map(col => `${this.getHeading(col)}`).join('')}
                     </tr>
                 </thead>
                 <tbody>
-                    ${data.reduce((acc, row) => `${acc}${this.getTableRow(row)}`, ``)}
+                    ${data.slice(this.start, this.end).map(row => `${this.getTableRow(row)}`).join('')}
                 </tbody>
                 <tfoot>
-                
+                    <tr>
+                        ${this.getPagination(this.curPage)}
+                    </tr>
                 </tfoot>
             </table>
         `;
 
         this.setupEventlisteners();
+    }
+
+    getPagination(currentPage) {
+        let pages = ``;
+
+        for(let i = 1; i <= this.numPages; i++) {
+            pages = `${pages}<button type="button" class="page" data-page="${i}" ${i === currentPage ? `disabled` : ``}>${i}</button>`;
+        }
+
+        return `
+            <td colspan="${this.data.length}">
+                <div>${pages}</div>
+            </td>
+        `;
     }
 
     getHeading(col) {
@@ -153,95 +246,52 @@ export default class MaterialTable extends HTMLElement {
             classes.push(sortClass);
         }
 
-        const className = classes.join(' ');
-
-        return `<th class="${className}" data-col="${col}">${col}</th>`;
-    }
-
-    setupEventlisteners() {
-        const table = this.shadowRoot.querySelector('table');
-        const tbody = table.querySelector('tbody');
-        const rows = tbody.querySelectorAll('tr');
-
-        const findByTagname = tagName => node => node.tagName && node.tagName.toLowerCase() === tagName;
-        const getCheckBox = findByTagname('material-checkbox');
-        const getHeading = findByTagname('th');
-
-        table.addEventListener('click', e => {
-            const nodes = e.composedPath();
-            const checkbox = nodes.find(getCheckBox);
-            const heading = nodes.find(getHeading);
-
-            if(checkbox) {
-                setTimeout(() => {
-                    if(checkbox.classList.contains('select-all')) {
-                        rows.forEach(row => {
-                            const box = row.querySelector('material-checkbox');
-
-                            if(checkbox.checked) {
-                                row.classList.add('selected');
-                                box.checked = true;
-                            }
-                            else {
-                                row.classList.remove('selected');
-                                box.checked = false;
-                            }
-                        })
-                    }
-                    else {
-                        let target = checkbox;
-
-                        while(target.parentNode) {
-                            if(target.tagName.toLowerCase() === 'tr') {
-                                if(checkbox.checked) {
-                                    target.classList.add('selected');
-                                }
-                                else {
-                                    target.classList.remove('selected');
-                                }
-
-                                break;
-                            }
-                            target = target.parentNode;
-                        }
-                    }
-                });
-            }
-            else if(heading) {
-                if(heading.classList.contains('sortable')) {
-                    const col = heading.dataset.col;
-                    const order = heading.classList.contains('asc') ? 1 : -1;
-
-                    // this.sort = [col, order];
-                    this.sortData(col, order);
-                    this.render(this._data);
-                }
-            }
-        })
-    }
-
-    sortData(col, order) {
-        this._data.sort((a, b) => {
-            const colA = typeof a[col] === 'string' ? a[col].toLowerCase() : a[col];
-            const colB = typeof b[col] === 'string' ? b[col].toLowerCase() : b[col];
-
-            if(colA < colB) {
-                return order;
-            }
-            if(colA > colB) {
-                return -order;
-            }
-
-            return 0;
-        });
-
-        // this.data = this._data;
-
-        this.sort = [col, order];
+        return `<th ${classes.length ? `class="${classes.join(' ')}"` : ``} data-col="${col}">${col}</th>`;
     }
 
     getTableRow(row) {
-        return `<tr><td><material-checkbox></material-checkbox></td>${Object.values(row).reduce((acc, val) => `${acc}<td>${val}</td>`, ``)}</tr>`;
+        return `<tr>
+                    <td><material-checkbox></material-checkbox></td>
+                    ${Object.values(row).map(val => `<td>${val}</td>`).join('')}
+                </tr>`;
+    }
+
+    get data() {
+        return this._data;
+    }
+
+    set data(data) {
+        this._data = data;
+        if(this.perPage) {
+            this.numPages = data.length / this.perPage;
+            this.start = (this.curPage - 1) * this.perPage;
+            this.end = this.start + this.perPage;
+        }
+        else {
+            this.end = this.data.length;
+        }
+
+        if(this.sort.length) {
+            this.sortData(...this.sort);
+        }
+        this.render(this._data);
+    }
+
+    sortData(col, order) {
+        if(this.sortable.includes(col)) {
+            this._data.sort((a, b) => {
+                const colA = typeof a[col] === 'string' ? a[col].toLowerCase() : a[col];
+                const colB = typeof b[col] === 'string' ? b[col].toLowerCase() : b[col];
+
+                return colA < colB
+                    ? order
+                    : colA > colB
+                    ? -order
+                    : 0;
+            });
+
+            this.sort = [col, order];
+        }
     }
 }
 

@@ -1,0 +1,20 @@
+{
+  "expanded": true,
+  "plugins": {
+    "local": {
+      "browsers": [
+        "chrome"
+      ]
+    },
+    "istanbul": {
+      "dir": "./test/coverage",
+      "reporters": ["text-summary", "lcov"],
+      "include": [
+        "src/webrtc-chat-client.js"
+      ]
+    }
+  },
+  "clientOptions": {
+    "root": "/node_modules/"
+  }
+}
