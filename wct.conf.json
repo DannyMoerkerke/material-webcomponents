@@ -1,5 +1,8 @@
 {
   "expanded": true,
+  "webserver": {
+    "port": 8080
+  },
   "plugins": {
     "local": {
       "browsers": [
@@ -10,8 +13,12 @@
       "dir": "./test/coverage",
       "reporters": ["text-summary", "lcov"],
       "include": [
-        "src/webrtc-chat-client.js"
+        "../src/material-table.js",
+        "../src/material-tabs.js"
       ]
+    },
+    "sauce": {
+      "disabled": true
     }
   },
   "clientOptions": {

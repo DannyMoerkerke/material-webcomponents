@@ -4,27 +4,85 @@
         <meta charset="UTF-8">
         <title>Title</title>
 
-        <link rel="stylesheet" href="test.css">
+        <style>
+            #tab-container {
+                display: flex;
+                position: relative;
+                background: #999999;
+                overflow: scroll;
+            }
+            .tab {
+                display: flex;
+                box-sizing: border-box;
+                align-items: center;
+                justify-content: center;
+                min-width: 160px;
+                max-width: 264px;
+                height: 48px;
+                padding-left: 24px;
+                padding-right: 24px;
+                flex-grow: 1;
+                text-transform: uppercase;
+                border: 1px solid #000000;
+                cursor: pointer;
+            }
+            #active-indicator {
+                position: absolute;
+                left: var(--indicator-left, 0);
+                bottom: 0;
+                width: var(--indicator-width);
+                border-bottom: 2px solid #ffff00;
+                transition: left .4s cubic-bezier(0, 0.92, 0.32, 0.98);
+            }
+        </style>
     </head>
     <body>
-        <div class="checkbox">
-            <label>
-                <input type="checkbox" checked="checked"><i class="helper"></i>I'm the label from a checkbox
-            </label>
+        <div id="tab-container">
+            <div class="tab">tab 1</div>
+            <div class="tab">tab 2</div>
+            <div class="tab">tab 3</div>
+            <div class="tab">tab 4</div>
+            <div class="tab">tab 5</div>
+            <div class="tab">tab 6</div>
+
+            <div id="active-indicator"></div>
         </div>
 
-        <div class="form-radio">
-            <div class="radio">
-                <label>
-                    <input type="radio" name="radio" checked="checked"><i class="helper"></i>I'm the label from a radio button
-                </label>
-            </div>
-            <div class="radio">
-                <label>
-                    <input type="radio" name="radio"><i class="helper"></i>I'm the label from a radio button
-                </label>
-            </div>
-        </div>
+        <script>
+            const container = document.querySelector('#tab-container');
+            const {left: containerLeft} = container.getBoundingClientRect();
+            const indicator = document.querySelector('#active-indicator');
+            const tabs = [...document.querySelectorAll('.tab')];
+
+            const {width} = tabs[0].getBoundingClientRect();
+
+            indicator.style.setProperty('--indicator-width', `${width}px`);
+
+            container.addEventListener('click', e => {
+                const tab = e.composedPath().find(el => el.classList.contains('tab'));
+                const {left} = tab.getBoundingClientRect();
+
+                indicator.style.setProperty('--indicator-left', `${left - containerLeft + container.scrollLeft}px`);
+
+                tabs.forEach(t => {
+                    if(t === tab) {
+                        t.classList.add('active')
+                    }
+                    else {
+                        t.classList.remove('active');
+                    }
+                });
+            });
+
+            window.addEventListener('resize', () => {
+                const hasOverflow = container.offsetWidth < container.scrollWidth;
+                const {width} = document.querySelector('.tab').getBoundingClientRect();
+                const {left} = document.querySelector('.active').getBoundingClientRect();
+
+                indicator.style.setProperty('--indicator-width', `${width}px`);
+                indicator.style.setProperty('--indicator-left', `${left - containerLeft + container.scrollLeft}px`);
+            });
+        </script>
 
     </body>
 </html>

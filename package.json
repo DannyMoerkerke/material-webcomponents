@@ -5,7 +5,7 @@
   "main": "webrtc-chat-client.js",
   "scripts": {
     "_postinstall": "mkdir -p bower_components/web-component-tester && cp -R node_modules/web-component-tester/* bower_components/web-component-tester",
-    "start": "ws -p 8080 --spa material-table.html",
+    "start": "ws -p 8080 --spa material-tabs.html",
     "start:ie": "ws -p 8080 --spa index-ie.html",
     "start:bundle": "npm run build:bundle && npm start",
     "start:legacy": "npm run build:legacy && npm start",
@@ -18,7 +18,9 @@
     "build": "npm run webpack",
     "build:bundle": "npm run webpack:bundle",
     "build:legacy": "npm run webpack:legacy",
-    "reinstall": "rm -rf node_modules && npm cache clean && npm install"
+    "reinstall": "rm -rf node_modules && npm cache clean && npm install",
+    "mocha": "mocha-headless-chrome -f test/mocha.html",
+    "karma": "karma start --single-run --browsers ChromeHeadless karma.conf.js"
   },
   "author": "Danny Moerkerke <danny@dannymoerkerke.nl>",
   "license": "ISC",
@@ -28,13 +30,19 @@
     "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.6.1",
     "chai": "^4.1.2",
+    "istanbul": "^1.1.0-alpha.1",
     "jasmine-core": "^2.8.0",
+    "karma": "^2.0.0",
+    "karma-chai": "^0.1.0",
+    "karma-chrome-launcher": "^2.2.0",
+    "karma-mocha": "^1.3.0",
     "local-web-server": "^2.2.4",
     "progress-bar-webpack-plugin": "^1.10.0",
     "sinon": "^4.0.1",
     "strip-loader": "^0.1.2",
     "uglifyjs-webpack-plugin": "^1.0.0-beta.2",
-    "web-component-tester": "^6.3.0",
+    "wct-istanbub": "0.0.6",
+    "web-component-tester": "~6.5.0",
     "webpack": "^3.8.1"
   },
   "dependencies": {
