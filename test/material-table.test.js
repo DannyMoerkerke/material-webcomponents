@@ -14,7 +14,7 @@ describe('material-table', () => {
                     ? -order
                     : 0;
         });
-    }
+    };
 
     beforeEach(() => {
         element = document.createElement('material-table');

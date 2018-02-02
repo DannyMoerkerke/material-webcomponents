@@ -14,7 +14,10 @@
       "reporters": ["text-summary", "lcov"],
       "include": [
         "../src/material-table.js",
-        "../src/material-tabs.js"
+        "../src/material-tabs.js",
+        "../src/material-dropdown.js",
+        "../src/material-checkbox.js",
+        "../src/material-dialog.js"
       ]
     },
     "sauce": {

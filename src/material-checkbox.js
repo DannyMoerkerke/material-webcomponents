@@ -132,16 +132,18 @@ export default class MaterialCheckbox extends HTMLElement {
     }
 
     connectedCallback() {
-        this.input.addEventListener('click', e => {
-            e.stopPropagation();
+        this.input.addEventListener('click', this.handleClick.bind(this));
+    }
 
-            if(this.input.checked) {
-                this.setAttribute('checked', '');
-            }
-            else {
-                this.removeAttribute('checked');
-            }
-        });
+    handleClick(e) {
+        e.stopPropagation();
+
+        if(this.input.checked) {
+            this.setAttribute('checked', '');
+        }
+        else {
+            this.removeAttribute('checked');
+        }
     }
 
     attributeChangedCallback(attr, oldVal, newVal) {

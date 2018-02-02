@@ -1,4 +1,4 @@
-export default class DropdownMenu extends HTMLElement {
+export default class MaterialDropdown extends HTMLElement {
 
     static get observedAttributes() {
         return ['open'];
@@ -95,40 +95,18 @@ export default class DropdownMenu extends HTMLElement {
         `;
 
         this.open = this.hasAttribute('open');
+        this.container = this.shadowRoot.querySelector('#container');
         this.menuContainer = this.shadowRoot.querySelector('#dropdown-menu-container');
         this.menu = this.shadowRoot.querySelector('#dropdown-menu');
-        this.icon = this.shadowRoot.querySelector('slot[name="icon"]').assignedNodes()[0];
-        this.options = this.shadowRoot.querySelector('slot[name="option"]').assignedNodes();
     }
 
     connectedCallback() {
-
-        const {height} = this.icon.getBoundingClientRect();
-
-        // this.shadowRoot.querySelector('#container').style.top = `${height}px`;
+        this.icon = this.shadowRoot.querySelector('slot[name="icon"]').assignedNodes()[0];
+        this.options = this.shadowRoot.querySelector('slot[name="option"]').assignedNodes();
 
         this.setupMenu();
 
-        this.icon.addEventListener('click', () => {
-            this.open = !this.open;
-
-            if(this.open) {
-                this.openMenu();
-
-            }
-            else {
-                this.closeMenu();
-            }
-        });
-
-        this.menu.addEventListener('click', ({path}) => {
-            if(path[0].tagName.toLowerCase() === 'option') {
-                const value = path[0].value;
-
-                this.notifyChange(value);
-                this.closeMenu();
-            }
-        });
+        this.container.addEventListener('click', this.handleClick.bind(this));
     }
 
     attributeChangedCallback(attr) {
@@ -155,12 +133,35 @@ export default class DropdownMenu extends HTMLElement {
 
     closeMenu() {
         this.removeAttribute('open');
+        this.open = false;
         this.menuContainer.classList.remove('opened');
+    }
+
+    handleClick(e) {
+        const nodes = e.composedPath();
+        const option = nodes.find(node => node.tagName && node.tagName.toLowerCase() === 'option');
+        const icon = nodes.find(node => node === this.icon);
+
+        if(option) {
+            this.notifyChange(option.value);
+            this.closeMenu();
+        }
+        else if(icon) {
+            this.open = !this.open;
+
+            if(this.open) {
+                this.openMenu();
+            }
+            else {
+                this.closeMenu();
+            }
+        }
+
     }
 
     notifyChange(value) {
         this.setAttribute('value', value);
-        document.dispatchEvent(new CustomEvent('dropdown-menu-value-changed', {
+        this.dispatchEvent(new CustomEvent('dropdown-menu-value-changed', {
             detail: {
                 value
             }
@@ -168,4 +169,4 @@ export default class DropdownMenu extends HTMLElement {
     }
 }
 
-customElements.define('dropdown-menu', DropdownMenu);
+customElements.define('material-dropdown', MaterialDropdown);

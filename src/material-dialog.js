@@ -121,11 +121,20 @@ export default class MaterialDialog extends HTMLElement {
         this.style.display = 'none';
         this.backdrop = this.shadowRoot.querySelector('#backdrop');
 
-        this.backdrop.addEventListener('click', e => {
-            if(!this.hasAttribute('modal') && e.composedPath()[0] === this.backdrop) {
-                this.close();
+        this.backdrop.addEventListener('click', this.handleClick.bind(this));
+
+        this.backdrop.addEventListener('animationend', e => {
+            if(e.animationName === 'fadeout') {
+                this.style.display = 'none';
+                this.backdrop.classList.remove('close');
             }
-        })
+        });
+    }
+
+    handleClick(e) {
+        if(!this.hasAttribute('modal') && e.composedPath()[0] === this.backdrop) {
+            this.close();
+        }
     }
 
     open() {
@@ -133,13 +142,6 @@ export default class MaterialDialog extends HTMLElement {
     }
 
     close() {
-        this.backdrop.addEventListener('animationend', e => {
-            if(e.animationName === 'fadeout') {
-                this.style.display = 'none';
-                this.backdrop.classList.remove('close');
-            }
-        });
-
         this.backdrop.classList.add('close');
     }
 }

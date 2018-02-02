@@ -32,22 +32,6 @@ export default class IconButton extends HTMLElement {
             </button>
         `;
     }
-
-    connectedCallback() {
-
-    }
-
-    attributeChangedCallback(attr, oldVal, newVal) {
-
-    }
-
-    disconnectedCallback() {
-
-    }
-
-    adoptedCallback() {
-
-    }
 }
 
 customElements.define('icon-button', IconButton);

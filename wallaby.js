@@ -5,6 +5,10 @@ module.exports = () => {
             {pattern: 'node_modules/chai/chai.js', instrument: false, load: true},
             'src/material-table.js',
             'src/material-tabs.js',
+            'src/material-dropdown.js',
+            'src/material-checkbox.js',
+            'src/material-radiobutton.js',
+            'src/material-dialog.js',
             {pattern: 'src/*.js', load: false}
         ],
         tests: ['test/*.test.js'],

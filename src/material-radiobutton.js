@@ -121,20 +121,7 @@ export default class MaterialRadiobutton extends HTMLElement {
     }
 
     connectedCallback() {
-        this.input.addEventListener('click', () => {
-            this.setAttribute('checked', '');
-
-            const {name, value} = this.input;
-
-            this.dispatchEvent(new CustomEvent('change', {
-                detail: {
-                    name,
-                    value
-                },
-                composed: true,
-                bubbles: false
-            }));
-        });
+        this.input.addEventListener('click', this.handleClick.bind(this));
     }
 
     attributeChangedCallback(attr, oldVal, newVal) {
@@ -157,6 +144,21 @@ export default class MaterialRadiobutton extends HTMLElement {
         if(attr === 'checked') {
             this.input.checked = this.hasAttribute('checked');
         }
+    }
+
+    handleClick() {
+        this.setAttribute('checked', '');
+
+        const {name, value} = this.input;
+
+        this.dispatchEvent(new CustomEvent('change', {
+            detail: {
+                name,
+                value
+            },
+            composed: true,
+            bubbles: false
+        }));
     }
 
     get value() {

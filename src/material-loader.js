@@ -52,22 +52,6 @@ export default class MaterialLoader extends HTMLElement {
             </div>
         `;
     }
-
-    connectedCallback() {
-
-    }
-
-    attributeChangedCallback(attr, oldVal, newVal) {
-
-    }
-
-    disconnectedCallback() {
-
-    }
-
-    adoptedCallback() {
-
-    }
 }
 
 customElements.define('material-loader', MaterialLoader);

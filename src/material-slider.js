@@ -176,10 +176,6 @@ export default class MaterialSlider extends HTMLElement {
         this.host.style.setProperty('--thumb-color-light', thumbColorLight);
     }
 
-    attributeChangedCallback(attr, oldVal, newVal) {
-        // this.updateSlider(newVal);
-    }
-
     hexToRgbA(hex) {
         let c = [...hex.substring(1)];
         if(c.length === 3) {
