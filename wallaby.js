@@ -10,6 +10,9 @@ module.exports = () => {
             'src/material-radiobutton.js',
             'src/material-radiobutton-group.js',
             'src/material-dialog.js',
+            'src/material-slider.js',
+            'src/material-switch.js',
+            'src/material-textfield.js',
             {pattern: 'src/*.js', load: false}
         ],
         tests: ['test/*.test.js'],

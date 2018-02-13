@@ -128,14 +128,12 @@ export default class MaterialTextfield extends HTMLElement {
 
         this.input = this.shadowRoot.querySelector('input');
         this.label = this.shadowRoot.querySelector('label');
-
-        if(this.hasAttribute('value')) {
-            this.input.value = this.getAttribute('value');
-        }
     }
 
     connectedCallback() {
-
+        if(this.hasAttribute('value')) {
+            this.input.value = this.getAttribute('value');
+        }
     }
 
     attributeChangedCallback(attr, oldVal, newVal) {

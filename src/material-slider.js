@@ -138,6 +138,9 @@ export default class MaterialSlider extends HTMLElement {
             </div>
         `;
 
+    }
+
+    connectedCallback() {
         this.container = this.shadowRoot.querySelector('#container');
         this.input = this.shadowRoot.querySelector('input[type=range]');
         this.host = this.input.getRootNode().host;
@@ -147,9 +150,7 @@ export default class MaterialSlider extends HTMLElement {
         this.input.step = this.step;
         this.input.value = this.hasAttribute('value') ? this.getAttribute('value') : this.input.value;
         this.value = this.input.value;
-    }
 
-    connectedCallback() {
         this.input.addEventListener('input', e => {
             this.value = e.target.value;
         });

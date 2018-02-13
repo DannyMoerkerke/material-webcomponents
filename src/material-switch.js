@@ -104,11 +104,7 @@ export default class MaterialSwitch extends HTMLElement {
     }
 
     connectedCallback() {
-        this.container.addEventListener('click', () => {
-            if(!this.hasAttribute('disabled')) {
-                this.toggle();
-            }
-        });
+        this.container.addEventListener('click', this.handleClick.bind(this));
     }
 
     attributeChangedCallback(attr, oldVal, newVal) {
@@ -120,6 +116,12 @@ export default class MaterialSwitch extends HTMLElement {
             }
 
             this.setLabel(newVal);
+        }
+    }
+
+    handleClick() {
+        if(!this.hasAttribute('disabled')) {
+            this.toggle();
         }
     }
 
