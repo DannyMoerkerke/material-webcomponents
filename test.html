@@ -4,84 +4,31 @@
         <meta charset="UTF-8">
         <title>Title</title>
 
-        <style>
-            #tab-container {
-                display: flex;
-                position: relative;
-                background: #999999;
-                overflow: scroll;
-            }
-            .tab {
-                display: flex;
-                box-sizing: border-box;
-                align-items: center;
-                justify-content: center;
-                min-width: 160px;
-                max-width: 264px;
-                height: 48px;
-                padding-left: 24px;
-                padding-right: 24px;
-                flex-grow: 1;
-                text-transform: uppercase;
-                border: 1px solid #000000;
-                cursor: pointer;
-            }
-            #active-indicator {
-                position: absolute;
-                left: var(--indicator-left, 0);
-                bottom: 0;
-                width: var(--indicator-width);
-                border-bottom: 2px solid #ffff00;
-                transition: left .4s cubic-bezier(0, 0.92, 0.32, 0.98);
-            }
-        </style>
     </head>
     <body>
-        <div id="tab-container">
-            <div class="tab">tab 1</div>
-            <div class="tab">tab 2</div>
-            <div class="tab">tab 3</div>
-            <div class="tab">tab 4</div>
-            <div class="tab">tab 5</div>
-            <div class="tab">tab 6</div>
 
-            <div id="active-indicator"></div>
-        </div>
 
         <script>
-            const container = document.querySelector('#tab-container');
-            const {left: containerLeft} = container.getBoundingClientRect();
-            const indicator = document.querySelector('#active-indicator');
-            const tabs = [...document.querySelectorAll('.tab')];
+            fetch('test.mp3')
+            .then(response => response.arrayBuffer())
+            .then(buffer => {
+                let header = new DataView(buffer, 0, 10);
 
-            const {width} = tabs[0].getBoundingClientRect();
+                let major = header.getUint8(3);
+                let minor = header.getUint8(4);
+                let version = `ID3v2.${major}.${minor}`;
+                console.log(version);
 
-            indicator.style.setProperty('--indicator-width', `${width}px`);
+                let frame = new DataView(buffer, 0, 12);
 
-            container.addEventListener('click', e => {
-                const tab = e.composedPath().find(el => el.classList.contains('tab'));
-                const {left} = tab.getBoundingClientRect();
+                for(let i=0;i<12;i++) {
+                    let sync = frame.getInt32(i);
+                    console.log(i, sync);
+                }
 
-                indicator.style.setProperty('--indicator-left', `${left - containerLeft + container.scrollLeft}px`);
 
-                tabs.forEach(t => {
-                    if(t === tab) {
-                        t.classList.add('active')
-                    }
-                    else {
-                        t.classList.remove('active');
-                    }
-                });
-            });
 
-            window.addEventListener('resize', () => {
-                const hasOverflow = container.offsetWidth < container.scrollWidth;
-                const {width} = document.querySelector('.tab').getBoundingClientRect();
-                const {left} = document.querySelector('.active').getBoundingClientRect();
-
-                indicator.style.setProperty('--indicator-width', `${width}px`);
-                indicator.style.setProperty('--indicator-left', `${left - containerLeft + container.scrollLeft}px`);
-            });
+            })
         </script>
 
     </body>

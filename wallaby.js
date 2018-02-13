@@ -8,6 +8,7 @@ module.exports = () => {
             'src/material-dropdown.js',
             'src/material-checkbox.js',
             'src/material-radiobutton.js',
+            'src/material-radiobutton-group.js',
             'src/material-dialog.js',
             {pattern: 'src/*.js', load: false}
         ],

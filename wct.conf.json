@@ -17,7 +17,9 @@
         "../src/material-tabs.js",
         "../src/material-dropdown.js",
         "../src/material-checkbox.js",
-        "../src/material-dialog.js"
+        "../src/material-dialog.js",
+        "../src/material-radiobutton.js",
+        "../src/material-radiobutton-group.js"
       ]
     },
     "sauce": {
