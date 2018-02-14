@@ -13,6 +13,7 @@ module.exports = () => {
             'src/material-slider.js',
             'src/material-switch.js',
             'src/material-textfield.js',
+            'src/material-toggle-button.js',
             {pattern: 'src/*.js', load: false}
         ],
         tests: ['test/*.test.js'],

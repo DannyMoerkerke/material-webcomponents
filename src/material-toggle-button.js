@@ -79,32 +79,27 @@ export default class MaterialToggleButton extends HTMLElement {
             this.rightButton.value = this.getAttribute('right');
         }
 
-        if(this.hasAttribute('active')) {
-            if(this.getAttribute('active') === 'left') {
-                this.leftButton.classList.add('active');
-            }
-
-            if(this.getAttribute('active') === 'right') {
-                this.rightButton.classList.add('active');
-            }
+        if(this.hasAttribute('active') && this.getAttribute('active') === 'right') {
+            this.rightButton.classList.add('active');
+        }
+        else {
+            this.leftButton.classList.add('active');
         }
 
-        this.container.addEventListener('click', e => {
-            const button = e.path[0];
-
-            if(!button.classList.contains('active')) {
-                this.dispatchEvent(new CustomEvent('button-clicked', {
-                    detail: {button}
-                }));
-
-                this.leftButton.classList.toggle('active');
-                this.rightButton.classList.toggle('active');
-            }
-        });
+        this.container.addEventListener('click', this.handleClick.bind(this));
     }
 
-    attributeChangedCallback(attr, oldVal, newVal) {
+    handleClick(e) {
+        const button = e.composedPath()[0];
 
+        if(!button.classList.contains('active')) {
+            this.dispatchEvent(new CustomEvent('button-clicked', {
+                detail: {button}
+            }));
+
+            this.leftButton.classList.toggle('active');
+            this.rightButton.classList.toggle('active');
+        }
     }
 }
 

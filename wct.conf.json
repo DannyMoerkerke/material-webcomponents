@@ -21,7 +21,8 @@
         "../src/material-radiobutton.js",
         "../src/material-radiobutton-group.js",
         "../src/material-slider.js",
-        "../src/material-textfield.js"
+        "../src/material-textfield.js",
+        "../src/material-toggle-button.js"
       ]
     },
     "sauce": {
