@@ -14,6 +14,7 @@ module.exports = () => {
             'src/material-switch.js',
             'src/material-textfield.js',
             'src/material-toggle-button.js',
+            'src/material-app-bar.js',
             {pattern: 'src/*.js', load: false}
         ],
         tests: ['test/*.test.js'],

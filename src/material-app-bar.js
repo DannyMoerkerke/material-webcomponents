@@ -1,4 +1,4 @@
-export default class AppBar extends HTMLElement {
+export default class MaterialAppBar extends HTMLElement {
 
     static get observedAttributes() {
         return [];
@@ -112,52 +112,54 @@ export default class AppBar extends HTMLElement {
     }
 
     connectedCallback() {
-        const container = this.shadowRoot.querySelector('#container');
-        let menuOpen = false;
-
-        const resize = mq => {
-            if(mq.matches) {
-                const largeContent = this.shadowRoot.querySelector('#large').content.cloneNode(true);
-                container.innerHTML = '';
-                container.appendChild(largeContent);
-                this.setupEventHandlers();
-            }
-            else {
-                const smallContent = this.shadowRoot.querySelector('#small').content.cloneNode(true);
-                container.innerHTML = '';
-                container.appendChild(smallContent);
-                this.setupEventHandlers();
-
-                setTimeout(() => {
-                    const dropdownMenu = this.shadowRoot.querySelector('.dropdown-menu');
-
-                    const {height} = container.getBoundingClientRect();
-                    dropdownMenu.style.setProperty('--menu-top', `${height}px`);
-
-                    this.shadowRoot.querySelector('.menu-icon').onclick = () => {
-                        menuOpen = !menuOpen;
-                        dropdownMenu.style.display = menuOpen ? 'flex' : 'none';
-                    };
-                });
-            }
-        };
-
         const mq = window.matchMedia('(min-width: 600px)');
-        mq.addListener(resize);
-        resize(mq);
+        mq.addListener(this.handleResize.bind(this));
+        this.handleResize(mq);
+    }
 
+    handleResize(mq) {
+        this.container = this.shadowRoot.querySelector('#container');
+        this.menuOpen = false;
 
+        if(mq.matches) {
+            const largeContent = this.shadowRoot.querySelector('#large').content.cloneNode(true);
+            this.container.innerHTML = '';
+            this.container.appendChild(largeContent);
+            this.setupEventHandlers();
+        }
+        else {
+            const smallContent = this.shadowRoot.querySelector('#small').content.cloneNode(true);
+            this.container.innerHTML = '';
+            this.container.appendChild(smallContent);
+            this.setupEventHandlers();
+
+            setTimeout(() => {
+                this.dropdownMenu = this.shadowRoot.querySelector('.dropdown-menu');
+
+                const {height} = this.container.getBoundingClientRect();
+                this.dropdownMenu.style.setProperty('--menu-top', `${height}px`);
+
+                this.shadowRoot.querySelector('.menu-icon').onclick = this.handleMenuClick.bind(this);
+            });
+        }
+    }
+
+    handleMenuClick() {
+        this.menuOpen = !this.menuOpen;
+        this.dropdownMenu.style.display = this.menuOpen ? 'flex' : 'none';
+    }
+
+    handleIconClick({target}) {
+            this.dispatchEvent(new CustomEvent('app-bar-clicked', {
+            detail: {target}
+        }));
     }
 
     setupEventHandlers() {
         this.shadowRoot.querySelectorAll('[name$="content"]').forEach(icon => {
-            icon.addEventListener('click', ({target}) => {
-                this.dispatchEvent(new CustomEvent('app-bar-clicked', {
-                    detail: {target}
-                }));
-            });
+            icon.addEventListener('click', this.handleIconClick.bind(this));
         });
     }
 }
 
-customElements.define('app-bar', AppBar);
+customElements.define('material-app-bar', MaterialAppBar);

@@ -10,25 +10,25 @@
             body {
                 margin: 0;
             }
-            app-bar {
+            material-app-bar {
                 --app-bar-background: #000000;
                 --app-bar-font-color: #ffffff;
             }
         </style>
     </head>
     <body>
-        <app-bar>
+        <material-app-bar>
             <i class="material-icons" slot="left-content">add</i>
             <button slot="right-content">Create your beer</button>
             <a href="/login" slot="right-content">Log in</a>
             <i class="material-icons" slot="right-content">expand_more</i>
             <i class="material-icons" slot="right-content">close</i>
-        </app-bar>
+        </material-app-bar>
 
-        <script type="module" src="src/app-bar.js"></script>
+        <script type="module" src="src/material-app-bar.js"></script>
 
         <script>
-            document.querySelector('app-bar').addEventListener('app-bar-clicked', e => {
+            document.querySelector('material-app-bar').addEventListener('app-bar-clicked', e => {
                 console.log(e.detail.target);
             })
         </script>
