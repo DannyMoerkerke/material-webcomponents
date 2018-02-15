@@ -15,6 +15,7 @@ module.exports = () => {
             'src/material-textfield.js',
             'src/material-toggle-button.js',
             'src/material-app-bar.js',
+            'src/material-datepicker.js',
             {pattern: 'src/*.js', load: false}
         ],
         tests: ['test/*.test.js'],
