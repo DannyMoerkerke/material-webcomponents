@@ -273,6 +273,14 @@ export default class MaterialDatepicker extends HTMLElement {
         }
     }
 
+    set date(date) {
+        this.currentDate = date instanceof Date ? date : new Date(date);
+
+        this.showMonthView();
+        this.displayMonth(this.currentDate);
+        this.pickDate(this.currentDate);
+    }
+
     showMonthView() {
         if(this.shadowRoot.querySelector('#month-view-container')) {
             return;
