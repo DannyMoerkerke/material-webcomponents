@@ -15,6 +15,13 @@
 
         <script type="module" src="src/material-datepicker.js"></script>
 
+        <script>
+            const picker = document.querySelector('material-datepicker');
+
+            picker.addEventListener('change', e => {
+                console.log(e.detail);
+            });
+        </script>
 
     </body>
 </html>
