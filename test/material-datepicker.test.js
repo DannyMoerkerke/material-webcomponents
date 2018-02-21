@@ -12,10 +12,19 @@ describe('material-datepicker', () => {
         document.body.appendChild(element);
     });
 
-    xit('should display the current month and year', () => {
-        expect(element.currentMonthContainer.textContent).to.eql(`${element.months[currentMonth]} ${currentYear}`);
+    it('should display the current month and year', () => {
+        const month = new Intl.DateTimeFormat(this.locale, {
+            month: 'short'
+        }).format(currentDate);
+
+        const localDate = new Intl.DateTimeFormat(this.locale, {
+            day: 'numeric',
+            weekday: 'short',
+            month: 'short'
+        }).format(currentDate);
+        expect(element.currentMonthContainer.textContent).to.eql(`${month} ${currentYear}`);
         expect(element.headerYear.textContent).to.eql(currentYear.toString());
-        expect(element.headerDate.textContent).to.eql(`${element.days[currentDay]}, ${element.months[currentMonth].substr(0, 3)} ${pickedDay}`);
+        expect(element.headerDate.textContent).to.eql(`${localDate}`);
     });
 
     it('should display the correct number of days', () => {
@@ -33,8 +42,8 @@ describe('material-datepicker', () => {
 
         element.date = dateString;
 
-        expect(spy1.args[0][0]).to.eql(newDate);
-        expect(spy2.args[0][0]).to.eql(newDate);
+        expect(spy1.calledWith(newDate)).to.eql(true);
+        expect(spy2.calledWith(newDate)).to.eql(true);
     });
 
     it('should display the previous month', () => {
@@ -68,7 +77,7 @@ describe('material-datepicker', () => {
         date.setMonth(nextMonth);
 
         expect(element.currentMonth).to.eql(nextMonth);
-        // expect(spy.args[0][0].toString()).to.equal(date.toString());
+        expect(spy.args[0][0].toString()).to.equal(date.toString());
     });
 
     it('should go to the next year when going from the last month of the year to the next month', () => {
@@ -116,8 +125,54 @@ describe('material-datepicker', () => {
         element.setAttribute('date', dateString);
         element.handleDayClick(event);
 
-        expect(spy.args[0][0]).to.eql(newDate);
+        expect(spy.calledWith(newDate)).to.eql(true);
     });
+
+    it('should pick a clicked year', () => {
+        const year = 2020;
+        const div = document.createElement('div');
+        div.className = 'year';
+        div.dataset.year = year;
+
+        const event = {
+            composedPath() {
+                return [div];
+            }
+        };
+
+        const spy1 = sinon.spy(element, 'showMonthView');
+        const spy2 = sinon.spy(element, 'displayMonth');
+        const spy3 = sinon.spy(element, 'pickDate');
+
+        element.handleYearClick(event);
+
+        expect(element.currentDate.getFullYear()).to.eql(year);
+        expect(spy1.called).to.eql(true);
+        expect(spy2.calledWith(element.currentDate)).to.eql(true);
+        expect(spy3.calledWith(element.currentDate)).to.eql(true);
+    });
+
+    it('should dispatch an event containing the picked date', () => {
+        const formattedDate = new Intl.DateTimeFormat(this.locale, {
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric'
+        }).format(currentDate);
+
+        const expected = new CustomEvent('change', {
+            detail: {
+                date: currentDate,
+                formattedDate
+            }
+        })
+
+        const spy1 = sinon.spy(element, 'dispatchEvent');
+
+        element.handleOkClick();
+
+        expect(spy1.calledWith(expected)).to.eql(true);
+    });
+
 
     it('should hide the month view and show the years view', () => {
         element.showYearsView();
@@ -127,5 +182,17 @@ describe('material-datepicker', () => {
 
         expect(element.mainHeader.classList.contains('years-view')).to.eql(true);
         expect(element.mainHeader.classList.contains('month-view')).to.eql(false);
+    });
+
+    it('should return a correctly formatted date', () => {
+        const expected = new Intl.DateTimeFormat(this.locale, {
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric'
+        }).format(currentDate);
+
+        const actual = element.formatDate(currentDate);
+
+        expect(actual).to.eql(expected);
     });
 });
