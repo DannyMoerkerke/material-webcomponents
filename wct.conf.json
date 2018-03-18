@@ -24,7 +24,8 @@
         "../src/material-textfield.js",
         "../src/material-toggle-button.js",
         "../src/material-app-bar.js",
-        "../src/material-datepicker.js"
+        "../src/material-datepicker.js",
+        "../src/material-slidemenu.js"
       ]
     },
     "sauce": {

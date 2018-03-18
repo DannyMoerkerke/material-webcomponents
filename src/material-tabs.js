@@ -46,6 +46,7 @@ export default class MaterialTabs extends HTMLElement {
                     width: var(--content-width);
                     box-sizing: border-box;
                 }
+                
                 .tab {
                     display: flex;
                     box-sizing: border-box;
@@ -106,7 +107,6 @@ export default class MaterialTabs extends HTMLElement {
         });
 
         this.tabs = [...this.shadowRoot.querySelectorAll('.tab')];
-        // this.contentDivs[0].classList.add('active');
         this.tabs[0].classList.add('active');
 
         const {width} = this.tabs[0].getBoundingClientRect();

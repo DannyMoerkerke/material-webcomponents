@@ -3,30 +3,42 @@
     <head>
         <meta charset="UTF-8">
         <title>Custom element</title>
-
-
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link rel="stylesheet" href="demo/demo.css">
+        <style>
+            main {
+                display: grid;
+                grid-template-columns: 250px 1fr;
+                grid-template-rows: 1fr;
+                grid-column-gap: 20px;
+            }
+        </style>
     </head>
     <body>
 
-    <div class="container">
-        <test-element></test-element>
-    </div>
+        <main>
+            <material-slidemenu label="Components">
+                <a slot="item" href="/material-app-bar">material-app-bar</a>
+                <a slot="item" href="/material-checkbox">material-checkbox</a>
+                <a slot="item" href="/material-datepicker">material-datepicker</a>
+                <a slot="item" href="/material-dialog">material-dialog</a>
+                <a slot="item" href="/material-dropdown">material-dropdown</a>
+                <a slot="item" href="/material-loader">material-loader</a>
+                <a slot="item" href="/material-radiobutton">material-radiobutton</a>
+                <a slot="item" href="/material-slider">material-slider</a>
+                <a slot="item" href="/material-switch">material-switch</a>
+                <a slot="item" href="/material-table">material-table</a>
+                <a slot="item" href="/material-tabs">material-tabs</a>
+                <a slot="item" href="/material-textfield">material-textfield</a>
+                <a slot="item" href="/material-toggle-button">material-toggle-button</a>
+                <a slot="item" href="/material-slidemenu">material-slidemenu</a>
+            </material-slidemenu>
 
-        <script type="module" src="src/test-element.js"></script>
-        <script>
-            customElements.whenDefined('test-element')
-            .then(() => {
-                const el = document.querySelector('test-element');
-                el.setState({language: 'scala', type: 'backend'});
+            <div id="content"></div>
+        </main>
 
-                setTimeout(() => {
-                    el.setState({language: 'typescript', type: 'frontend'});
-                }, 2000);
-
-                setTimeout(() => {
-                    el.setState({language: 'javascript', type: 'both'});
-                }, 4000);
-            });
-        </script>
+        <script type="module" src="src/bundle.js"></script>
+        <script type="module" src="demo/routes.js"></script>
+        <script src="lib/polyfill-loader.js"></script>
     </body>
 </html>

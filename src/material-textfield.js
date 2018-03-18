@@ -1,7 +1,7 @@
 export default class MaterialTextfield extends HTMLElement {
 
     static get observedAttributes() {
-        return ['value', 'name', 'label'];
+        return ['value', 'name', 'label', 'readonly'];
     }
 
     constructor() {
@@ -128,11 +128,16 @@ export default class MaterialTextfield extends HTMLElement {
 
         this.input = this.shadowRoot.querySelector('input');
         this.label = this.shadowRoot.querySelector('label');
+
     }
 
     connectedCallback() {
         if(this.hasAttribute('value')) {
             this.input.value = this.getAttribute('value');
+        }
+
+        if(this.hasAttribute('readonly')) {
+            this.input.addEventListener('keydown', e => e.preventDefault());
         }
     }
 

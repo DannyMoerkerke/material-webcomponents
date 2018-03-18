@@ -1,0 +1,16 @@
+material-app-bar {
+    --app-bar-background: #000000;
+    --app-bar-font-color: #ffffff;
+}
+
+material-slider {
+    --track-color: #33d42c;
+    --thumb-color: #33d42c;
+    --thumb-size: 16px;
+    --track-height: 4px;
+}
+
+material-switch {
+    --switch-color: #008000;
+}
+

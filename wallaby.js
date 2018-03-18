@@ -16,7 +16,8 @@ module.exports = () => {
             'src/material-toggle-button.js',
             'src/material-app-bar.js',
             'src/material-datepicker.js',
-            {pattern: 'src/*.js', load: false}
+            'src/material-slidemenu.js',
+            'src/material-drawer.js'
         ],
         tests: ['test/*.test.js'],
 

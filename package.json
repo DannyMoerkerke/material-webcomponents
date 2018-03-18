@@ -5,7 +5,7 @@
   "main": "webrtc-chat-client.js",
   "scripts": {
     "_postinstall": "mkdir -p bower_components/web-component-tester && cp -R node_modules/web-component-tester/* bower_components/web-component-tester",
-    "start": "ws -p 8080 --spa material-datepicker.html",
+    "start": "ws -p 8080 --spa material-drawer.html",
     "start:ie": "ws -p 8080 --spa index-ie.html",
     "start:bundle": "npm run build:bundle && npm start",
     "start:legacy": "npm run build:legacy && npm start",
@@ -15,6 +15,7 @@
     "webpack:bundle": "webpack --config webpack.config.bundle.js",
     "webpack:legacy": "webpack --config webpack.config.legacy.js",
     "prebuild": "npm run clean:dist",
+    "prebuild:bundle": "npm run clean:dist",
     "build": "npm run webpack",
     "build:bundle": "npm run webpack:bundle",
     "build:legacy": "npm run webpack:legacy",
@@ -43,7 +44,8 @@
     "uglifyjs-webpack-plugin": "^1.0.0-beta.2",
     "wct-istanbub": "0.0.6",
     "web-component-tester": "~6.5.0",
-    "webpack": "^3.8.1"
+    "webpack": "^3.8.1",
+    "webpack-dev-server": "^2.11.1"
   },
   "dependencies": {
     "@webcomponents/webcomponentsjs": "^1.0.17",

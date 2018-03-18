@@ -22,7 +22,7 @@ export default class MaterialRadiobuttonGroup extends HTMLElement {
     }
 
     connectedCallback() {
-        this.buttons = this.icon = this.shadowRoot.querySelector('slot[name="radio"]').assignedNodes();
+        this.buttons = this.shadowRoot.querySelector('slot[name="radio"]').assignedNodes();
         this.buttons.forEach(button => {
             if(button.hasAttribute('checked')) {
                 this.target = button;
