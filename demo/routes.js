@@ -5,31 +5,15 @@ const outlet = document.querySelector('#content');
 routes(outlet, [
     {
         url: '/material-app-bar',
-        template: `
-            <material-app-bar>
-                <i class="material-icons" slot="left-content">add</i>
-                <button slot="right-content">Create your beer</button>
-                <a href="/login" slot="right-content">Log in</a>
-                <i class="material-icons" slot="right-content">expand_more</i>
-                <i class="material-icons" slot="right-content">close</i>
-            </material-app-bar>
-        `
+        templateUrl: 'demo/partials/material-app-bar.html'
     },
     {
         url: '/material-checkbox',
-        template: `
-            <material-checkbox label="Voornaam"></material-checkbox>
-        `
+        templateUrl: 'demo/partials/material-checkbox.html'
     },
     {
         url: '/material-datepicker',
-        template: `
-            <material-dialog>
-                <material-datepicker slot="body"></material-datepicker>
-            </material-dialog>
-            
-            <material-textfield label="Date" readonly></material-textfield>
-        `,
+        templateUrl: 'demo/partials/material-datepicker.html',
         controller() {
             const picker = document.querySelector('material-datepicker');
             const field = document.querySelector('material-textfield');

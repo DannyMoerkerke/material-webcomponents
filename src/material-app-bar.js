@@ -44,6 +44,14 @@ export default class MaterialAppBar extends HTMLElement {
                     box-sizing: border-box;
                     background: var(--app-bar-background, #999999);
                     color: var(--app-bar-font-color, #000000);
+                    box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 6px, rgba(0, 0, 0, 0.12) 0px 1px 4px;
+                }
+                
+                #label {
+                    font-size: 24px;
+                    display: inline-block;
+                    padding: 0 0 0 12px;
+                    grid-column: 2 / 3;
                 }
                 
                 ::slotted([slot="left-content"]),
@@ -51,12 +59,20 @@ export default class MaterialAppBar extends HTMLElement {
                     cursor: pointer;
                     color: inherit;
                     display: block;
+                    padding-top: 1px;
+                    padding-bottom: 1px;
+                    font-size: 32px !important;
                 }
                 ::slotted([slot="left-content"]) {
                     margin-right: var(--left-content-spacing, 10px);
                 }
                 ::slotted([slot="right-content"]) {
                     margin-left: var(--right-content-spacing, 10px);
+                }
+                .left-content {
+                    display: flex;
+                    justify-content: flex-start;
+                    align-items: center;
                 }
                 .left-content,
                 .menu-icon {
@@ -69,6 +85,7 @@ export default class MaterialAppBar extends HTMLElement {
                     grid-column: 4 / 5;
                     display: flex;
                     justify-content: flex-end;
+                    align-items: center;
                     position: static;
                 }
                 .dropdown-menu {
@@ -90,9 +107,10 @@ export default class MaterialAppBar extends HTMLElement {
             <template id="large">
                 <div class="left-content">
                     <slot name="left-content"></slot>
+                    <span id="label"></span>
                 </div>
+                
                 <div class="middle-content">
-                    <slot name="title"></slot>
                 </div>
                 <div class="right-content">
                     <slot name="right-content"></slot>
@@ -112,6 +130,7 @@ export default class MaterialAppBar extends HTMLElement {
     }
 
     connectedCallback() {
+
         const mq = window.matchMedia('(min-width: 600px)');
         mq.addListener(this.handleResize.bind(this));
         this.handleResize(mq);
@@ -125,6 +144,14 @@ export default class MaterialAppBar extends HTMLElement {
             const largeContent = this.shadowRoot.querySelector('#large').content.cloneNode(true);
             this.container.innerHTML = '';
             this.container.appendChild(largeContent);
+
+            setTimeout(() => {
+                this.label = this.shadowRoot.querySelector('#label');
+                if(this.hasAttribute('label')) {
+                    this.label.textContent = this.getAttribute('label');
+                }
+            });
+
             this.setupEventHandlers();
         }
         else {

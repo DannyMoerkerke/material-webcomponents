@@ -44,9 +44,8 @@ export default class MaterialCheckbox extends HTMLElement {
                     height: 1rem;
                     border-radius: 50%;
                     position: absolute;
-                    top: 0%;
-                    left: 0%;
-                    /*transform: translate(-50%, -50%);*/
+                    top: 2px;
+                    left: 2px;
                     transition: box-shadow 0.5s ease;
                 }
                 label {
@@ -62,6 +61,7 @@ export default class MaterialCheckbox extends HTMLElement {
                     opacity: 0.00000001;
                     position: absolute;
                     left: 0;
+                    margin-right: 2rem;
                 }
                 .checkmark {
                     color: var(--unchecked-color);

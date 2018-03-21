@@ -8,14 +8,27 @@ export default (outlet, routes) => {
         const matchedRoute = getMatchedRoute(currentRoute);
 
         if(matchedRoute) {
-            const {template, url} = matchedRoute;
-            history.pushState({template, url}, null, url);
+            let {template, templateUrl, url} = matchedRoute;
 
-            activateRoute(matchedRoute);
+            if(templateUrl) {
+                fetch(templateUrl)
+                .then(response => response.text())
+                .then(html => {
+                    matchedRoute.template = html;
+                    history.pushState({template, url}, null, url);
+
+                    activateRoute(matchedRoute);
+                })
+            }
+            else {
+                history.pushState({template, url}, null, url);
+                activateRoute(matchedRoute);
+            }
         }
     };
 
     const activateRoute = ({template, controller}) => {
+        console.log(template);
         outlet.innerHTML = template;
 
         if(controller && typeof controller === 'function') {
@@ -23,6 +36,7 @@ export default (outlet, routes) => {
         }
     };
 
+    console.log(document.querySelectorAll('a'));
     document.querySelectorAll('a').forEach(link => {
         link.onclick = e => {
             e.preventDefault();

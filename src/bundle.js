@@ -13,3 +13,4 @@ import './material-tabs.js';
 import './material-textfield.js';
 import './material-toggle-button.js';
 import './material-slidemenu.js';
+import '../demo/routes.js';

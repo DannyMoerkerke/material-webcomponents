@@ -1,5 +1,14 @@
+body {
+    font-family: Verdana;
+}
+
+ul {
+    list-style-type: none;
+}
+
+
 material-app-bar {
-    --app-bar-background: #000000;
+    --app-bar-background: rgb(0, 188, 212);
     --app-bar-font-color: #ffffff;
 }
 

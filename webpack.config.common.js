@@ -5,7 +5,7 @@ const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = {
     entry: {
-        app: './src/material-app-bar.js'
+        bundle: './src/bundle.js'
     },
     output: {
         path: path.join(__dirname, 'dist'),

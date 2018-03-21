@@ -49,9 +49,9 @@ export default class MaterialRadiobutton extends HTMLElement {
                     height: 1rem;
                     border-radius: 50%;
                     position: absolute;
-                    top: 53%;
-                    left: 2.6%;
-                    transform: translate(-50%, -50%);
+                    top: 2px;
+                    left: 2px;
+                    /*transform: translate(-50%, -50%);*/
                     transition: box-shadow 0.5s ease;
                 }
                 label {
@@ -110,8 +110,8 @@ export default class MaterialRadiobutton extends HTMLElement {
             <div id="container">
                 <label>
                     <input type="radio">
-                    <i class="checkmark"></i>
                     <div class="ripple"></div>
+                    <i class="checkmark"></i>
                 </label>
             </div>
         `;
