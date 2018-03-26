@@ -34,7 +34,7 @@ export default class MaterialLoader extends HTMLElement {
                         transform: rotate(0);
                     }
                     50% {
-                           stroke-dasharray: 65.973, 21.9911;
+                        stroke-dasharray: 65.973, 21.9911;
                         stroke-dashoffset: 0;
                     }
                     100% {

@@ -9,6 +9,7 @@ export default class MaterialDropdown extends HTMLElement {
 
         const shadowRoot = this.attachShadow({mode: 'open'});
 
+        // language=HTML
         shadowRoot.innerHTML = `
             <style>
                 :host {
@@ -24,7 +25,6 @@ export default class MaterialDropdown extends HTMLElement {
                 @keyframes menu-open {
                     0% {
                         opacity: 0;
-                        width: 0;
                         height: 0;
                     }        
                     80% {
@@ -35,7 +35,6 @@ export default class MaterialDropdown extends HTMLElement {
                     }
                     100% {
                         opacity: 1;
-                        width: var(--menu-width);
                         height: var(--menu-height);
                     } 
                 }
@@ -48,12 +47,14 @@ export default class MaterialDropdown extends HTMLElement {
                     } 
                 }
                 #dropdown-menu-container {
-                    border: 1px solid #000000;
                     position: absolute;
-                    width: 0;
+                    top: 0;
+                    left: 0;
+                    min-width: var(--menu-width);
                     height: 0;
                     opacity: 0;
                     overflow: hidden;
+                    box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 6px, rgba(0, 0, 0, 0.12) 0px 1px 4px;
                 }
                 #dropdown-menu {
                     background: var(--menu-background, #ffffff);
@@ -62,22 +63,26 @@ export default class MaterialDropdown extends HTMLElement {
                     left: 0;
                     opacity: inherit;
                 }
-                #dropdown-menu-container.opened {
+                #dropdown-menu-container.open {
                     animation-name: menu-open;
                     animation-duration: .2s;
                     animation-fill-mode: forwards;
                     animation-timing-function: ease-out;
                 }
-                ::slotted(option) {
-                    padding: 5px;
+                ::slotted(li) {
+                    padding: 10px;
                     cursor: pointer;
+                    list-style-type: none;
+                    display: flex;
+                    flex-direction: row;
                 }
-                ::slotted(option:hover) {
+                ::slotted(li:hover) {
                     background: #cecece;
                 }
                 ::slotted([slot="icon"]) {
                     display: block;
                     cursor: pointer;
+                    outline: none;
                     width:  var(--icon-width, 24px);
                     height: var(--icon-height, 24px);
                 }
@@ -106,16 +111,17 @@ export default class MaterialDropdown extends HTMLElement {
 
         this.setupMenu();
 
-        this.container.addEventListener('click', this.handleClick.bind(this));
+        this.container.addEventListener('mousedown', this.handleClick.bind(this));
+        this.icon.addEventListener('blur', this.closeMenu.bind(this));
     }
 
     attributeChangedCallback(attr) {
         if(attr === 'open') {
             if(this.hasAttribute('open')) {
-                this.menuContainer.classList.add('opened');
+                this.menuContainer.classList.add('open');
             }
             else {
-                this.menuContainer.classList.remove('opened');
+                this.menuContainer.classList.remove('open');
             }
         }
     }
@@ -128,13 +134,13 @@ export default class MaterialDropdown extends HTMLElement {
 
     openMenu() {
         this.setAttribute('open', '');
-        this.menuContainer.classList.add('opened');
+        this.menuContainer.classList.add('open');
     }
 
     closeMenu() {
         this.removeAttribute('open');
         this.open = false;
-        this.menuContainer.classList.remove('opened');
+        this.menuContainer.classList.remove('open');
     }
 
     handleClick(e) {

@@ -1,0 +1,40 @@
+<h1>material-button</h1>
+
+<h3>Usage</h3>
+<pre>
+    &lt;material-button label="Confirm"&gt;
+        &lt;i class="material-icons" slot="left-icon"&gt;add&lt;/i&gt;
+        &lt;i class="material-icons" slot="right-icon"&gt;close&lt;/i&gt;
+    &lt;/material-button&gt;
+</pre>
+
+<h3>Attributes</h3>
+<ul>
+    <li><code>label</code>: String, label</li>
+    <li><code>raised</code>: empty, adds shadow to button to make it appear raised</li>
+</ul>
+
+
+<h3>Slots</h3>
+<ul>
+    <li><code>left-icon</code>: icon appearing on the left side</li>
+    <li><code>right-icon</code>: icon appearing on the right side</li>
+</ul>
+
+<h3>Styling</h3>
+<ul>
+    <li>background color: <code>--button-color</code></li>
+    <li>font color: <code>--font-color</code></li>
+</ul>
+
+
+<h3>Demo</h3>
+
+<em>Standard</em>
+<material-button label="Confirm"></material-button>
+
+<em>Raised</em>
+<material-button label="Confirm" raised></material-button>
+
+<em>Color</em>
+<material-button id="blue-button" label="Confirm" raised></material-button>

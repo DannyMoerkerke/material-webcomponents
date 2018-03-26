@@ -50,7 +50,9 @@ export default class MaterialDialog extends HTMLElement {
                 ::slotted([slot]) {
                     margin: 10px;
                 }
-                
+                ::slotted([slot]:empty) {
+                    margin: 0px;
+                }
                 @keyframes fadein {
                     from {
                         opacity: 0;

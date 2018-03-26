@@ -6,6 +6,22 @@ ul {
     list-style-type: none;
 }
 
+p {
+    font-size: 1em;
+}
+code, pre {
+    font-size: 1.1em;
+}
+
+#open,
+#blue-button {
+    --button-color: rgb(0, 188, 212);
+}
+
+#datepicker-dialog {
+    --dialog-height: 444px;
+}
+
 
 material-app-bar {
     --app-bar-background: rgb(0, 188, 212);
@@ -21,5 +37,9 @@ material-slider {
 
 material-switch {
     --switch-color: #008000;
+}
+
+material-progress {
+    --progress-bar-width: 250px;
 }
 

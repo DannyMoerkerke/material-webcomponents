@@ -153,6 +153,12 @@ export default class MaterialSlider extends HTMLElement {
 
         this.input.addEventListener('input', e => {
             this.value = e.target.value;
+
+            this.dispatchEvent(new CustomEvent('change', {
+                detail: {
+                    value: e.target.value
+                }
+            }));
         });
 
         const rgba = /rgba\((\d{1,3}),\s?(\d{1,3}),\s?(\d{1,3}),\s?(\d|\d\.\d+)\)/;

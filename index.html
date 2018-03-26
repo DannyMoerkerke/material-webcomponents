@@ -19,6 +19,7 @@
         <main>
             <material-slidemenu label="Components">
                 <a slot="item" href="/material-app-bar">material-app-bar</a>
+                <a slot="item" href="/material-button">material-button</a>
                 <a slot="item" href="/material-checkbox">material-checkbox</a>
                 <a slot="item" href="/material-datepicker">material-datepicker</a>
                 <a slot="item" href="/material-dialog">material-dialog</a>
@@ -34,11 +35,26 @@
                 <a slot="item" href="/material-slidemenu">material-slidemenu</a>
             </material-slidemenu>
 
-            <div id="content"></div>
+            <div id="content">
+                <material-progress value="0" max="100" circle="64"></material-progress>
+
+                <material-slider value="0" max="100"></material-slider>
+            </div>
         </main>
 
         <script type="module" src="src/bundle.js"></script>
         <script type="module" src="demo/routes.js"></script>
         <script src="lib/polyfill-loader.js"></script>
+
+        <script>
+            const progress = document.querySelector('material-progress');
+            const slider = document.querySelector('material-slider');
+
+            slider.addEventListener('change', e => {
+                const {value} = e.detail;
+
+                progress.value = value;
+            })
+        </script>
     </body>
 </html>

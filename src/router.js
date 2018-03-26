@@ -28,7 +28,6 @@ export default (outlet, routes) => {
     };
 
     const activateRoute = ({template, controller}) => {
-        console.log(template);
         outlet.innerHTML = template;
 
         if(controller && typeof controller === 'function') {
@@ -36,7 +35,6 @@ export default (outlet, routes) => {
         }
     };
 
-    console.log(document.querySelectorAll('a'));
     document.querySelectorAll('a').forEach(link => {
         link.onclick = e => {
             e.preventDefault();

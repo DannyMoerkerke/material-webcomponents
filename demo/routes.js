@@ -8,6 +8,10 @@ routes(outlet, [
         templateUrl: 'demo/partials/material-app-bar.html'
     },
     {
+        url: '/material-button',
+        templateUrl: 'demo/partials/material-button.html'
+    },
+    {
         url: '/material-checkbox',
         templateUrl: 'demo/partials/material-checkbox.html'
     },
@@ -45,17 +49,7 @@ routes(outlet, [
     },
     {
         url: '/material-dialog',
-        template: `
-            <material-dialog>
-                <h1 slot="header">Dialog title</h1>
-                <p slot="body">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt dolorem et, eum excepturi fugit iste maxime nisi, obcaecati officia omnis quas qui, quidem sequi. Accusamus deleniti earum quasi ratione unde!</p>
-                <div slot="footer">
-                    <button id="action">close</button>
-                </div>
-            </material-dialog>
-    
-            <button id="open">Open</button>
-        `,
+        templateUrl: 'demo/partials/material-dialog.html',
         controller() {
             document.querySelector('#open').onclick = () => {
                 document.querySelector('material-dialog').open();
@@ -70,11 +64,11 @@ routes(outlet, [
         url: '/material-dropdown',
         template: `
             <material-dropdown>
-                <i class="material-icons" slot="icon">menu</i>
-                <option slot="option">Javascript</option>
-                <option slot="option">PHP</option>
-                <option slot="option">Java</option>
-                <option slot="option">Scala</option>
+                <i class="material-icons" slot="icon" tabindex="1">menu</i>
+                <li slot="option"><i class="material-icons">add</i>Javascript</li>
+                <li slot="option">PHP</li>
+                <li slot="option">Java</li>
+                <li slot="option">Scala</li>
             </material-dropdown>
         `
     },

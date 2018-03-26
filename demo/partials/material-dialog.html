@@ -1,0 +1,34 @@
+<h1>material-dialog</h1>
+
+<h3>Usage</h3>
+<pre>
+    &lt;material-dialog&gt;
+        &lt;h1 slot="header">Dialog title&lt;/h1&gt;
+        &lt;p slot="body"&gt;Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt dolorem et, eum excepturi fugit iste maxime nisi, obcaecati officia omnis quas qui, quidem sequi. Accusamus deleniti earum quasi ratione unde!&lt;/p&gt;
+        &lt;div slot="footer"&gt;
+            &lt;button id="action"&gt;close&lt;/button&gt;
+        &lt;/div&gt;
+    &lt;/material-dialog&gt;
+</pre>
+
+
+<h3>Styling</h3>
+<ul>
+    <li>width: <code>--dialog-width</code></li>
+    <li>height: <code>--dialog-height</code></li>
+    <li>backdrop color: <code>--backdrop-color</code></li>
+    <li>header background: <code>--header-background</code></li>
+    <li>body background: <code>--body-background</code></li>
+    <li>footer background: <code>--footer-background</code></li>
+</ul>
+
+<h3>Demo</h3>
+<material-dialog>
+    <h1 slot="header">Dialog title</h1>
+    <p slot="body">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt dolorem et, eum excepturi fugit iste maxime nisi, obcaecati officia omnis quas qui, quidem sequi. Accusamus deleniti earum quasi ratione unde!</p>
+    <div slot="footer">
+        <material-button id="action" label="Close"></material-button>
+    </div>
+</material-dialog>
+
+<material-button id="open" label="Open" raised></material-button>

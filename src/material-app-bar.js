@@ -11,6 +11,9 @@ export default class MaterialAppBar extends HTMLElement {
 
         shadowRoot.innerHTML = `
             <style>
+                :host {
+                    --app-bar-padding: 15px;
+                }
                 .material-icons {
                     font-family: 'Material Icons';
                     font-weight: normal;
@@ -37,10 +40,9 @@ export default class MaterialAppBar extends HTMLElement {
                 }
                 #container {
                     display: grid;
-                    grid-template-columns: var(--spacing-left, 15px) 1fr 1fr 1fr var(--spacing-right, 15px);
+                    grid-template-columns: 1fr 1fr 1fr;
                     height: 100%;
-                    padding-top: var(--spacing-top, 15px);
-                    padding-bottom: var(--spacing-bottom, 15px);
+                    padding: var(--app-bar-padding);
                     box-sizing: border-box;
                     background: var(--app-bar-background, #999999);
                     color: var(--app-bar-font-color, #000000);
@@ -76,13 +78,13 @@ export default class MaterialAppBar extends HTMLElement {
                 }
                 .left-content,
                 .menu-icon {
-                    grid-column: 2 / 3;
+                    grid-column: 1 / 2;
                 }
                 .middle-content {
-                    grid-column: 3 / 4;
+                    grid-column: 2 / 3;
                 }
                 .right-content {
-                    grid-column: 4 / 5;
+                    grid-column: 3 / 4;
                     display: flex;
                     justify-content: flex-end;
                     align-items: center;
@@ -177,7 +179,7 @@ export default class MaterialAppBar extends HTMLElement {
     }
 
     handleIconClick({target}) {
-            this.dispatchEvent(new CustomEvent('app-bar-clicked', {
+        this.dispatchEvent(new CustomEvent('app-bar-click', {
             detail: {target}
         }));
     }
