@@ -30,6 +30,8 @@ export default class MaterialTextfield extends HTMLElement {
                 #container {
                     width: 100%;
                     position: relative;
+                    display: block;
+                    background: transparent;
                     margin-top: 2.25rem;
                     margin-bottom: 2.25rem;
                 }
