@@ -23,6 +23,7 @@ export default class MaterialButton extends HTMLElement {
                     padding-left: 8px;
                     padding-right: 8px;
                     font-size: 1em;
+                    color: var(--font-color);
                     cursor: pointer;
                     outline: none;
                     display: flex;
