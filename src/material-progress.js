@@ -84,6 +84,13 @@ export default class MaterialProgress extends HTMLElement {
                 }
             </style>
             
+            <template id="regular">
+                <div id="progress-container">
+                    <div id="progress-value"></div>
+                    <progress></progress>
+                </div>
+            </template>
+            
             <template id="circular">
                 <div id="circle-container">
                     <div id="progress-value"></div>
@@ -93,18 +100,10 @@ export default class MaterialProgress extends HTMLElement {
                 </div>
             </template>
             
-            <template id="regular">
-                <div id="progress-container">
-                    <div id="progress-value"></div>
-                    <progress></progress>
-                </div>
-            </template>
-            
             <div id="container"></div>
         `;
 
         this.container = this.shadowRoot.querySelector('#container');
-        this.host = this.container.getRootNode().host;
         this.regular = this.shadowRoot.querySelector('#regular').content.cloneNode(true);
         this.circular = this.shadowRoot.querySelector('#circular').content.cloneNode(true);
 

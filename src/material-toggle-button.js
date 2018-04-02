@@ -11,12 +11,17 @@ export default class MaterialToggleButton extends HTMLElement {
 
         shadowRoot.innerHTML = `
             <style>
+                :host {
+                    --inactive-color: #cccccc;
+                    --active-color: #999999;
+                    
+                }
                 .container {
                     display: inline-block;
                 }
                 button {
-                    background: var(--inactive-color, #cccccc);
-                    border-color: var(--inactive-color, #cccccc);
+                    background: var(--inactive-color,);
+                    border-color: var(--inactive-color,);
                     font-size: var(--button-font-size, 1em);
                     outline: none;
                     cursor: pointer;
@@ -24,28 +29,28 @@ export default class MaterialToggleButton extends HTMLElement {
                 
                 .left {
                     border-radius: 4px 0 0 4px;
-                    margin-right: -2px;
-                    padding: 1px 16px 6px 16px;
+                    margin-right: -4px;
+                    padding: 10px 16px;
                     border-right: none;
                     
                 }
                 .right {
                     border-radius: 0 4px 4px 0;
                     margin-left: -2px;
-                    padding: 1px 16px 6px 16px;
+                    padding: 10px 16px;
                     border-left: none;
                 }
                 
                 @keyframes activate {
                     from {
-                        background: var(--inactive-color, #cccccc);
-                        border-color: var(--inactive-color, #cccccc);
-                        color: var(--font-inactive-color, #999999);
+                        background: var(--inactive-color,);
+                        border-color: var(--inactive-color,);
+                        color: var(--active-color);
                     }
                     to {
-                        background: var(--active-color, #999999);
-                        border-color: var(--active-color, #cccccc);
-                        color: var(--font-active-color, #cccccc);
+                        background: var(--active-color);
+                        border-color: var(--active-color,);
+                        color: var(--inactive-color,);
                     }
                 }
                 

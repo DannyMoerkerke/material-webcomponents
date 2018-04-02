@@ -1,0 +1,33 @@
+<h1>material-radiobutton</h1>
+
+<h3>Usage</h3>
+<pre>
+    &lt;material-radiobutton label="Javascript" value="javascript&gt;&lt;/material-radiobutton&gt;
+
+    &lt;material-radiobutton-group name="language"&gt;
+        &lt;material-radiobutton slot="radio" label="Javascript" value="javascript"&gt;&lt;/material-radiobutton&gt;
+        &lt;material-radiobutton slot="radio" label="Typescript" value="typescript"&gt;&lt;/material-radiobutton&gt;
+        &lt;material-radiobutton slot="radio" label="PHP" value="php" checked&gt;&lt;/material-radiobutton&gt;
+    &lt;/material-radiobutton-group&gt;
+</pre>
+
+<h3>Attributes</h3>
+<ul>
+    <li><code>label</code>: String, label on the right side of the radiobutton</li>
+    <li><code>value</code>: String, value of the radiobutton</li>
+    <li><code>checked</code>: empty, setting this attribute will check the radiobutton</li>
+</ul>
+
+<h3>Styling</h3>
+<ul>
+    <li>color of radiobutton when not checked: <code>--unchecked-color</code></li>
+    <li>color of radiobutton when checked: <code>--checked-color</code></li>
+    <li>color of label: <code>--label-color</code></li>
+</ul>
+
+<h3>Demo</h3>
+<material-radiobutton-group name="language">
+    <material-radiobutton slot="radio" label="Javascript" value="javascript"></material-radiobutton>
+    <material-radiobutton slot="radio" label="Typescript" value="typescript"></material-radiobutton>
+    <material-radiobutton slot="radio" label="PHP" value="php" checked></material-radiobutton>
+</material-radiobutton-group>

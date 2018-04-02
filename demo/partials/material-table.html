@@ -1,0 +1,53 @@
+<h1>material-datepicker</h1>
+
+<h3>Usage</h3>
+<pre>
+    &lt;material-datepicker date="01-01-2010"&gt;&lt;/material-datepicker&gt;
+</pre>
+
+<h3>Attributes</h3>
+<ul>
+    <li><code>sort</code>: String, column to sort and sort order, space-delimited (e.g. 'name asc')</li>
+    <li><code>sortable</code>: String: space-delimited list of sortable colums (e.g. 'name street city')</li>
+    <li><code>per-page</code>: Number, number of items to show per page, this will show pagination controls when the
+    total number of items is greater than this value</li>
+</ul>
+
+
+<h3>Styling</h3>
+
+
+<h3>Demo</h3>
+<material-table sortable="language scope"></material-table>
+
+<pre>
+<code>
+customElements.whenDefined('material-table')
+    .then(() => {
+        const table = document.querySelector('material-table');
+
+        table.data = [
+            {
+                id: 1,
+                language: 'Javascript',
+                scope: 'Frontend'
+            },
+            {
+                id: 2,
+                language: 'PHP',
+                scope: 'Backend'
+            },
+            {
+                id: 3,
+                language: 'Scala',
+                scope: 'Backend'
+            },
+            {
+                id: 4,
+                language: 'CSS',
+                scope: 'Frontend'
+            }
+        ];
+    });
+</code>
+</pre>

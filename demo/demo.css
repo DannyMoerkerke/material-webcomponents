@@ -29,10 +29,10 @@ material-app-bar {
 }
 
 material-slider {
-    --track-color: #33d42c;
-    --thumb-color: #33d42c;
+    --track-color: rgb(0, 188, 212);
+    --thumb-color: rgb(0, 188, 212);
     --thumb-size: 16px;
-    --track-height: 4px;
+    --track-height: 2px;
 }
 
 material-switch {
@@ -42,4 +42,6 @@ material-switch {
 material-progress {
     --progress-bar-width: 250px;
 }
-
+material-dropdown {
+    width: 500px;
+}

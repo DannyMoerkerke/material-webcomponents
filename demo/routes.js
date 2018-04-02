@@ -62,15 +62,7 @@ routes(outlet, [
     },
     {
         url: '/material-dropdown',
-        template: `
-            <material-dropdown>
-                <i class="material-icons" slot="icon" tabindex="1">menu</i>
-                <li slot="option"><i class="material-icons">add</i>Javascript</li>
-                <li slot="option">PHP</li>
-                <li slot="option">Java</li>
-                <li slot="option">Scala</li>
-            </material-dropdown>
-        `
+        templateUrl: 'demo/partials/material-dropdown.html'
     },
     {
         url: '/material-loader',
@@ -78,27 +70,19 @@ routes(outlet, [
     },
     {
         url: '/material-radiobutton',
-        template: `
-            <material-radiobutton label="javascript" name="language" id="test"></material-radiobutton>
-
-            <material-radiobutton-group name="language">
-                <material-radiobutton slot="radio" label="Javascript" value="javascript"></material-radiobutton>
-                <material-radiobutton slot="radio" label="Typescript" value="typescript"></material-radiobutton>
-                <material-radiobutton slot="radio" label="PHP" value="php" checked></material-radiobutton>
-            </material-radiobutton-group>
-        `
+        templateUrl: 'demo/partials/material-radiobutton.html'
     },
     {
         url: '/material-slider',
-        template: `<material-slider value="25" max="200" step="20"></material-slider>`
+        templateUrl: 'demo/partials/material-slider.html'
     },
     {
         url: '/material-switch',
-        template: `<material-switch label="switch label"></material-switch>`
+        templateUrl: 'demo/partials/material-switch.html'
     },
     {
         url: '/material-table',
-        template: `<material-table sortable="language scope"></material-table>`,
+        templateUrl: 'demo/partials/material-table.html',
         controller() {
             customElements.whenDefined('material-table')
             .then(() => {

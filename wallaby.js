@@ -17,7 +17,8 @@ module.exports = () => {
             'src/material-app-bar.js',
             'src/material-datepicker.js',
             'src/material-slidemenu.js',
-            'src/material-drawer.js'
+            'src/material-drawer.js',
+            'src/material-progress.js'
         ],
         tests: ['test/*.test.js'],
 

@@ -13,14 +13,19 @@ export default class MaterialDropdown extends HTMLElement {
         shadowRoot.innerHTML = `
             <style>
                 :host {
-                    width: var(--menu-width, 24px);
-                    height: var(--menu-height, 23px);
+                    --menu-width: 24px;
+                    --menu-height: 23px;
+                    --menu-background: #ffffff;
+                    --icon-width: 24px;
+                    --icon-height: 24px;
+                    width: var(--menu-width);
+                    height: var(--menu-height);
                 }
                 #container {
                     position: relative;
                     display: inline-block;
-                    width: var(--menu-width, 24px);
-                    height: var(--menu-height, 24px);
+                    width: var(--menu-width);
+                    height: var(--menu-height);
                 }
                 @keyframes menu-open {
                     0% {
@@ -57,7 +62,7 @@ export default class MaterialDropdown extends HTMLElement {
                     box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 6px, rgba(0, 0, 0, 0.12) 0px 1px 4px;
                 }
                 #dropdown-menu {
-                    background: var(--menu-background, #ffffff);
+                    background: var(--menu-background);
                     position: absolute;
                     bottom: 0;
                     left: 0;
@@ -83,8 +88,8 @@ export default class MaterialDropdown extends HTMLElement {
                     display: block;
                     cursor: pointer;
                     outline: none;
-                    width:  var(--icon-width, 24px);
-                    height: var(--icon-height, 24px);
+                    width:  var(--icon-width);
+                    height: var(--icon-height);
                 }
             </style>
             
@@ -162,12 +167,11 @@ export default class MaterialDropdown extends HTMLElement {
                 this.closeMenu();
             }
         }
-
     }
 
     notifyChange(value) {
         this.setAttribute('value', value);
-        this.dispatchEvent(new CustomEvent('dropdown-menu-value-changed', {
+        this.dispatchEvent(new CustomEvent('change', {
             detail: {
                 value
             }

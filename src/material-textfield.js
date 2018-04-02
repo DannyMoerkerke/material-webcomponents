@@ -13,6 +13,7 @@ export default class MaterialTextfield extends HTMLElement {
             <style>
                 :host {
                     --active-color: #337ab7;
+                    --font-color: #ffffff;
                 }
                 :host([invalid]) {
                     --active-color: #ff0000;
@@ -42,7 +43,7 @@ export default class MaterialTextfield extends HTMLElement {
                     outline: none;
                     box-sizing: border-box;
                     display: block;
-                    
+                    color: var(--font-color);
                     background: none;
                     
                     line-height: 1.9;

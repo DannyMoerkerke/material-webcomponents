@@ -15,11 +15,11 @@ export default class MaterialSlider extends HTMLElement {
                     display: block;
                     --cur-value: 50%;
                     --correction-factor: 2;
+                    --thumb-color: rgb(0, 188, 212);
                     --thumb-color-light: #ffffff;
-                    --thumb-color-default: rgb(0, 188, 212);
-                    --track-color-default: rgb(204, 204, 204);
-                    --thumb-size-default: 16px;
-                    --track-height-default: 4px;
+                    --track-color: rgb(204, 204, 204);
+                    --thumb-size: 16px;
+                    --track-height: 4px;
                 }
                 input[type=range] {
                     -webkit-appearance: none;
@@ -32,22 +32,22 @@ export default class MaterialSlider extends HTMLElement {
                 }
                 input[type=range]::-webkit-slider-runnable-track {
                     width: 100%;
-                    height: var(--track-height, var(--track-height-default));
+                    height: var(--track-height);
                     cursor: pointer;
-                    background: var(--track-color, var(--track-color-default));
+                    background: var(--track-color);
                     border-radius: 1.3px;
                 }
     
                 input[type=range]::-moz-range-track {
                     width: 100%;
-                    height: var(--track-height, var(--track-height-default));
+                    height: var(--track-height);
                     cursor: pointer;
-                    background: var(--track-color, var(--track-color-default));
+                    background: var(--track-color);
                     border-radius: 1.3px;
                 }
                 input[type=range]::-ms-track {
                     width: 100%;
-                    height: var(--track-height, var(--track-height-default));
+                    height: var(--track-height);
                     cursor: pointer;
                     background: transparent;
                     border-color: transparent;
@@ -56,41 +56,41 @@ export default class MaterialSlider extends HTMLElement {
                 }
     
                 input[type=range]::-webkit-slider-thumb {
-                    height: var(--thumb-size, var(--thumb-size-default));
-                    width: var(--thumb-size, var(--thumb-size-default));
+                    height: var(--thumb-size);
+                    width: var(--thumb-size);
                     border-radius: 50%;
-                    background: var(--thumb-color, var(--thumb-color-default));
+                    background: var(--thumb-color);
                     cursor: pointer;
                     -webkit-appearance: none;
-                    margin-top: calc((var(--track-height, var(--track-height-default)) - var(--thumb-size, var(--thumb-size-default)) ) / 2);
+                    margin-top: calc((var(--track-height) - var(--thumb-size) ) / 2);
                     box-shadow: 0 0 0 0 transparent;
                     transition: box-shadow 0.2s ease-in;
                 }
                 
                 input[type=range]:hover::-webkit-slider-thumb {
-                    box-shadow: 0 0 0 var(--thumb-size, var(--thumb-size-default)) var(--thumb-color-light);
+                    box-shadow: 0 0 0 var(--thumb-size) var(--thumb-color-light);
                 }
                 input[type=range]:focus::-webkit-slider-thumb {
-                    box-shadow: 0 0 0 var(--thumb-size, var(--thumb-size-default)) var(--thumb-color-light);
+                    box-shadow: 0 0 0 var(--thumb-size) var(--thumb-color-light);
                 }
                 
     
                 input[type=range]::-moz-range-thumb {
-                    height: var(--thumb-size, var(--thumb-size-default));
-                    width: var(--thumb-size, var(--thumb-size-default));
+                    height: var(--thumb-size);
+                    width: var(--thumb-size);
                     border-radius: 50%;
-                    background: var(--thumb-color, var(--thumb-color-default));
+                    background: var(--thumb-color);
                     cursor: pointer;
-                    margin-top: calc((var(--track-height, var(--track-height-default)) - var(--thumb-size, var(--thumb-size-default)) ) / 2);
+                    margin-top: calc((var(--track-height) - var(--thumb-size) ) / 2);
                     box-shadow: 0 0 0 0 transparent;
                     transition: box-shadow 0.2s ease-in;
                 }
                 
                 input[type=range]:hover::-moz-range-thumb {
-                    box-shadow: 0 0 0 var(--thumb-size, var(--thumb-size-default)) var(--thumb-color-light);
+                    box-shadow: 0 0 0 var(--thumb-size) var(--thumb-color-light);
                 }
                 input[type=range]:focus::-moz-range-thumb {
-                    box-shadow: 0 0 0 var(--thumb-size, var(--thumb-size-default)) var(--thumb-color-light);
+                    box-shadow: 0 0 0 var(--thumb-size) var(--thumb-color-light);
                 }
     
                 input[type=range]::-ms-thumb {
@@ -163,7 +163,7 @@ export default class MaterialSlider extends HTMLElement {
 
         const rgba = /rgba\((\d{1,3}),\s?(\d{1,3}),\s?(\d{1,3}),\s?(\d|\d\.\d+)\)/;
         const hostStyle = getComputedStyle(this.host);
-        const thumbColor = hostStyle.getPropertyValue('--thumb-color').trim() || hostStyle.getPropertyValue('--thumb-color-default').trim();
+        const thumbColor = hostStyle.getPropertyValue('--thumb-color').trim() || hostStyle.getPropertyValue('--thumb-color').trim();
         let thumbColorLight;
 
         if(/^#([A-Fa-f0-9]{3}){1,2}$/.test(thumbColor)) {
