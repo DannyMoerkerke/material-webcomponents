@@ -74,7 +74,7 @@ export default class MaterialTextfield extends HTMLElement {
                 
                 input:focus,
                 input:valid {
-                    color: #333333;
+                    color: var(--font-color);
                 }
                 
                 input:focus ~ #bar {
