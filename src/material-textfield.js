@@ -114,6 +114,7 @@ export default class MaterialTextfield extends HTMLElement {
                 }
                 .error {
                     display: none;
+                    position: absolute;
                     font-size: 0.9rem;
                     line-height: 1rem;
                     color: #ff0000;
