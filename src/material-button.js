@@ -16,10 +16,6 @@ export default class MaterialButton extends HTMLElement {
                     --font-color: #000000;
                     display: block;
                 }
-                :host([disabled]) {
-                    opacity: 0.5;
-                    cursor: not-allowed;
-                }
                 button {
                     border: none;
                     border-radius: 2px;
@@ -40,6 +36,10 @@ export default class MaterialButton extends HTMLElement {
                 button:hover {
                     transition: background-color 0.3s ease-out;
                     background-color: var(--button-color);
+                }
+                :host([disabled]) button {
+                    opacity: 0.5;
+                    cursor: not-allowed;
                 }
                 button.active .ripple {
                     animation-name: ripple;
