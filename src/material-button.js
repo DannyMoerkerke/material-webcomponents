@@ -1,7 +1,7 @@
 export default class MaterialButton extends HTMLElement {
 
     static get observedAttributes() {
-        return ['label'];
+        return ['label', 'disabled'];
     }
 
     constructor() {
