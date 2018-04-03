@@ -1,7 +1,7 @@
 export default class MaterialButton extends HTMLElement {
 
     static get observedAttributes() {
-        return ['label', 'disabled'];
+        return ['label'];
     }
 
     constructor() {
@@ -109,10 +109,6 @@ export default class MaterialButton extends HTMLElement {
             else {
                 this.label.style.display = 'none';
             }
-        }
-
-        if(attr === 'disabled') {
-            this.button.disabled = this.hasAttribute('disabled');
         }
     }
 
