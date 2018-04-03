@@ -103,10 +103,16 @@ export default class MaterialButton extends HTMLElement {
 
     attributeChangedCallback(attr, oldVal, newVal) {
         if(attr === 'label') {
-            this.label.textContent = this.getAttribute('label');
+            if(this.hasAttribute('label')) {
+                this.label.textContent = this.getAttribute('label');
+            }
+            else {
+                this.label.style.display = 'none';
+            }
         }
-        else {
-            this.label.style.display = 'none';
+
+        if(attr === 'disabled') {
+            this.button.disabled = this.hasAttribute('disabled');
         }
     }
 
