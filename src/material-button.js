@@ -14,6 +14,11 @@ export default class MaterialButton extends HTMLElement {
                 :host {
                     --button-color: #e2e2e2;
                     --font-color: #000000;
+                    display: block;
+                }
+                :host([disabled]) {
+                    opacity: 0.5;
+                    cursor: not-allowed;
                 }
                 button {
                     border: none;
