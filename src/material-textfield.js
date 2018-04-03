@@ -143,6 +143,15 @@ export default class MaterialTextfield extends HTMLElement {
         if(this.hasAttribute('readonly')) {
             this.input.addEventListener('keydown', e => e.preventDefault());
         }
+        else {
+            this.input.addEventListener('keyup', () => {
+                this.dispatchEvent(new CustomEvent('change', {
+                    detail: {
+                        value: this.input.value
+                    }
+                }));
+            })
+        }
     }
 
     attributeChangedCallback(attr, oldVal, newVal) {
