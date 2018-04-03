@@ -25,6 +25,7 @@ export default class MaterialButton extends HTMLElement {
                     padding-right: 8px;
                     font-size: 1em;
                     color: var(--font-color);
+                    background-color: transparent;
                     cursor: pointer;
                     outline: none;
                     display: flex;
@@ -40,6 +41,9 @@ export default class MaterialButton extends HTMLElement {
                 :host([disabled]) button {
                     opacity: 0.5;
                     cursor: not-allowed;
+                }
+                :host([disabled]) button:hover {
+                    background-color: transparent;
                 }
                 button.active .ripple {
                     animation-name: ripple;
