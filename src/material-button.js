@@ -116,12 +116,19 @@ export default class MaterialButton extends HTMLElement {
         }
     }
 
-    disconnectedCallback() {
-
+    get disabled() {
+        return this.hasAttribute('disabled');
     }
 
-    adoptedCallback() {
+    set disabled(isDisabled) {
+        this.button.disabled = isDisabled;
 
+        if(isDisabled) {
+            this.setAttribute('disabled', '');
+        }
+        else {
+            this.removeAttribute('disabled');
+        }
     }
 }
 
