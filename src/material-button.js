@@ -66,7 +66,9 @@ export default class MaterialButton extends HTMLElement {
                     background-color: var(--button-color);
                     box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 6px, rgba(0, 0, 0, 0.12) 0px 1px 4px;
                 }
-                
+                :host([raised]) button[disabled]:hover {
+                    background-color: var(--button-color);
+                }
                 ::slotted([slot="left-icon"]) {
                     float: left;
                 }
