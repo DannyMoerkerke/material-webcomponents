@@ -1,7 +1,7 @@
 export default class MaterialTextfield extends HTMLElement {
 
     static get observedAttributes() {
-        return ['value', 'name', 'label', 'readonly'];
+        return ['value', 'name', 'label', 'readonly', 'minLength', 'maxLength', 'pattern'];
     }
 
     constructor() {
@@ -13,10 +13,11 @@ export default class MaterialTextfield extends HTMLElement {
             <style>
                 :host {
                     --active-color: #337ab7;
-                    --font-color: #ffffff;
+                    --font-color: #000000;
+                    --error-color: #ff0000;
                 }
                 :host([invalid]) {
-                    --active-color: #ff0000;
+                    --active-color: var(--error-color);
                 }
                 :host([invalid]) #bar,
                 :host([invalid]) #bar::before{
@@ -79,6 +80,10 @@ export default class MaterialTextfield extends HTMLElement {
                     color: var(--font-color);
                 }
                 
+                input:invalid {
+                    color: var(--error-color);
+                }
+                
                 input:focus ~ #bar {
                     left: 0;
                     width: 100%;
@@ -97,11 +102,16 @@ export default class MaterialTextfield extends HTMLElement {
                     
                 }
                 input:focus + label,
-                input:valid + label {
+                input:valid + label,
+                input.invalid + label {
                     font-size: 0.8rem;
                     color: gray;
                     top: -1rem;
                     left: 0;
+                }
+                
+                input.invalid + label {
+                    color: var(--error-color)
                 }
                 
                 input:focus + label {
@@ -117,8 +127,11 @@ export default class MaterialTextfield extends HTMLElement {
                     position: absolute;
                     font-size: 0.9rem;
                     line-height: 1rem;
-                    color: #ff0000;
+                    color: var(--error-color);
                     padding-top: 8px;
+                }
+                :host([invalid]) .error {
+                    display: block;
                 }
             </style>
             
@@ -126,13 +139,24 @@ export default class MaterialTextfield extends HTMLElement {
                 <input type="text" required>
                 <label></label>
                 <span id="bar"></span>
-                <div class="error">This field is required</div>
+                <div class="error"></div>
             </div>
         `;
 
         this.input = this.shadowRoot.querySelector('input');
         this.label = this.shadowRoot.querySelector('label');
+        this.error = this.shadowRoot.querySelector('.error');
 
+        this.pristine = true;
+        this.errorMap = {
+            valueMissing: 'required',
+            typeMismatch: 'type',
+            pattern: 'pattern',
+            tooShort: 'short',
+            tooLong: 'long'
+        };
+
+        this.allowedTypes = ['text', 'number', 'email', 'password', 'tel', 'url']
     }
 
     connectedCallback() {
@@ -140,17 +164,52 @@ export default class MaterialTextfield extends HTMLElement {
             this.input.value = this.getAttribute('value');
         }
 
+        if(this.hasAttribute('name')) {
+            this.input.name = this.getAttribute('name');
+        }
+
+        if(this.hasAttribute('pattern')) {
+            this.input.pattern = this.getAttribute('pattern');
+        }
+
+        if(this.hasAttribute('maxLength')) {
+            this.input.maxLength = this.getAttribute('maxLength');
+        }
+
+        if(this.hasAttribute('minLength')) {
+            this.input.minLength = this.getAttribute('minLength');
+        }
+
+        if(this.hasAttribute('type') && this.allowedTypes.includes(this.getAttribute('type'))) {
+            this.input.type = this.getAttribute('type');
+        }
+
         if(this.hasAttribute('readonly')) {
             this.input.addEventListener('keydown', e => e.preventDefault());
         }
         else {
             this.input.addEventListener('keyup', () => {
+                this.pristine = false;
+                if(this.input.validity.valid) {
+                    this.removeAttribute('invalid');
+                    this.input.classList.remove('invalid');
+                }
                 this.dispatchEvent(new CustomEvent('change', {
                     detail: {
                         value: this.input.value
                     }
                 }));
-            })
+            });
+
+            this.input.addEventListener('blur', () => {
+                for(let error in this.input.validity) {
+                    if(!this.pristine && this.input.validity[error] && this.hasAttribute(`error-${this.errorMap[error]}`)) {
+                        this.error.textContent = this.getAttribute(`error-${this.errorMap[error]}`);
+                        this.setAttribute('invalid', '');
+                        this.input.classList.add('invalid');
+                    }
+                }
+            });
         }
     }
 

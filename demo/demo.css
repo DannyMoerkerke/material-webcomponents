@@ -26,6 +26,7 @@ code, pre {
 material-app-bar {
     --app-bar-background: rgb(0, 188, 212);
     --app-bar-font-color: #ffffff;
+    margin-bottom: 150px;
 }
 
 material-slider {
@@ -43,5 +44,5 @@ material-progress {
     --progress-bar-width: 250px;
 }
 material-dropdown {
-    width: 500px;
+    /*width: 500px;*/
 }

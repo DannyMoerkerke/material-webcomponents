@@ -52,7 +52,7 @@ export default class MaterialTable extends HTMLElement {
                 thead th.sortable:not(:first-child):hover:before {
                     content: '\\2195';
                     position: absolute;
-                    top: 19px;
+                    top: 22px;
                     left: -12px;
                 }
                 
@@ -98,8 +98,33 @@ export default class MaterialTable extends HTMLElement {
                 tfoot td div {
                     display: flex;
                 }
-                button {
+                .page,
+                .prev,
+                .next,
+                .divider {
+                    border: none;
+                    border-radius: 2px;
+                    min-width: 40px;
+                    min-height: 36px;
+                    padding-left: 8px;
+                    padding-right: 8px;
+                    font-size: 1em;
+                    color: #000000;
+                    background-color: transparent;
                     cursor: pointer;
+                    outline: none;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    position: relative;
+                    overflow: hidden;
+                }
+                .page:hover,
+                .prev:hover,
+                .next:hover, 
+                .page[disabled] {
+                    transition: background-color 0.3s ease-out;
+                    background-color: #e2e2e2;
                 }
             </style>
         `;
@@ -126,6 +151,7 @@ export default class MaterialTable extends HTMLElement {
         }
 
         this.start = 0;
+        this.maxVisiblePages = 5;
     }
 
     handleClick(e) {
@@ -212,7 +238,9 @@ export default class MaterialTable extends HTMLElement {
                 </tbody>
                 <tfoot>
                     <tr>
-                        ${this.getPagination(this.curPage)}
+                        <td colspan="${this.data.length}">
+                            ${this.hasPagination ? this.getPagination(this.curPage) : ``}
+                        </td>
                     </tr>
                 </tfoot>
             </table>
@@ -222,17 +250,34 @@ export default class MaterialTable extends HTMLElement {
     }
 
     getPagination(currentPage) {
-        let pages = ``;
+        const divider = `<div class="divider">...</div>`
+        const prevPage = currentPage - 1 < 1 ? 1 : currentPage - 1;
+        const nextPage = currentPage + 1 > this.numPages ? this.numPages : currentPage + 1;
+        const nextPageButton = `<button type="button" class="next" data-page="${nextPage}" ${nextPage === currentPage ? `disabled` : ``}>&gt;</button>`;
+        const start = currentPage <= this.maxVisiblePages ? 1 :
+                      this.numPages - currentPage < this.maxVisiblePages ? (currentPage - this.maxVisiblePages) + 1 :
+                      currentPage;
 
-        for(let i = 1; i <= this.numPages; i++) {
+        const end = this.numPages <= this.maxVisiblePages
+                    ? this.numPages
+                    : currentPage > this.maxVisiblePages
+                    ? Math.min(currentPage, this.numPages)
+                    : this.maxVisiblePages;
+
+        let pages = `<button type="button" class="prev" data-page="${prevPage}" ${prevPage === currentPage ? `disabled` : ``}>&lt;</button>`;
+
+        if(end === this.numPages) {
+            pages = `${pages}<button type="button" class="page" data-page="1" ${currentPage === 1 ? `disabled` : ``}>1</button>`;
+        }
+        for(let i = start; i <= end; i++) {
             pages = `${pages}<button type="button" class="page" data-page="${i}" ${i === currentPage ? `disabled` : ``}>${i}</button>`;
         }
 
-        return `
-            <td colspan="${this.data.length}">
-                <div>${pages}</div>
-            </td>
-        `;
+        if(end < this.numPages) {
+            pages = `${pages}<button type="button" class="page" data-page="${this.numPages}" ${this.numPages === currentPage ? `disabled` : ``}>${this.numPages}</button>`;
+        }
+
+        return `<div>${pages}${nextPageButton}</div>`;
     }
 
     getHeading(col) {
@@ -263,6 +308,7 @@ export default class MaterialTable extends HTMLElement {
     set data(data) {
         this._data = data;
         if(this.perPage) {
+            this.hasPagination = this.perPage < this.data.length;
             this.numPages = data.length / this.perPage;
             this.start = (this.curPage - 1) * this.perPage;
             this.end = this.start + this.perPage;
@@ -283,11 +329,8 @@ export default class MaterialTable extends HTMLElement {
                 const colA = typeof a[col] === 'string' ? a[col].toLowerCase() : a[col];
                 const colB = typeof b[col] === 'string' ? b[col].toLowerCase() : b[col];
 
-                return colA < colB
-                    ? order
-                    : colA > colB
-                    ? -order
-                    : 0;
+                return colA < colB ? order :
+                       colA > colB ? -order : 0;
             });
 
             this.sort = [col, order];

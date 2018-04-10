@@ -18,7 +18,16 @@
     <body>
 
         <div class="container">
-            <material-textfield label="Voornaam"></material-textfield>
+            <form>
+                <material-textfield
+                        type="text"
+                        label="Voornaam"
+                        error-required="This field is required"
+                        error-short="Must be at least 10 characters"
+                        error-long="Can only be 3 characters"
+                        maxLength="3"
+                        error-type="Please enter a valid email"></material-textfield>
+            </form>
         </div>
 
         <script type="module" src="src/material-textfield.js"></script>

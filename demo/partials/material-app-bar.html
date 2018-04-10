@@ -43,6 +43,12 @@
 <h3>Demo</h3>
 <material-app-bar label="Title">
     <i class="material-icons" slot="left-content">add</i>
-    <span slot="title">Menu</span>
-    <i class="material-icons" slot="right-content">close</i>
+
+    <material-dropdown slot="right-content">
+        <i class="material-icons" slot="icon" tabindex="1">menu</i>
+        <li slot="option">Javascript</li>
+        <li slot="option">PHP</li>
+        <li slot="option">Java</li>
+        <li slot="option">Scala</li>
+    </material-dropdown>
 </material-app-bar>

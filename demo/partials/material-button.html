@@ -11,7 +11,7 @@
 <h3>Attributes</h3>
 <ul>
     <li><code>label</code>: String, label</li>
-    <li><code>raised</code>: empty, adds shadow to button to make it appear raised</li>
+    <li><code>raised</code>: empty, adds shadow and background color to button to make it appear raised</li>
 </ul>
 
 
@@ -38,3 +38,13 @@
 
 <em>Color</em>
 <material-button id="blue-button" label="Confirm" raised></material-button>
+
+<em>left icon</em>
+<material-button label="Add" raised>
+    <i class="material-icons" slot="left-icon">add</i>
+</material-button>
+
+<em>right icon</em>
+<material-button label="Close" raised>
+    <i class="material-icons" slot="right-icon">close</i>
+</material-button>

@@ -3,6 +3,29 @@ export default class CustomElement extends HTMLElement {
         super();
 
         this.state = {};
+
+        this.data = new Proxy(this, {
+            set(target, prop, value) {
+                console.log('proxy', prop, value);
+                target[prop] = value;
+
+                target.updateBindings(prop, value);
+
+                return true;
+            }
+        });
+    }
+
+    updateBindings(prop, value = '') {
+        const bound = this.shadowRoot.querySelectorAll(`[data-bind="${prop}"]`);
+
+        if(value === null) {
+            value = '';
+        }
+
+        if(bound.length) {
+            bound.forEach(node => node.textContent = value.toString());
+        }
     }
 
     setState(newState) {

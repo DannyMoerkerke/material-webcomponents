@@ -12,7 +12,10 @@ export default class MaterialAppBar extends HTMLElement {
         shadowRoot.innerHTML = `
             <style>
                 :host {
+                    --app-bar-background: #999999;
+                    --app-bar-font-color: #000000;
                     --app-bar-padding: 15px;
+                    display: block;
                 }
                 .material-icons {
                     font-family: 'Material Icons';
@@ -44,8 +47,8 @@ export default class MaterialAppBar extends HTMLElement {
                     height: 100%;
                     padding: var(--app-bar-padding);
                     box-sizing: border-box;
-                    background: var(--app-bar-background, #999999);
-                    color: var(--app-bar-font-color, #000000);
+                    background: var(--app-bar-background);
+                    color: var(--app-bar-font-color);
                     box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 6px, rgba(0, 0, 0, 0.12) 0px 1px 4px;
                 }
                 
@@ -63,25 +66,20 @@ export default class MaterialAppBar extends HTMLElement {
                     display: block;
                     padding-top: 1px;
                     padding-bottom: 1px;
-                    font-size: 32px !important;
                 }
                 ::slotted([slot="left-content"]) {
-                    margin-right: var(--left-content-spacing, 10px);
+                    margin-right: 10px;
                 }
                 ::slotted([slot="right-content"]) {
-                    margin-left: var(--right-content-spacing, 10px);
+                    margin-left: 10px;
                 }
                 .left-content {
                     display: flex;
                     justify-content: flex-start;
                     align-items: center;
                 }
-                .left-content,
-                .menu-icon {
+                .left-content {
                     grid-column: 1 / 2;
-                }
-                .middle-content {
-                    grid-column: 2 / 3;
                 }
                 .right-content {
                     grid-column: 3 / 4;
@@ -90,92 +88,34 @@ export default class MaterialAppBar extends HTMLElement {
                     align-items: center;
                     position: static;
                 }
-                .dropdown-menu {
-                    display: none;
-                    flex-direction: column;
-                    grid-column: 1 / 6;
-                    width: 100%;
-                    position: absolute;
-                    top: var(--menu-top);
-                    background: var(--app-bar-background, #999999);
-                    z-index: 999;
-                }
-                .dropdown-menu ::slotted([slot="left-content"]),
-                .dropdown-menu ::slotted([slot="right-content"]) {
-                    margin: 10px;
-                }
             </style>
             
-            <template id="large">
+            <div id="container">
                 <div class="left-content">
                     <slot name="left-content"></slot>
                     <span id="label"></span>
                 </div>
                 
-                <div class="middle-content">
-                </div>
                 <div class="right-content">
                     <slot name="right-content"></slot>
                 </div>
-            </template>
-            
-            <template id="small">
-                <i class="material-icons menu-icon">menu</i>
-                <div class="dropdown-menu">
-                    <slot name="left-content"></slot>
-                    <slot name="right-content"></slot>
-                </div>
-            </template>
-            
-            <div id="container"></div>
+            </div>
         `;
     }
 
     connectedCallback() {
-
-        const mq = window.matchMedia('(min-width: 600px)');
-        mq.addListener(this.handleResize.bind(this));
-        this.handleResize(mq);
-    }
-
-    handleResize(mq) {
         this.container = this.shadowRoot.querySelector('#container');
+        this.label = this.shadowRoot.querySelector('#label');
+        if(this.hasAttribute('label')) {
+            this.label.textContent = this.getAttribute('label');
+        }
         this.menuOpen = false;
 
-        if(mq.matches) {
-            const largeContent = this.shadowRoot.querySelector('#large').content.cloneNode(true);
-            this.container.innerHTML = '';
-            this.container.appendChild(largeContent);
-
-            setTimeout(() => {
-                this.label = this.shadowRoot.querySelector('#label');
-                if(this.hasAttribute('label')) {
-                    this.label.textContent = this.getAttribute('label');
-                }
-            });
-
-            this.setupEventHandlers();
-        }
-        else {
-            const smallContent = this.shadowRoot.querySelector('#small').content.cloneNode(true);
-            this.container.innerHTML = '';
-            this.container.appendChild(smallContent);
-            this.setupEventHandlers();
-
-            setTimeout(() => {
-                this.dropdownMenu = this.shadowRoot.querySelector('.dropdown-menu');
-
-                const {height} = this.container.getBoundingClientRect();
-                this.dropdownMenu.style.setProperty('--menu-top', `${height}px`);
-
-                this.shadowRoot.querySelector('.menu-icon').onclick = this.handleMenuClick.bind(this);
-            });
-        }
+        this.setupEventHandlers();
     }
 
     handleMenuClick() {
         this.menuOpen = !this.menuOpen;
-        this.dropdownMenu.style.display = this.menuOpen ? 'flex' : 'none';
     }
 
     handleIconClick({target}) {

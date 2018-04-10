@@ -65,8 +65,8 @@ routes(outlet, [
         templateUrl: 'demo/partials/material-dropdown.html'
     },
     {
-        url: '/material-loader',
-        template: `<material-loader></material-loader>`
+        url: '/material-progress',
+        templateUrl: 'demo/partials/material-progress.html'
     },
     {
         url: '/material-radiobutton',
@@ -86,9 +86,8 @@ routes(outlet, [
         controller() {
             customElements.whenDefined('material-table')
             .then(() => {
-                const table = document.querySelector('material-table');
-
-                table.data = [
+                const tables = document.querySelectorAll('material-table');
+                tables[0].data = [
                     {
                         id: 1,
                         language: 'Javascript',
@@ -110,42 +109,98 @@ routes(outlet, [
                         scope: 'Frontend'
                     }
                 ];
+                tables[1].data = [
+                    {
+                        id: 1,
+                        language: 'Javascript',
+                        scope: 'Frontend'
+                    },
+                    {
+                        id: 2,
+                        language: 'PHP',
+                        scope: 'Backend'
+                    },
+                    {
+                        id: 3,
+                        language: 'Scala',
+                        scope: 'Backend'
+                    },
+                    {
+                        id: 4,
+                        language: 'CSS',
+                        scope: 'Frontend'
+                    },
+                    {
+                        id: 5,
+                        language: 'Javascript',
+                        scope: 'Frontend'
+                    },
+                    {
+                        id: 6,
+                        language: 'PHP',
+                        scope: 'Backend'
+                    },
+                    {
+                        id: 7,
+                        language: 'Scala',
+                        scope: 'Backend'
+                    },
+                    {
+                        id: 8,
+                        language: 'CSS',
+                        scope: 'Frontend'
+                    },
+                    {
+                        id: 9,
+                        language: 'Javascript',
+                        scope: 'Frontend'
+                    },
+                    {
+                        id: 10,
+                        language: 'PHP',
+                        scope: 'Backend'
+                    },
+                    {
+                        id: 11,
+                        language: 'Scala',
+                        scope: 'Backend'
+                    },
+                    {
+                        id: 12,
+                        language: 'CSS',
+                        scope: 'Frontend'
+                    },
+                    {
+                        id: 13,
+                        language: 'Javascript',
+                        scope: 'Frontend'
+                    },
+                    {
+                        id: 14,
+                        language: 'PHP',
+                        scope: 'Backend'
+                    },
+                    {
+                        id: 15,
+                        language: 'Scala',
+                        scope: 'Backend'
+                    },
+                    {
+                        id: 16,
+                        language: 'CSS',
+                        scope: 'Frontend'
+                    }
+                ];
             });
         }
     },
     {
         url: '/material-tabs',
-        template: `
-            <material-tabs>
-                <div slot="tab" data-title="tab 1">
-                    First tab
-                </div>
-
-                <div slot="tab" data-title="tab 2">
-                    tab number 2
-                </div>
-
-                <div slot="tab" data-title="tab 3">
-                    a third one
-                </div>
-
-                <div slot="tab" data-title="tab 4">
-                    and number 4
-                </div>
-
-                <div slot="tab" data-title="tab 5">
-                    and another one
-                </div>
-
-                <div slot="tab" data-title="tab 6">
-                    man, another one???
-                </div>
-            </material-tabs>
-        `
+        templateUrl: 'demo/partials/material-tabs.html'
     },
     {
         url: '/material-textfield',
-        template: `<material-textfield label="Voornaam"></material-textfield>`
+        templateUrl: 'demo/partials/material-textfield.html'
     },
     {
         url: '/material-toggle-button',
@@ -153,23 +208,6 @@ routes(outlet, [
     },
     {
         url: '/material-slidemenu',
-        template: `
-            <material-slidemenu label="Components">
-                <a slot="item" href="/material-app-bar">material-app-bar</a>
-                <a slot="item" href="/material-checkbox">material-checkbox</a>
-                <a slot="item" href="/material-datepicker">material-datepicker</a>
-                <a slot="item" href="/material-dialog">material-dialog</a>
-                <a slot="item" href="/material-dropdown">material-dropdown</a>
-                <a slot="item" href="/material-loader">material-loader</a>
-                <a slot="item" href="/material-radiobutton">material-radiobutton</a>
-                <a slot="item" href="/material-slider">material-slider</a>
-                <a slot="item" href="/material-switch">material-switch</a>
-                <a slot="item" href="/material-table">material-table</a>
-                <a slot="item" href="/material-tabs">material-tabs</a>
-                <a slot="item" href="/material-textfield">material-textfield</a>
-                <a slot="item" href="/material-toggle-button">material-toggle-button</a>
-                <a slot="item" href="/material-slidemenu">material-slidemenu</a>
-            </material-slidemenu>
-        `
+        templateUrl: 'demo/partials/material-slidemenu.html'
     }
 ]);

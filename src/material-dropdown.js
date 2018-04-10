@@ -18,6 +18,8 @@ export default class MaterialDropdown extends HTMLElement {
                     --menu-background: #ffffff;
                     --icon-width: 24px;
                     --icon-height: 24px;
+                    --font-color: #000000;
+                    --hover-color: #cecece;
                     width: var(--menu-width);
                     height: var(--menu-height);
                 }
@@ -54,7 +56,7 @@ export default class MaterialDropdown extends HTMLElement {
                 #dropdown-menu-container {
                     position: absolute;
                     top: 0;
-                    left: 0;
+                    /*left: 0;*/
                     min-width: var(--menu-width);
                     height: 0;
                     opacity: 0;
@@ -74,15 +76,16 @@ export default class MaterialDropdown extends HTMLElement {
                     animation-fill-mode: forwards;
                     animation-timing-function: ease-out;
                 }
-                ::slotted(li) {
+                ::slotted([slot="option"]) {
                     padding: 10px;
                     cursor: pointer;
                     list-style-type: none;
                     display: flex;
                     flex-direction: row;
+                    color: var(--font-color);
                 }
-                ::slotted(li:hover) {
-                    background: #cecece;
+                ::slotted([slot="option"]:hover) {
+                    background: var(--hover-color);
                 }
                 ::slotted([slot="icon"]) {
                     display: block;
@@ -135,6 +138,15 @@ export default class MaterialDropdown extends HTMLElement {
         const {width, height} = this.shadowRoot.querySelector('#dropdown-menu').getBoundingClientRect();
         this.menuContainer.style.setProperty('--menu-height', `${height}px`);
         this.menuContainer.style.setProperty('--menu-width', `${width}px`);
+
+        const {x, width: w} = this.menu.getBoundingClientRect();
+
+        if(x + w >= screen.width) {
+            this.menuContainer.style.right = 0;
+        }
+        else {
+            this.menuContainer.style.left = 0;
+        }
     }
 
     openMenu() {
