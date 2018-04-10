@@ -69,6 +69,18 @@ routes(outlet, [
         templateUrl: 'demo/partials/material-progress.html'
     },
     {
+        url: '/material-drawer',
+        templateUrl: 'demo/partials/material-drawer.html',
+        controller() {
+            const button = document.querySelector('#material-drawer-toggle');
+            const drawer = document.querySelector('material-drawer');
+
+            button.addEventListener('click', () => {
+                drawer.toggle();
+            });
+        }
+    },
+    {
         url: '/material-radiobutton',
         templateUrl: 'demo/partials/material-radiobutton.html'
     },
