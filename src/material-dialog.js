@@ -11,13 +11,21 @@ export default class MaterialDialog extends HTMLElement {
 
         shadowRoot.innerHTML = `
             <style>
+                :host {
+                    --header-background: #ffffff;
+                    --body-background: #ffffff;
+                    --footer-background: #ffffff;
+                    --backdrop-color: #808080;
+                    --dialog-width: 20%;
+                    --dialog-height: auto;
+                }
                 #backdrop {
                     position: fixed;
                     top: 0;
                     left: 0;
                     width: 100%;
                     height: 100%;
-                    background: var(--backdrop-color, rgba(128,128,128,0.5));
+                    background: var(--backdrop-color);
                     animation-name: fadein;
                     animation-duration: .2s;
                     animation-fill-mode: forwards;
@@ -30,8 +38,8 @@ export default class MaterialDialog extends HTMLElement {
                     position: absolute;
                     top: 50%;
                     left: 50%;
-                    width: var(--dialog-width, 20%);
-                    height: var(--dialog-height, auto);
+                    width: var(--dialog-width);
+                    height: var(--dialog-height);
                     background: #ffffff;
                     animation-name: slidedown;
                     animation-duration: .2s;
@@ -39,13 +47,13 @@ export default class MaterialDialog extends HTMLElement {
                     animation-timing-function: ease-out;
                 }
                 header {
-                    background: var(--header-background, #ffffff);
+                    background: var(--header-background);
                 }
                 main {
-                    background: var(--body-background, #ffffff);
+                    background: var(--body-background);
                 }
                 footer {
-                    background: var(--footer-background, #ffffff);
+                    background: var(--footer-background);
                 }
                 ::slotted([slot]) {
                     margin: 10px;

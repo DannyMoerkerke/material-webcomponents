@@ -12,6 +12,7 @@
 <ul>
     <li><code>label</code>: String, label</li>
     <li><code>raised</code>: empty, adds shadow and background color to button to make it appear raised</li>
+    <li><code>disabled</code>: empty, disables the button</li>
 </ul>
 
 
@@ -23,8 +24,8 @@
 
 <h3>Styling</h3>
 <ul>
-    <li>background color: <code>--button-color</code></li>
-    <li>font color: <code>--font-color</code></li>
+    <li><code>--button-color</code>: background color, default: #e2e2e2</li>
+    <li><code>--font-color</code>: font color, default: #000000</li>
 </ul>
 
 
@@ -35,6 +36,9 @@
 
 <em>Raised</em>
 <material-button label="Confirm" raised></material-button>
+
+<em>Disabled</em>
+<material-button label="Confirm" raised disabled></material-button>
 
 <em>Color</em>
 <material-button id="blue-button" label="Confirm" raised></material-button>

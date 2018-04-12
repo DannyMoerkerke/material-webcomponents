@@ -114,10 +114,6 @@ export default class MaterialAppBar extends HTMLElement {
         this.setupEventHandlers();
     }
 
-    handleMenuClick() {
-        this.menuOpen = !this.menuOpen;
-    }
-
     handleIconClick({target}) {
         this.dispatchEvent(new CustomEvent('app-bar-click', {
             detail: {target}

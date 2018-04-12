@@ -14,7 +14,7 @@ export default class MaterialProgress extends HTMLElement {
                 :host {
                     --progress-bar-width: 100%;
                     --progress-bar-height: 5px;
-                    --progress-bar-color: rgb(0, 188, 212);
+                    --progress-bar-color: #00bcd4;
                     --progress-background: #eeeeee;
                     --progress-font-size: 4px;
                 }

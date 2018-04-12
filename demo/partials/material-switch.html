@@ -7,13 +7,21 @@
 
 <h3>Attributes</h3>
 <ul>
-    <li><code>label-position</code>: (left|right), position of label (default: left)</li>
+    <li><code>on</code>: empty, toggles the switch when present</li>
+    <li><code>label-position</code>: (left|right), position of label (default: right)</li>
 </ul>
 
 <h3>Styling</h3>
 <ul>
-    <li>switch color: <code>--switch-color</code></li>
+    <li><code>--switch-color</code>: color of the switch, default: #f5f5f5</li>
+    <li><code>--track-color</code>: color of the track, default: #bdbdbd</li>
 </ul>
 
 <h3>Demo</h3>
 <material-switch label="switch label"></material-switch>
+
+<b>on</b>
+<material-switch label="switch label" on></material-switch>
+
+<b>label on the left</b>
+<material-switch label="switch label" label-position="left"></material-switch>

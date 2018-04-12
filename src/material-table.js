@@ -1,4 +1,3 @@
-import './material-checkbox.js';
 
 export default class MaterialTable extends HTMLElement {
 
@@ -18,16 +17,20 @@ export default class MaterialTable extends HTMLElement {
 
         this.css = `
             <style>
+                :host {
+                    --row-hover-color: #eeeeee;
+                    --row-selected-color: #f5f5f5;
+                }
                 table {
                     border-spacing: 0;
                     border-radius: 3px;
-                    box-shadow: 0 0 1px 1px #CCCCCC;
+                    box-shadow: 0 0 1px 1px #cccccc;
                 }
                 tr {
                     height: 48px;
                 }
                 tr.selected {
-                    background-color: #f5f5f5;
+                    background-color: var(--row-selected-color);
                 }
                 th, td {
                     border-top: 1px solid #cccccc;
@@ -90,7 +93,7 @@ export default class MaterialTable extends HTMLElement {
                     padding-right: 24px;
                 }
                 tbody tr:not(.selected):hover {
-                    background-color: #eeeeee;
+                    background-color: var(--row-hover-color);
                 }
                 tfoot tr {
                     height: 56px;
@@ -152,6 +155,17 @@ export default class MaterialTable extends HTMLElement {
 
         this.start = 0;
         this.maxVisiblePages = 5;
+        this.selectAll = customElements.get('material-checkbox')
+                         ? `<material-checkbox class="select-all"></material-checkbox>`
+                         : `<input type="checkbox" class="select-all">`;
+
+        this.checkBox = customElements.get('material-checkbox')
+                        ? `<material-checkbox></material-checkbox>`
+                        : `<input type="checkbox">`;
+
+        this.checkBoxSelector = customElements.get('material-checkbox')
+            ? `material-checkbox`
+            : `input`;
     }
 
     handleClick(e) {
@@ -159,7 +173,7 @@ export default class MaterialTable extends HTMLElement {
         const rows = tbody.querySelectorAll('tr');
 
         const findByTagname = tagName => node => node.tagName && node.tagName.toLowerCase() === tagName;
-        const getCheckBox = findByTagname('material-checkbox');
+        const getCheckBox = findByTagname(this.checkBoxSelector);
         const getHeading = findByTagname('th');
         const getButton = findByTagname('button');
 
@@ -172,7 +186,7 @@ export default class MaterialTable extends HTMLElement {
             setTimeout(() => {
                 if(checkbox.classList.contains('select-all')) {
                     rows.forEach(row => {
-                        const box = row.querySelector('material-checkbox');
+                        const box = row.querySelector(this.checkBoxSelector);
 
                         if(checkbox.checked) {
                             row.classList.add('selected');
@@ -229,7 +243,7 @@ export default class MaterialTable extends HTMLElement {
             <table>
                 <thead>
                     <tr>
-                        <th><material-checkbox class="select-all"></material-checkbox></th>
+                        <th>${this.selectAll}</th>
                          ${this.cols.map(col => `${this.getHeading(col)}`).join('')}
                     </tr>
                 </thead>
@@ -296,7 +310,7 @@ export default class MaterialTable extends HTMLElement {
 
     getTableRow(row) {
         return `<tr>
-                    <td><material-checkbox></material-checkbox></td>
+                    <td>${this.checkBox}</td>
                     ${Object.values(row).map(val => `<td>${val}</td>`).join('')}
                 </tr>`;
     }

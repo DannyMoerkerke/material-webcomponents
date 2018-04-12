@@ -14,7 +14,7 @@ export default class MaterialDropdown extends HTMLElement {
             <style>
                 :host {
                     --menu-width: 24px;
-                    --menu-height: 23px;
+                    --menu-height: 24px;
                     --menu-background: #ffffff;
                     --icon-width: 24px;
                     --icon-height: 24px;

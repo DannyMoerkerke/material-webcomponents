@@ -12,9 +12,8 @@ export default class MaterialDatepicker extends HTMLElement {
         shadowRoot.innerHTML = `
             <style>
                 :host {
-                    font-family: Verdana;
+                    --datepicker-color: #0000ff;
                     --first-day-position: 1;
-                    --datepicker-color: blue;
                 }
                 #container {
                     display: grid;

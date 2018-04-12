@@ -18,17 +18,18 @@
     <li><code>change</code>: fired when the "ok" button is clicked
         <ul>
             <li>Event detail:
-                ul
+                <ul>
+                    <li><code>date</code>: Date, currently selected date</li>
+                    <li><code>formattedDate</code>: String, currently selected date, formatted according to <code>locale</code></li>
+                </ul>
             </li>
-            <li><code>date</code>: Date, currently selected date</li>
-            <li><code>formattedDate</code>: String, currently selected date, formatted according to <code>locale</code></li>
         </ul>
     </li>
 </ul>
 
 <h3>Styling</h3>
 <ul>
-    <li>color of datepicker header, selected day and year: <code>--datepicker-color</code></li>
+    <li><code>--datepicker-color</code>: color of datepicker header, selected day and year, default: #0000ff</li>
 </ul>
 
 <h3>Demo</h3>

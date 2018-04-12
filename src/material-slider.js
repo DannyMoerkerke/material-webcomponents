@@ -13,11 +13,9 @@ export default class MaterialSlider extends HTMLElement {
             <style>
                 :host {
                     display: block;
-                    --cur-value: 50%;
-                    --correction-factor: 2;
-                    --thumb-color: rgb(0, 188, 212);
+                    --thumb-color: #00bcd4;
                     --thumb-color-light: #ffffff;
-                    --track-color: rgb(204, 204, 204);
+                    --track-color: #cccccc;
                     --thumb-size: 16px;
                     --track-height: 4px;
                 }
