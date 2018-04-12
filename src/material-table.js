@@ -20,6 +20,12 @@ export default class MaterialTable extends HTMLElement {
                 :host {
                     --row-hover-color: #eeeeee;
                     --row-selected-color: #f5f5f5;
+                    --checkbox-unchecked-color: #999999;
+                    --checkbox-checked-color: #337ab7;
+                }
+                material-checkbox {
+                    --unchecked-color: var(--checkbox-unchecked-color);
+                    --checked-color: var(--checkbox-checked-color);
                 }
                 table {
                     border-spacing: 0;
