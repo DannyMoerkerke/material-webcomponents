@@ -23,7 +23,7 @@ export default class MaterialDropdown extends HTMLElement {
                     width: var(--menu-width);
                     height: var(--menu-height);
                 }
-                #container {
+                #dropdown-container {
                     position: relative;
                     display: inline-block;
                     width: var(--menu-width);
@@ -96,7 +96,7 @@ export default class MaterialDropdown extends HTMLElement {
                 }
             </style>
             
-            <div id="container">
+            <div id="dropdown-container">
                 <slot name="icon"></slot>
                 
                 <div id="dropdown-menu-container">
@@ -108,7 +108,7 @@ export default class MaterialDropdown extends HTMLElement {
         `;
 
         this.open = this.hasAttribute('open');
-        this.container = this.shadowRoot.querySelector('#container');
+        this.container = this.shadowRoot.querySelector('#dropdown-container');
         this.menuContainer = this.shadowRoot.querySelector('#dropdown-menu-container');
         this.menu = this.shadowRoot.querySelector('#dropdown-menu');
     }
@@ -135,18 +135,20 @@ export default class MaterialDropdown extends HTMLElement {
     }
 
     setupMenu() {
-        const {width, height} = this.shadowRoot.querySelector('#dropdown-menu').getBoundingClientRect();
-        this.menuContainer.style.setProperty('--menu-height', `${height}px`);
-        this.menuContainer.style.setProperty('--menu-width', `${width}px`);
+        setTimeout(() => {
+            const {width, height} = this.shadowRoot.querySelector('#dropdown-menu').getBoundingClientRect();
+            this.menuContainer.style.setProperty('--menu-height', `${height}px`);
+            this.menuContainer.style.setProperty('--menu-width', `${width}px`);
 
-        const {x, width: w} = this.menu.getBoundingClientRect();
+            const {x, width: w} = this.menu.getBoundingClientRect();
 
-        if(x + w >= screen.width) {
-            this.menuContainer.style.right = 0;
-        }
-        else {
-            this.menuContainer.style.left = 0;
-        }
+            if(x + w >= screen.width) {
+                this.menuContainer.style.right = 0;
+            }
+            else {
+                this.menuContainer.style.left = 0;
+            }
+        });
     }
 
     openMenu() {

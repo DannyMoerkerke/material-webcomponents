@@ -7,7 +7,7 @@
     "_postinstall": "mkdir -p bower_components/web-component-tester && cp -R node_modules/web-component-tester/* bower_components/web-component-tester",
     "start": "ws -p 8080 --spa index.html",
     "start:ie": "ws -p 8080 --spa index-ie.html",
-    "start:bundle": "npm run build:bundle && npm start",
+    "start:bundle": "webpack-dev-server --config webpack.config.bundle.js",
     "start:legacy": "npm run build:legacy && npm start",
     "test": "wct",
     "clean:dist": "rm -rf dist/*",

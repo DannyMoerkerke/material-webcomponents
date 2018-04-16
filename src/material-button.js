@@ -100,6 +100,7 @@ export default class MaterialButton extends HTMLElement {
 
         this.button = this.shadowRoot.querySelector('button');
         this.label = this.shadowRoot.querySelector('#label');
+        this.ripple = this.shadowRoot.querySelector('.ripple');
     }
 
     connectedCallback() {
@@ -107,7 +108,7 @@ export default class MaterialButton extends HTMLElement {
             this.button.classList.add('active');
         });
 
-        this.button.addEventListener('animationend', () => {
+        this.ripple.addEventListener('animationend', () => {
             this.button.classList.remove('active');
         });
     }

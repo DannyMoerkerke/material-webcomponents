@@ -15,10 +15,11 @@ export default class MaterialDialog extends HTMLElement {
                     --header-background: #ffffff;
                     --body-background: #ffffff;
                     --footer-background: #ffffff;
-                    --backdrop-color: #808080;
+                    --backdrop-color: rgba(128,128,128,0.5);
                     --dialog-width: 20%;
                     --dialog-height: auto;
                 }
+                
                 #backdrop {
                     position: fixed;
                     top: 0;
@@ -38,6 +39,7 @@ export default class MaterialDialog extends HTMLElement {
                     position: absolute;
                     top: 50%;
                     left: 50%;
+                    transform: translate(-50%, -50%);
                     width: var(--dialog-width);
                     height: var(--dialog-height);
                     background: #ffffff;

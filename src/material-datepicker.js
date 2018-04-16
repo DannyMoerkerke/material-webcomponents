@@ -15,7 +15,7 @@ export default class MaterialDatepicker extends HTMLElement {
                     --datepicker-color: #0000ff;
                     --first-day-position: 1;
                 }
-                #container {
+                #datepicker-container {
                     display: grid;
                     grid-template-rows: 100px 1fr 1fr 40px;
                     grid-template-columns: 1fr;
@@ -160,7 +160,7 @@ export default class MaterialDatepicker extends HTMLElement {
                 }
                 
                 @media (max-width: 750px) and (orientation: landscape) {
-                    #container {
+                    #datepicker-container {
                         grid-template-columns: 150px 1fr;
                         grid-template-rows: 1fr 40px;
                         width: 444px;
@@ -201,7 +201,7 @@ export default class MaterialDatepicker extends HTMLElement {
                 <section id="years-view-container"></section>
             </template>
             
-            <div id="container">
+            <div id="datepicker-container">
                 <header id="main-header">
                     <p></p>
                     <h1></h1>
@@ -214,7 +214,7 @@ export default class MaterialDatepicker extends HTMLElement {
             </div>
         `;
 
-        this.container = this.shadowRoot.querySelector('#container');
+        this.container = this.shadowRoot.querySelector('#datepicker-container');
         this.buttonsContainer = this.shadowRoot.querySelector('#buttons-container');
         this.mainHeader = this.shadowRoot.querySelector('#main-header');
 

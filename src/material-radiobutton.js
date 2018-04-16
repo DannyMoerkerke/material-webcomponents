@@ -34,7 +34,7 @@ export default class MaterialRadiobutton extends HTMLElement {
                         box-shadow: 0 0 0 16px rgba(204, 204, 204, 0.1);
                     }                
                 }
-                #container {
+                #radiobutton-container {
                     margin-bottom: 1rem;
                 }
                 input {
@@ -51,7 +51,6 @@ export default class MaterialRadiobutton extends HTMLElement {
                     position: absolute;
                     top: 2px;
                     left: 2px;
-                    /*transform: translate(-50%, -50%);*/
                     transition: box-shadow 0.5s ease;
                 }
                 label {
@@ -75,7 +74,7 @@ export default class MaterialRadiobutton extends HTMLElement {
                     user-select: none;
                     color:var(--unchecked-color);
                 }
-                .checkmark::before, #container .checkmark::after {
+                .checkmark::before, #radiobutton-container .checkmark::after {
                     content: '';
                     position: absolute;
                     left: 0;
@@ -107,7 +106,7 @@ export default class MaterialRadiobutton extends HTMLElement {
                 
             </style>
             
-            <div id="container">
+            <div id="radiobutton-container">
                 <label>
                     <input type="radio">
                     <div class="ripple"></div>

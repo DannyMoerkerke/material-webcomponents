@@ -36,26 +36,11 @@
                 <a slot="item" href="/material-slidemenu">material-slidemenu</a>
             </material-slidemenu>
 
-            <div id="content">
-                <material-progress value="50" max="100" circle="64"></material-progress>
-
-                <material-slider value="0" max="100"></material-slider>
-            </div>
+            <div id="content"></div>
         </main>
 
         <script type="module" src="src/bundle.js"></script>
         <script type="module" src="demo/routes.js"></script>
         <script src="lib/polyfill-loader.js"></script>
-
-        <script>
-            const progress = document.querySelector('material-progress');
-            const slider = document.querySelector('material-slider');
-
-            slider.addEventListener('change', e => {
-                const {value} = e.detail;
-
-                progress.value = value;
-            })
-        </script>
     </body>
 </html>

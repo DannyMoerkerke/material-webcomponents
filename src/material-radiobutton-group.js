@@ -11,7 +11,7 @@ export default class MaterialRadiobuttonGroup extends HTMLElement {
 
         shadowRoot.innerHTML = `
             <div>
-            <slot name="radio"></slot>
+                <slot name="radio"></slot>
             </div>
         `;
 
@@ -19,18 +19,13 @@ export default class MaterialRadiobuttonGroup extends HTMLElement {
             value: null
         };
 
-    }
-
-    connectedCallback() {
         this.buttons = this.shadowRoot.querySelector('slot[name="radio"]').assignedNodes();
         this.buttons.forEach(button => {
             if(button.hasAttribute('checked')) {
                 this.target = button;
             }
-        });
-        this.buttons.forEach((button) => {
             button.addEventListener('change', this.handleChange.bind(this));
-        })
+        });
     }
 
     attributeChangedCallback(attr, oldVal, newVal) {

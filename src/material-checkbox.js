@@ -75,7 +75,8 @@ export default class MaterialCheckbox extends HTMLElement {
                     border-radius: 0.0625rem;
                     transition: border-color 0.28s ease;
                 }
-                .checkmark::before, #container .checkmark::after {
+                .checkmark::before, 
+                #checkbox-container .checkmark::after {
                     position: absolute;
                     height: 0;
                     width: 0.2rem;
@@ -98,10 +99,10 @@ export default class MaterialCheckbox extends HTMLElement {
                     left: 0;
                     transform: rotate(-45deg);
                 }
-                #container input:checked ~ .checkmark::after {
+                #checkbox-container input:checked ~ .checkmark::after {
                     height: 0.5rem;
                 }
-                #container input:checked ~ .checkmark::before {
+                #checkbox-container input:checked ~ .checkmark::before {
                     height: 1.2rem;
                     transition-delay: 0.28s;
                 }
@@ -112,13 +113,14 @@ export default class MaterialCheckbox extends HTMLElement {
                 input:checked ~ .checkmark {
                     color: var(--checked-color);
                 }
-                #container input:checked ~ .checkmark::after, #container input:checked ~ .checkmark::before {
+                #checkbox-container input:checked ~ .checkmark::after, 
+                #checkbox-container input:checked ~ .checkmark::before {
                     opacity: 1;
                     transition: height 0.28s ease;
                 }
             </style>
             
-            <div id="container">
+            <div id="checkbox-container">
                 <label>
                     <input type="checkbox">
                     <i class="checkmark"></i>

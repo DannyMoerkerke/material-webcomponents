@@ -7,6 +7,7 @@ export default class MaterialSlidemenu extends HTMLElement {
         shadowRoot.innerHTML = `
             <style>
                 :host {
+                    display: block;
                     --label-height: 40px;
                 }
                 nav {
@@ -16,13 +17,13 @@ export default class MaterialSlidemenu extends HTMLElement {
                     cursor: pointer;
                     z-index: 1;
                 }
-                #container {
+                #slidemenu-container {
                     position: relative;
                     height: 0;
                     overflow: hidden;
                     transition: height 450ms cubic-bezier(0.23, 1, 0.32, 1);
                 }
-                nav.open #container {
+                nav.open #slidemenu-container {
                     height: var(--open-height);
                     transition: height 450ms cubic-bezier(0.23, 1, 0.32, 1);
                 }
@@ -54,7 +55,7 @@ export default class MaterialSlidemenu extends HTMLElement {
             
             <nav>
                 <label></label>
-                <div id="container">
+                <div id="slidemenu-container">
                     <div id="menu-container">
                         <slot name="item"></slot>
                     </div>
@@ -65,10 +66,10 @@ export default class MaterialSlidemenu extends HTMLElement {
 
     connectedCallback() {
         this.nav = this.shadowRoot.querySelector('nav');
-        this.container = this.shadowRoot.querySelector('#container');
+        this.container = this.shadowRoot.querySelector('#slidemenu-container');
         this.labelElement = this.shadowRoot.querySelector('label');
         this.items = this.shadowRoot.querySelector('slot[name=item]').assignedNodes();
-        const height = parseInt(getComputedStyle(this.nav).getPropertyValue('--label-height'), 10);
+        const height = this.nav.getBoundingClientRect().height;
 
         if(this.hasAttribute('label')) {
             this.labelElement.textContent = this.getAttribute('label');

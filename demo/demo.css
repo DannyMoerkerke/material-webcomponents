@@ -19,29 +19,30 @@ code, pre {
 }
 
 #datepicker-dialog {
-    --dialog-height: 444px;
+    --dialog-height: 444px !important;
+    --dialog-width: auto !important;
 }
 
 
 material-app-bar {
-    --app-bar-background: rgb(0, 188, 212);
-    --app-bar-font-color: #ffffff;
+    --app-bar-background: rgb(0, 188, 212) !important;
+    --app-bar-font-color: #ffffff !important;
     margin-bottom: 150px;
 }
 
 material-slider {
-    --track-color: rgb(0, 188, 212);
-    --thumb-color: rgb(0, 188, 212);
-    --thumb-size: 16px;
-    --track-height: 2px;
+    --track-color: rgb(0, 188, 212) !important;
+    --thumb-color: rgb(0, 188, 212) !important;
+    --thumb-size: 16px !important;
+    --track-height: 2px !important;
 }
 
 material-switch {
-    --switch-color: #008000;
+    --switch-color: #008000 !important;
 }
 
 material-progress {
-    --progress-bar-width: 250px;
+    --progress-bar-width: 250px !important;
 }
 material-dropdown {
     /*width: 500px;*/

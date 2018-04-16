@@ -4,6 +4,10 @@ const outlet = document.querySelector('#content');
 
 routes(outlet, [
     {
+        url: '/',
+        templateUrl: 'demo/partials/index.html'
+    },
+    {
         url: '/material-app-bar',
         templateUrl: 'demo/partials/material-app-bar.html'
     },
