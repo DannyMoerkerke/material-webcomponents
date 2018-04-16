@@ -48,7 +48,6 @@ export default class MaterialTextfield extends HTMLElement {
                     display: block;
                     color: var(--font-color);
                     background: none;
-                    
                     line-height: 1.9;
                     color: transparent;
                     transition: all 0.28s ease;
@@ -82,7 +81,7 @@ export default class MaterialTextfield extends HTMLElement {
                 
                 input:invalid {
                     color: var(--error-color);
-                    outline: none;
+                    box-shadow: none;
                 }
                 
                 input:focus ~ #bar {

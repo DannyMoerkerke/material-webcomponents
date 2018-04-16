@@ -27,6 +27,7 @@ export default class MaterialSlider extends HTMLElement {
                 }
                 input[type=range]:focus {
                     outline: none;
+                    
                 }
                 input[type=range]::-webkit-slider-runnable-track {
                     width: 100%;
@@ -42,6 +43,9 @@ export default class MaterialSlider extends HTMLElement {
                     cursor: pointer;
                     background: var(--track-color);
                     border-radius: 1.3px;
+                }
+                input[type=range]::-moz-focus-outer {
+                    border: 0;
                 }
                 input[type=range]::-ms-track {
                     width: 100%;
@@ -76,6 +80,7 @@ export default class MaterialSlider extends HTMLElement {
                 input[type=range]::-moz-range-thumb {
                     height: var(--thumb-size);
                     width: var(--thumb-size);
+                    border: 0;
                     border-radius: 50%;
                     background: var(--thumb-color);
                     cursor: pointer;
