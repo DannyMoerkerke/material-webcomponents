@@ -82,6 +82,7 @@ export default class MaterialTextfield extends HTMLElement {
                 
                 input:invalid {
                     color: var(--error-color);
+                    outline: none;
                 }
                 
                 input:focus ~ #bar {

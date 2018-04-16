@@ -37,6 +37,7 @@ export default class MaterialTabs extends HTMLElement {
                 }
                 #tab-content {
                     background: var(--content-background);
+                    width: var(--content-width);
                     height: 50px;
                     overflow: hidden;
                 }
@@ -110,7 +111,7 @@ export default class MaterialTabs extends HTMLElement {
         this.tabs[0].classList.add('active');
 
         const {width} = this.tabs[0].getBoundingClientRect();
-
+        console.log(this.tabContainer.offsetWidth);
         this.indicator.style.setProperty('--indicator-width', `${width}px`);
         this.host.style.setProperty('--content-width', `${this.tabContainer.offsetWidth}px`);
         this.host.style.setProperty('--content-container-width', `${this.tabContainer.offsetWidth * this.tabs.length}px`);

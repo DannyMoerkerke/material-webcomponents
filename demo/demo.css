@@ -44,6 +44,3 @@ material-switch {
 material-progress {
     --progress-bar-width: 250px !important;
 }
-material-dropdown {
-    /*width: 500px;*/
-}

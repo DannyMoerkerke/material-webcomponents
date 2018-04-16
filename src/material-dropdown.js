@@ -164,11 +164,12 @@ export default class MaterialDropdown extends HTMLElement {
 
     handleClick(e) {
         const nodes = e.composedPath();
-        const option = nodes.find(node => node.tagName && node.tagName.toLowerCase() === 'option');
+        const option = nodes.find(node => this.options.includes(node));
+
         const icon = nodes.find(node => node === this.icon);
 
         if(option) {
-            this.notifyChange(option.value);
+            this.notifyChange(option.getAttribute('value'));
             this.closeMenu();
         }
         else if(icon) {
