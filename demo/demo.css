@@ -2,6 +2,22 @@ body {
     font-family: Verdana;
 }
 
+main {
+    width: 100%;
+    display: -ms-grid;
+    display: grid;
+    -ms-grid-columns: 250px 1fr;
+    grid-template-columns: 250px 1fr;
+    -ms-grid-rows: 1fr;
+    grid-template-rows: 1fr;
+    grid-column-gap: 20px;
+}
+#content {
+    -ms-grid-column: 2;
+    -ms-grid-column-span: 1;
+    grid-column: 2 / 3;
+}
+
 ul {
     list-style-type: none;
 }
@@ -23,7 +39,9 @@ code, pre {
     --dialog-width: auto !important;
 }
 
-
+material-slidemenu {
+    width: 250px;
+}
 material-app-bar {
     --app-bar-background: rgb(0, 188, 212) !important;
     --app-bar-font-color: #ffffff !important;

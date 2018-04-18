@@ -173,6 +173,15 @@ describe('material-datepicker', () => {
         expect(spy1.calledWith(expected)).to.eql(true);
     });
 
+    it('should dispatch an event when the datepicker is closed', () => {
+        const spy1 = sinon.spy(element, 'dispatchEvent');
+        const expected = new CustomEvent('close');
+
+        element.handleCancelClick();
+
+        expect(spy1.calledWith(expected)).to.eql(true);
+    });
+
 
     it('should hide the month view and show the years view', () => {
         element.showYearsView();
@@ -194,5 +203,34 @@ describe('material-datepicker', () => {
         const actual = element.formatDate(currentDate);
 
         expect(actual).to.eql(expected);
+    });
+
+    it('should only pick the current date when the current month is displayed', () => {
+        const spy1 = sinon.spy(element, 'showMonthView');
+        const spy2 = sinon.spy(element, 'displayMonth');
+        const spy3 = sinon.spy(element, 'pickDate');
+
+        const dateString = '01-27-2010';
+
+        element.showCurrentMonth();
+
+        expect(spy1.called).to.eql(true);
+        expect(spy2.called).to.eql(true);
+        expect(spy3.called).to.eql(true);
+    });
+
+    it('should not pick the current date when the current month is not displayed', () => {
+        const dateString = '01-27-2010';
+        element.date = dateString;
+
+        const spy1 = sinon.spy(element, 'showMonthView');
+        const spy2 = sinon.spy(element, 'displayMonth');
+        const spy3 = sinon.spy(element, 'pickDate');
+
+        element.showCurrentMonth();
+
+        expect(spy1.called).to.eql(true);
+        expect(spy2.called).to.eql(true);
+        expect(spy3.called).to.eql(false);
     });
 });

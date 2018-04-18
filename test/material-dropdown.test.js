@@ -1,6 +1,6 @@
 describe('material-dropdown', () => {
     let element;
-    const options = ['Javascript', 'PHP'];
+    const options = ['javascript', 'php'];
 
     beforeEach(function() {
         element = document.createElement('material-dropdown');
@@ -12,8 +12,9 @@ describe('material-dropdown', () => {
         element.appendChild(icon);
 
         options.forEach(opt => {
-            const option = document.createElement('option');
+            const option = document.createElement('li');
             option.setAttribute('slot', 'option');
+            option.setAttribute('value', opt);
             option.textContent = opt;
 
             element.appendChild(option);
@@ -78,16 +79,26 @@ describe('material-dropdown', () => {
         expect(spy2.called).to.eql(true);
     });
 
+    it('should open the menu on the left of the icon if it should otherwise go off the screen', (done) => {
+        document.body.removeChild(element);
+        element.style.marginLeft = '3000px';
+        document.body.appendChild(element);
+
+        setTimeout(() => {
+            expect(element.menuContainer.style.right).to.eql('0px');
+            done();
+        })
+    });
+
     it('should call the notifyChange and closeMenu methods when an option is clicked', () => {
         const spy1 = sinon.spy(element, 'notifyChange');
         const spy2 = sinon.spy(element, 'closeMenu');
-        const option = document.createElement('option');
-        const value = 'chosen value';
-        option.setAttribute('value', value);
+
+        const value = element.options[0].getAttribute('value');
 
         const event = {
             composedPath() {
-                return [option];
+                return [element.options[0]];
             }
         };
 

@@ -10,6 +10,30 @@ describe('material-slider', () => {
         element = document.createElement('material-slider');
     });
 
+    it('should dispatch an event when the value of the slider changes', () => {
+        const spy = sinon.spy(element, 'dispatchEvent');
+        const event = {
+            target: {
+                value: 25
+            }
+        };
+        const expected = new CustomEvent('change', {
+            detail: {
+                value: event.target.value
+            }
+        });
+
+        element.handleInput(event);
+
+        expect(spy.calledWith(expected)).to.eql(true);
+    });
+
+    it('should reflect the "value" property to the attribute', () => {
+        element.value = 25;
+
+        expect(element.getAttribute('value')).to.eql('25');
+    });
+
     it('should set the correct color of the box-shadow, from hex', () => {
         element.style.setProperty('--thumb-color', hex);
         document.body.appendChild(element);

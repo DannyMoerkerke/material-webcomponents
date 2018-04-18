@@ -19,7 +19,6 @@ export default class MaterialButton extends HTMLElement {
                 button {
                     border: none;
                     border-radius: 2px;
-                    min-width: 88px;
                     min-height: 36px;
                     padding-left: 8px;
                     padding-right: 8px;
@@ -33,6 +32,9 @@ export default class MaterialButton extends HTMLElement {
                     justify-content: center;
                     position: relative;
                     overflow: hidden;
+                }
+                :host([label]) button {
+                    min-width: 88px;
                 }
                 button:hover {
                     transition: background-color 0.3s ease-out;
@@ -104,6 +106,13 @@ export default class MaterialButton extends HTMLElement {
     }
 
     connectedCallback() {
+        if(this.hasAttribute('label')) {
+            this.label.textContent = this.getAttribute('label');
+        }
+        else {
+            this.label.style.display = 'none';
+        }
+
         this.button.addEventListener('click', () => {
             this.button.classList.add('active');
         });
@@ -111,17 +120,6 @@ export default class MaterialButton extends HTMLElement {
         this.ripple.addEventListener('animationend', () => {
             this.button.classList.remove('active');
         });
-    }
-
-    attributeChangedCallback(attr, oldVal, newVal) {
-        if(attr === 'label') {
-            if(this.hasAttribute('label')) {
-                this.label.textContent = this.getAttribute('label');
-            }
-            else {
-                this.label.style.display = 'none';
-            }
-        }
     }
 
     get disabled() {

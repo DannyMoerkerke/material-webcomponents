@@ -134,13 +134,14 @@ export default class MaterialDialog extends HTMLElement {
         this.backdrop = this.shadowRoot.querySelector('#backdrop');
 
         this.backdrop.addEventListener('click', this.handleClick.bind(this));
+        this.backdrop.addEventListener('animationend', this.handleAnimationEnd.bind(this));
+    }
 
-        this.backdrop.addEventListener('animationend', e => {
-            if(e.animationName === 'fadeout') {
-                this.style.display = 'none';
-                this.backdrop.classList.remove('close');
-            }
-        });
+    handleAnimationEnd(e) {
+        if(e.animationName === 'fadeout') {
+            this.style.display = 'none';
+            this.backdrop.classList.remove('close');
+        }
     }
 
     handleClick(e) {

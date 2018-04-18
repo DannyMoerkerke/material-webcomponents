@@ -35,16 +35,17 @@ describe('material-radiobutton-group', () => {
             composedPath() {
                 return [element.buttons[0]];
             }
-        }
-        element.handleChange(event);
+        };
 
+        element.handleChange(event);
         expect(element.buttons[0].hasAttribute('checked')).to.eql(true);
 
         event = {
             composedPath() {
                 return [element.buttons[1]];
             }
-        }
+        };
+
         element.handleChange(event);
 
         expect(element.buttons[1].hasAttribute('checked')).to.eql(true);
@@ -52,8 +53,12 @@ describe('material-radiobutton-group', () => {
     });
 
     it('should set the "name" attribute on the material-radiobutton-group to all material-radiobuttons ', () => {
+        document.body.removeChild(element);
+
         const name = 'foo';
         element.setAttribute('name', name);
+
+        document.body.appendChild(element);
 
         element.buttons.forEach(button => {
             expect(button.getAttribute('name')).to.eql(name);
@@ -74,6 +79,8 @@ describe('material-radiobutton-group', () => {
         element.buttons[1].setAttribute('checked', '');
 
         document.body.appendChild(element);
+
+
 
         expect(element.target).to.eql(element.buttons[1]);
         expect(element.value).to.eql(element.target.value);

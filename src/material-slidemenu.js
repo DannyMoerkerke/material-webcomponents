@@ -76,15 +76,19 @@ export default class MaterialSlidemenu extends HTMLElement {
         }
 
         this.nav.style.setProperty('--open-height', `${(this.items.length) * height}px`);
-
         this.nav.addEventListener('click', this.toggleMenu.bind(this));
         this.nav.addEventListener('transitionend', this.handleTransitionEnd.bind(this));
     }
 
     toggleMenu(e) {
-        if(e.composedPath()[0] === this.labelElement) {
+        console.log(e.b);
+        const path = e.composedPath ? e.composedPath() : e.b;
+        if(path[0] === this.labelElement) {
             this.container.style.zIndex = '-1';
             this.nav.classList.toggle('open');
+            setTimeout(() => {
+                console.log(this.container, this.container.offsetHeight, this.nav.classList);
+            }, 500);
         }
     }
 

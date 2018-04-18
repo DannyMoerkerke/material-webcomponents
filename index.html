@@ -7,10 +7,19 @@
         <link rel="stylesheet" href="demo/demo.css">
         <style>
             main {
+                width: 100%;
                 display: grid;
+                display: -ms-grid;
                 grid-template-columns: 250px 1fr;
+                -ms-grid-template-colums: 250px 1fr;
+                -ms-grid-colums: 250px 1fr;
                 grid-template-rows: 1fr;
+                -ms-grid-rows: 1fr;
                 grid-column-gap: 20px;
+            }
+            #content {
+                grid-column: 2 / 3;
+                -ms-grid-column: 2;
             }
         </style>
     </head>

@@ -37,7 +37,6 @@ describe('material-checkbox', () => {
     });
 
     it('should set the "checked" attribute on the input', () => {
-
         element.setAttribute('checked', '');
 
         expect(element.input.checked).to.eql(true);
@@ -55,5 +54,15 @@ describe('material-checkbox', () => {
         element.setAttribute('label', newLabel);
         expect(spy.args[0][0]).to.eql(oldNode);
         expect(element.label.textContent.trim()).to.eql(newLabel);
+    });
+
+    it('should return the value only when the checkbox is checked', () => {
+        const value = 'foo';
+        element.setAttribute('value', value);
+
+        expect(element.value).to.eql(undefined);
+
+        element.checked = true;
+        expect(element.value).to.eql(value);
     });
 });

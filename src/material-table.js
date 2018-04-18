@@ -270,7 +270,6 @@ export default class MaterialTable extends HTMLElement {
     }
 
     getPagination(currentPage) {
-        const divider = `<div class="divider">...</div>`
         const prevPage = currentPage - 1 < 1 ? 1 : currentPage - 1;
         const nextPage = currentPage + 1 > this.numPages ? this.numPages : currentPage + 1;
         const nextPageButton = `<button type="button" class="next" data-page="${nextPage}" ${nextPage === currentPage ? `disabled` : ``}>&gt;</button>`;

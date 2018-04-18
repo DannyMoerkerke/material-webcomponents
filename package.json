@@ -8,7 +8,7 @@
     "start": "ws -p 8080 --spa index.html",
     "start:ie": "ws -p 8080 --spa index-ie.html",
     "start:bundle": "webpack-dev-server --config webpack.config.bundle.js",
-    "start:legacy": "npm run build:legacy && npm start",
+    "start:legacy": "webpack-dev-server --config webpack.config.legacy.js",
     "test": "wct",
     "clean:dist": "rm -rf dist/*",
     "webpack": "webpack --config webpack.config.common.js",
@@ -43,12 +43,20 @@
     "strip-loader": "^0.1.2",
     "uglifyjs-webpack-plugin": "^1.0.0-beta.2",
     "wct-istanbub": "0.0.6",
-    "web-component-tester": "~6.5.0",
-    "webpack": "^3.8.1",
-    "webpack-dev-server": "^2.11.1"
+    "web-component-tester": "~6.5.0"
   },
   "dependencies": {
     "@webcomponents/webcomponentsjs": "^1.0.17",
-    "web-component-tester-istanbul": "^0.10.0"
+    "autoprefixer": "^8.3.0",
+    "css-loader": "^0.28.11",
+    "fetch-polyfill": "^0.8.2",
+    "postcss": "^6.0.21",
+    "postcss-cssnext": "^3.1.0",
+    "postcss-loader": "^2.1.4",
+    "style-loader": "^0.20.3",
+    "web-component-tester-istanbul": "^0.10.0",
+    "webpack": "^4.5.0",
+    "webpack-cli": "^2.0.14",
+    "webpack-dev-server": "^3.1.3"
   }
 }

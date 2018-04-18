@@ -1,5 +1,6 @@
 describe('material-app-bar', () => {
     let element;
+    const label = 'app bar';
 
     beforeEach(function() {
         element = document.createElement('material-app-bar');
@@ -15,31 +16,13 @@ describe('material-app-bar', () => {
         icon.setAttribute('slot', 'right-content');
         icon.textContent = 'close';
         element.appendChild(icon);
+        element.setAttribute('label', label)
 
         document.body.appendChild(element);
     });
 
-    it('should display the correct content when resized', () => {
-        element.handleResize({matches: true});
-        expect(element.container.innerHTML).to.eql(element.shadowRoot.querySelector('#large').innerHTML);
-
-        element.handleResize({matches: false});
-        expect(element.container.innerHTML).to.eql(element.shadowRoot.querySelector('#small').innerHTML);
-    });
-
-    it('should toggle the dropdown menu when resized to small size', (done) => {
-        element.handleResize({matches: false});
-
-        setTimeout(() => {
-            expect(element.menuOpen).to.eql(false);
-            expect(element.dropdownMenu.style.display).to.eql('');
-
-            element.handleMenuClick();
-            expect(element.menuOpen).to.eql(true);
-            expect(element.dropdownMenu.style.display).to.not.eql('');
-
-            done();
-        })
+    it('should display the label', () => {
+        expect(element.label.textContent).to.eql(label);
     });
 
     it('should dispatch an event when an icon is clicked', () => {

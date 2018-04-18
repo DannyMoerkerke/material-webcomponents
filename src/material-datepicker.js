@@ -226,14 +226,7 @@ export default class MaterialDatepicker extends HTMLElement {
         this.okButton.addEventListener('click', this.handleOkClick.bind(this));
         this.cancelButton.addEventListener('click', this.handleCancelClick.bind(this));
         this.headerYear.addEventListener('click', this.showYearsView.bind(this));
-        this.headerDate.addEventListener('click', () => {
-            this.showMonthView();
-            this.displayMonth(this.currentDate);
-
-            if(new Date().getMonth() === this.currentMonth) {
-                this.pickDate(this.currentDate);
-            }
-        });
+        this.headerDate.addEventListener('click', this.showCurrentMonth.bind(this));
 
         this.locale = 'en-EN';
     }
@@ -280,6 +273,15 @@ export default class MaterialDatepicker extends HTMLElement {
         this.showMonthView();
         this.displayMonth(this.currentDate);
         this.pickDate(this.currentDate);
+    }
+
+    showCurrentMonth() {
+        this.showMonthView();
+        this.displayMonth(this.currentDate);
+        console.log(new Date().getMonth() === this.currentMonth);
+        if(new Date().getMonth() === this.currentMonth) {
+            this.pickDate(this.currentDate);
+        }
     }
 
     showMonthView() {

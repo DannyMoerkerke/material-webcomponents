@@ -1,3 +1,5 @@
+import 'babel-polyfill';
+import 'fetch-polyfill';
 import './material-app-bar.js';
 import './material-checkbox.js';
 import './material-datepicker.js';
@@ -17,5 +19,3 @@ import './material-button.js';
 import './material-progress.js';
 import './material-drawer.js';
 import '../demo/routes.js';
-
-// import '../demo/demo.css';

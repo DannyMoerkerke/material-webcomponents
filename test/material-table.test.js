@@ -118,6 +118,23 @@ describe('material-table', () => {
         expect(rows[1].querySelectorAll('td')[2].textContent).to.eql(data[3].language);
     });
 
+    it('should display the correct range when a pagination button is clicked', () => {
+        element.perPage = 2;
+        element.data = data;
+
+        const button = document.createElement('button');
+        button.dataset.page = 2;
+
+        const event = {
+            composedPath: () => [button]
+        };
+
+        element.handleClick(event);
+
+        expect(element.start).to.eql(2);
+        expect(element.end).to.eql(4);
+    });
+
     it('should check all row checkboxes by clicking the "check-all" checkbox', (done) => {
         element.data = data;
 

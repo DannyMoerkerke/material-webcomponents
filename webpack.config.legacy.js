@@ -5,7 +5,7 @@ const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = {
     entry: {
-        app: './src/bundle.js'
+        bundle: './src/bundle.legacy.js'
     },
     output: {
         path: path.join(__dirname, 'dist'),
@@ -39,10 +39,24 @@ module.exports = {
                         }
                     },
                     {
-                        loader: WebpackStripLoader.loader('console.log')
+                        loader: WebpackStripLoader.loader('console.error')
                     }
                 ],
 
+            },
+            {
+                test: /\.css$/,
+                use: ['style-loader',
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            sourceMap: true
+                        }
+                    },
+                    {
+                        loader: 'postcss-loader',
+                    }
+                ]
             }
         ]
     },
@@ -58,5 +72,11 @@ module.exports = {
                 },
             },
         })
-    ]
+    ],
+    devServer: {
+        host: '0.0.0.0',
+        port: 8080,
+        historyApiFallback: true,
+        hot: false
+    }
 };

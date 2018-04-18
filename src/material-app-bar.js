@@ -109,7 +109,6 @@ export default class MaterialAppBar extends HTMLElement {
         if(this.hasAttribute('label')) {
             this.label.textContent = this.getAttribute('label');
         }
-        this.menuOpen = false;
 
         this.setupEventHandlers();
     }

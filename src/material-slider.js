@@ -154,15 +154,7 @@ export default class MaterialSlider extends HTMLElement {
         this.input.value = this.hasAttribute('value') ? this.getAttribute('value') : this.input.value;
         this.value = this.input.value;
 
-        this.input.addEventListener('input', e => {
-            this.value = e.target.value;
-
-            this.dispatchEvent(new CustomEvent('change', {
-                detail: {
-                    value: e.target.value
-                }
-            }));
-        });
+        this.input.addEventListener('input', this.handleInput.bind(this));
 
         const rgba = /rgba\((\d{1,3}),\s?(\d{1,3}),\s?(\d{1,3}),\s?(\d|\d\.\d+)\)/;
         const hostStyle = getComputedStyle(this.host);
@@ -184,6 +176,16 @@ export default class MaterialSlider extends HTMLElement {
         }
 
         this.host.style.setProperty('--thumb-color-light', thumbColorLight);
+    }
+
+    handleInput(e) {
+        this.value = e.target.value;
+
+        this.dispatchEvent(new CustomEvent('change', {
+            detail: {
+                value: e.target.value
+            }
+        }));
     }
 
     hexToRgbA(hex) {

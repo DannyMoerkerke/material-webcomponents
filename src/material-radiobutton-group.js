@@ -18,20 +18,20 @@ export default class MaterialRadiobuttonGroup extends HTMLElement {
         this.target = {
             value: null
         };
+    }
 
+    connectedCallback() {
         this.buttons = this.shadowRoot.querySelector('slot[name="radio"]').assignedNodes();
+
         this.buttons.forEach(button => {
             if(button.hasAttribute('checked')) {
                 this.target = button;
             }
+            if(this.hasAttribute('name')) {
+                this.buttons.forEach(button => button.setAttribute('name', this.getAttribute('name')));
+            }
             button.addEventListener('change', this.handleChange.bind(this));
         });
-    }
-
-    attributeChangedCallback(attr, oldVal, newVal) {
-        if(attr === 'name') {
-            this.buttons.forEach(button => button.setAttribute('name', newVal));
-        }
     }
 
     handleChange(e) {

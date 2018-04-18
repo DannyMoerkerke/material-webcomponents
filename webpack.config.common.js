@@ -25,6 +25,20 @@ module.exports = {
                     }
                 ],
 
+            },
+            {
+                test: /\.css$/,
+                use: ['style-loader',
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            sourceMap: true
+                        }
+                    },
+                    {
+                        loader: 'postcss-loader',
+                    }
+                ]
             }
         ]
     },
@@ -42,6 +56,7 @@ module.exports = {
         new ProgressBarPlugin()
     ],
     devServer: {
+        host: '0.0.0.0',
         port: 8080,
         historyApiFallback: true,
         hot: false

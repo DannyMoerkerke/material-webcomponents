@@ -75,7 +75,8 @@ export default class MaterialTextfield extends HTMLElement {
                 }
                 
                 input:focus,
-                input:valid {
+                input:valid,
+                input:invalid[required] {
                     color: var(--font-color);
                 }
                 
@@ -188,28 +189,8 @@ export default class MaterialTextfield extends HTMLElement {
             this.input.addEventListener('keydown', e => e.preventDefault());
         }
         else {
-            this.input.addEventListener('keyup', () => {
-                this.pristine = false;
-                if(this.input.validity.valid) {
-                    this.removeAttribute('invalid');
-                    this.input.classList.remove('invalid');
-                }
-                this.dispatchEvent(new CustomEvent('change', {
-                    detail: {
-                        value: this.input.value
-                    }
-                }));
-            });
-
-            this.input.addEventListener('blur', () => {
-                for(let error in this.input.validity) {
-                    if(!this.pristine && this.input.validity[error] && this.hasAttribute(`error-${this.errorMap[error]}`)) {
-                        this.error.textContent = this.getAttribute(`error-${this.errorMap[error]}`);
-                        this.setAttribute('invalid', '');
-                        this.input.classList.add('invalid');
-                    }
-                }
-            });
+            this.input.addEventListener('keyup', this.handleKeyUp.bind(this));
+            this.input.addEventListener('blur', this.handleBlur.bind(this));
         }
     }
 
@@ -220,6 +201,29 @@ export default class MaterialTextfield extends HTMLElement {
 
         if(attr === 'label') {
             this.label.textContent = newVal;
+        }
+    }
+
+    handleKeyUp() {
+        this.pristine = false;
+        if(this.input.validity.valid) {
+            this.removeAttribute('invalid');
+            this.input.classList.remove('invalid');
+        }
+        this.dispatchEvent(new CustomEvent('change', {
+            detail: {
+                value: this.input.value
+            }
+        }));
+    }
+
+    handleBlur() {
+        for(let error in this.input.validity) {
+            if(!this.pristine && this.input.validity[error] && this.hasAttribute(`error-${this.errorMap[error]}`)) {
+                this.error.textContent = this.getAttribute(`error-${this.errorMap[error]}`);
+                this.setAttribute('invalid', '');
+                this.input.classList.add('invalid');
+            }
         }
     }
 

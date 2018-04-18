@@ -7,6 +7,12 @@ describe('material-dialog', () => {
         document.body.appendChild(element);
     });
 
+    it('should open the modal', () => {
+        element.open();
+
+        expect(element.style.display).to.eql('block');
+    });
+
     it('should close when the backdrop is clicked', () => {
         const spy = sinon.spy(element, 'close');
 
@@ -34,5 +40,17 @@ describe('material-dialog', () => {
         element.handleClick(event);
 
         expect(element.close.called).to.eql(false);
+    });
+
+    it('should hide the modal only when the fadeout animation on the backdrop has ended', () => {
+        element.handleAnimationEnd({animationName: 'fadeout'});
+
+        expect(element.style.display).to.eql('none');
+        expect(element.backdrop.classList.contains('close')).to.eql(false);
+
+        element.open();
+        element.handleAnimationEnd({animationName: 'foo'});
+
+        expect(element.style.display).to.not.eql('none');
     });
 });
