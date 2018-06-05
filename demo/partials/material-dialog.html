@@ -1,4 +1,8 @@
 <h1>material-dialog</h1>
+<p>
+    Dialogs inform users about a specific task and may contain critical information, require decisions, or involve
+    multiple tasks.
+</p>
 
 <h3>Usage</h3>
 <pre>
@@ -11,6 +15,11 @@
     &lt;/material-dialog&gt;
 </pre>
 
+<h3>Attributes</h3>
+<ul>
+    <li><code>modal</code>: empty, when present the dialog will <b>not</b> close when the backdrop is clicked.</li>
+</ul>
+
 <h3>Slots</h3>
 <ul>
     <li><code>header</code>: content of the header</li>
@@ -22,19 +31,35 @@
 <ul>
     <li><code>--dialog-width</code>: width of dialog, default: 20%</li>
     <li><code>--dialog-height</code>: height of dialog, default: auto</li>
-    <li><code>--backdrop-color</code>: backdrop color, should be in <code>rgba</code> format to allow opacity, default: rgba(128,128,128,0.5)</li>
+    <li><code>--backdrop-color</code>: backdrop color, should be in <code>rgba</code> format to allow opacity, default:
+        rgba(128,128,128,0.5)
+    </li>
     <li><code>--header-background</code>: header background, default: #ffffff</li>
     <li><code>--body-background</code>: body background, default: #ffffff</li>
     <li><code>--footer-background</code>: footer background, default: #ffffff</li>
 </ul>
 
-<h3>Demo</h3>
-<material-dialog>
-    <h1 slot="header">Dialog title</h1>
-    <p slot="body">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt dolorem et, eum excepturi fugit iste maxime nisi, obcaecati officia omnis quas qui, quidem sequi. Accusamus deleniti earum quasi ratione unde!</p>
-    <div slot="footer">
-        <material-button id="action" label="Close"></material-button>
-    </div>
-</material-dialog>
+<section class="demo">
+    <h3>Demo</h3>
+    <material-dialog id="standard-dialog">
+        <h1 slot="header">Dialog title</h1>
+        <p slot="body">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt dolorem et, eum excepturi
+            fugit iste maxime nisi, obcaecati officia omnis quas qui, quidem sequi. Accusamus deleniti earum quasi
+            ratione unde!</p>
+        <div slot="footer">
+            <material-button id="close-standard" label="Close"></material-button>
+        </div>
+    </material-dialog>
 
-<material-button id="open" label="Open" raised></material-button>
+    <material-dialog id="modal-dialog" modal>
+        <h1 slot="header">Modal dialog</h1>
+        <p slot="body">This dialog has a <code>modal</code> attribute and will <b>not</b> close when the backdrop is
+            clicked</p>
+        <div slot="footer">
+            <material-button id="close-modal" label="Close"></material-button>
+        </div>
+    </material-dialog>
+
+    <material-button id="open-standard" label="Open standard" raised></material-button>
+    <material-button id="open-modal" label="Open modal" raised></material-button>
+</section>

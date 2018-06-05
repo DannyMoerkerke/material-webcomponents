@@ -1,4 +1,7 @@
 <h1>material-drawer</h1>
+<p>
+    The navigation drawer slides in from the left and contains the navigation destinations for your app.
+</p>
 
 <h3>Usage</h3>
 <pre>
@@ -22,14 +25,16 @@
     <li><code>--drawer-color</code>: color of the drawer, default: #ffffff</li>
 </ul>
 
-<h3>Demo</h3>
-<material-button label="Toggle" id="material-drawer-toggle" raised></material-button>
+<section class="demo">
+    <h3>Demo</h3>
+    <material-button label="Toggle" id="material-drawer-toggle" raised></material-button>
 
-<material-drawer>
-    <material-slidemenu label="Languages" slot="content">
-        <a slot="item" href="#">Javascript</a>
-        <a slot="item" href="#">PHP</a>
-        <a slot="item" href="#">Typescript</a>
-        <a slot="item" href="#">Scala</a>
-    </material-slidemenu>
-</material-drawer>
+    <material-drawer>
+        <material-slidemenu label="Languages" slot="content">
+            <a slot="item" href="#">Javascript</a>
+            <a slot="item" href="#">PHP</a>
+            <a slot="item" href="#">Typescript</a>
+            <a slot="item" href="#">Scala</a>
+        </material-slidemenu>
+    </material-drawer>
+</section>

@@ -1,4 +1,7 @@
 <h1>material-tabs</h1>
+<p>
+    Tabs make it easy to explore and switch between different views.
+</p>
 
 <h3>Usage</h3>
 <pre>
@@ -34,56 +37,64 @@
     <li><code>--indicator-color</code>: active tab indicator color, default: #ffff00</li>
 </ul>
 
-<h3>Demo</h3>
-<material-tabs>
-    <div slot="tab" data-title="tab 1">
-        First tab
+<section class="demo">
+    <h3>Demo</h3>
+
+    <div class="demo-option">
+        <em>standard</em>
+        <material-tabs>
+            <div slot="tab" data-title="tab 1">
+                First tab
+            </div>
+
+            <div slot="tab" data-title="tab 2">
+                tab number 2
+            </div>
+
+            <div slot="tab" data-title="tab 3">
+                a third one
+            </div>
+
+            <div slot="tab" data-title="tab 4">
+                and number 4
+            </div>
+
+            <div slot="tab" data-title="tab 5">
+                and another one
+            </div>
+
+            <div slot="tab" data-title="tab 6">
+                man, another one???
+            </div>
+        </material-tabs>
     </div>
 
-    <div slot="tab" data-title="tab 2">
-        tab number 2
-    </div>
+    <div class="demo-option">
+        <em>with sliding transition</em>
+        <material-tabs slide>
+            <div slot="tab" data-title="tab 1">
+                First tab
+            </div>
 
-    <div slot="tab" data-title="tab 3">
-        a third one
-    </div>
+            <div slot="tab" data-title="tab 2">
+                tab number 2
+            </div>
 
-    <div slot="tab" data-title="tab 4">
-        and number 4
-    </div>
+            <div slot="tab" data-title="tab 3">
+                a third one
+            </div>
 
-    <div slot="tab" data-title="tab 5">
-        and another one
-    </div>
+            <div slot="tab" data-title="tab 4">
+                and number 4
+            </div>
 
-    <div slot="tab" data-title="tab 6">
-        man, another one???
-    </div>
-</material-tabs>
+            <div slot="tab" data-title="tab 5">
+                and another one
+            </div>
 
-<b>with sliding transition</b>
-<material-tabs slide>
-    <div slot="tab" data-title="tab 1">
-        First tab
+            <div slot="tab" data-title="tab 6">
+                man, another one???
+            </div>
+        </material-tabs>
     </div>
-
-    <div slot="tab" data-title="tab 2">
-        tab number 2
-    </div>
-
-    <div slot="tab" data-title="tab 3">
-        a third one
-    </div>
-
-    <div slot="tab" data-title="tab 4">
-        and number 4
-    </div>
-
-    <div slot="tab" data-title="tab 5">
-        and another one
-    </div>
-
-    <div slot="tab" data-title="tab 6">
-        man, another one???
-    </div>
-</material-tabs>
+</section>

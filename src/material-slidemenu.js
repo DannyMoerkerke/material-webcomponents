@@ -81,14 +81,9 @@ export default class MaterialSlidemenu extends HTMLElement {
     }
 
     toggleMenu(e) {
-        console.log(e.b);
-        const path = e.composedPath ? e.composedPath() : e.b;
-        if(path[0] === this.labelElement) {
+        if(e.composedPath()[0] === this.labelElement) {
             this.container.style.zIndex = '-1';
             this.nav.classList.toggle('open');
-            setTimeout(() => {
-                console.log(this.container, this.container.offsetHeight, this.nav.classList);
-            }, 500);
         }
     }
 

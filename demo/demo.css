@@ -1,5 +1,6 @@
 body {
     font-family: Verdana;
+    line-height: 1.3em;
 }
 
 main {
@@ -20,6 +21,25 @@ main {
 
 ul {
     list-style-type: none;
+    padding-left: 25px;
+}
+ul ul {
+    /*margin-top: 10px;*/
+}
+
+h1,
+h2,
+h3 {
+    font-weight: normal;
+}
+h1 {
+    font-size: 36px;
+    margin-bottom: 35px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #cccccc;
+}
+h3 {
+    margin-top: 30px;
 }
 
 p {
@@ -29,9 +49,22 @@ code, pre {
     font-size: 1.1em;
 }
 
+.demo-option {
+    margin-bottom: 15px;
+}
+.demo-option em {
+    display: inline-block;
+    margin-bottom: 10px;
+}
 #open,
 #blue-button {
     --button-color: rgb(0, 188, 212);
+}
+
+#open-standard,
+#open-modal {
+    display: inline-block;
+    margin-right: 15px;
 }
 
 #datepicker-dialog {

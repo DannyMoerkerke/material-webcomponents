@@ -14,6 +14,9 @@
                 width: 500px;
                 height: 500px;
             }
+            [contenteditable=true] {
+                display: inline-block;
+            }
 
         </style>
     </head>
@@ -30,18 +33,18 @@
             <i class="material-icons" data-command="insertOrderedList" slot="button">format_list_numbered</i>
             <i class="material-icons" data-command="undo" slot="button">undo</i>
             <i class="material-icons" data-command="redo" slot="button">redo</i>
-            <dropdown-menu slot="button" data-command="fontName">
+            <material-dropdown slot="button" data-command="formatBlock">
                 <i class="material-icons" slot="icon">menu</i>
-                <option slot="option" value="Comic Sans MS">Comic Sans</option>
-                <option slot="option">PHP</option>
-                <option slot="option">Java</option>
-                <option slot="option">Scala</option>
-            </dropdown-menu>
+                <li slot="option" value="p">paragraph</li>
+                <li slot="option" value="h1">h1</li>
+                <li slot="option">h2</li>
+                <li slot="option">h2</li>
+            </material-dropdown>
         </text-editor>
 
         <div class="content"></div>
 
-        <script type="module" src="src/dropdown-menu.js"></script>
+        <script type="module" src="src/material-dropdown.js"></script>
         <script type="module" src="src/text-editor.js"></script>
     </body>
 </html>

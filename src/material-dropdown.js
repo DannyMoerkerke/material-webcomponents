@@ -139,7 +139,7 @@ export default class MaterialDropdown extends HTMLElement {
             const {width, height} = this.shadowRoot.querySelector('#dropdown-menu').getBoundingClientRect();
             this.menuContainer.style.setProperty('--menu-height', `${height}px`);
             this.menuContainer.style.setProperty('--menu-width', `${width}px`);
-
+            console.log(height);
             const {x, width: w} = this.menu.getBoundingClientRect();
 
             if(x + w >= screen.width) {
@@ -165,7 +165,7 @@ export default class MaterialDropdown extends HTMLElement {
     handleClick(e) {
         const nodes = e.composedPath();
         const option = nodes.find(node => this.options.includes(node));
-        console.log(this.options[0] == option);
+
         const icon = nodes.find(node => node === this.icon);
 
         if(option) {

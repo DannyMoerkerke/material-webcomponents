@@ -19,6 +19,7 @@ export default class TextEditor extends HTMLElement {
                     display: flex;
                     justify-content: flex-start;
                     align-items: center;
+                    position: absolute;
                 }    
                 
                 button {
@@ -38,6 +39,7 @@ export default class TextEditor extends HTMLElement {
                     padding: 7px;
                 }
                 
+                
             </style>
             
             <div id="toolbar">
@@ -45,47 +47,13 @@ export default class TextEditor extends HTMLElement {
             </div>
             
         `;
-    }
-
-    connectedCallback() {
         this.buttons = {
-            'align-left': {
-                type: 'button',
-                name: 'align-left',
-                data: {
-                    command: 'justifyLeft',
-                    css: {'textAlign': 'left'}
-                }
-            },
-            'align-center': {
-                type: 'button',
-                name: 'align-center',
-                data: {
-                    command: 'justifyCenter',
-                    css: {'textAlign': 'center'}
-                }
-            },
-            'align-right': {
-                type: 'button',
-                name: 'align-right',
-                data: {
-                    command: 'justifyRight',
-                    css: {'textAlign': 'right'}
-                }
-            },
-            'align-justify': {
-                type: 'button',
-                name: 'align-justify',
-                data: {
-                    command: 'justifyFull',
-                    css: {'textAlign': 'justify'}
-                }
-            },
             'bold': {
                 type: 'button',
                 name: 'bold',
                 data: {
                     command: 'bold',
+                    icon: 'format_bold',
                     selection: true,
                     css: {'fontWeight': 'bold'},
                     undo: {'fontWeight': 'normal'}
@@ -96,6 +64,7 @@ export default class TextEditor extends HTMLElement {
                 name: 'italic',
                 data: {
                     command: 'italic',
+                    icon: 'format_italic',
                     selection: true,
                     css: {'fontStyle': 'italic'},
                     undo: {'fontStyle': 'normal'}
@@ -106,35 +75,75 @@ export default class TextEditor extends HTMLElement {
                 name: 'underline',
                 data: {
                     command: 'underline',
+                    icon: 'format_underline',
                     selection: true,
                     css: {'textDecoration': 'underline'},
                     undo: {'textDecoration': 'none'}
                 }
             },
-            'strikeThrough': {
+            'align-left': {
                 type: 'button',
-                name: 'strikeThrough',
+                name: 'align-left',
                 data: {
+                    command: 'justifyLeft',
+                    icon: 'format_align_left',
+                    css: {'textAlign': 'left'}
+                }
+            },
+            'align-right': {
+                type: 'button',
+                name: 'align-right',
+                data: {
+                    command: 'justifyRight',
+                    icon: 'format_align_right',
+                    css: {'textAlign': 'right'}
+                }
+            },
+            'align-center': {
+                type: 'button',
+                name: 'align-center',
+                data: {
+                    command: 'justifyCenter',
+                    icon: 'format_align_center',
+                    css: {'textAlign': 'center'}
+                }
+            },
+            'align-justify': {
+                type: 'button',
+                name: 'align-justify',
+                data: {
+                    command: 'justifyFull',
+                    icon: 'format_align_justify',
+                    css: {'textAlign': 'justify'}
+                }
+            },
+
+            // 'strikeThrough': {
+            //     type: 'button',
+            //     name: 'strikeThrough',
+            //     data: {
+            //         selection: true,
+            //         command: 'strikeThrough',
+            //         css: {'textDecoration': 'line-through'},
+            //         undo: {'textDecoration': 'none'}
+            //     }
+            // },
+            'unorderedList': {
+                type: 'button',
+                name: 'unorderedList',
+                data: {
+                    command: 'insertUnorderedList',
+                    icon: 'format_list_bulleted',
                     selection: true,
-                    command: 'strikeThrough',
-                    css: {'textDecoration': 'line-through'},
-                    undo: {'textDecoration': 'none'}
                 }
             },
             'orderedList': {
                 type: 'button',
                 name: 'orderedList',
                 data: {
+                    command: 'insertOrderedList',
+                    icon: 'format_list_numbered',
                     selection: true,
-                    command: 'insertOrderedList'
-                }
-            },
-            'unorderedList': {
-                type: 'button',
-                name: 'unorderedList',
-                data: {
-                    selection: true,
-                    command: 'insertUnorderedList'
                 }
             },
             'undo': {
@@ -159,32 +168,35 @@ export default class TextEditor extends HTMLElement {
                     selection: true
                 }
             },
-            'fontsize': {
-                type: 'widget',
-                name: 'fontsize',
-                data: {
-                    command: 'fontSize'
-                }
-            },
-            'fontcolor': {
-                type: 'widget',
-                name: 'fontcolor',
-                data: {
-                    command: 'foreColor'
-                }
-            },
-            'fontbackgroundcolor': {
-                type: 'widget',
-                name: 'fontbackgroundcolor',
-                data: {
-                    selection: true,
-                    command: 'hiliteColor'
-                }
-            }
+            // 'fontsize': {
+            //     type: 'widget',
+            //     name: 'fontsize',
+            //     data: {
+            //         command: 'fontSize'
+            //     }
+            // },
+            // 'fontcolor': {
+            //     type: 'widget',
+            //     name: 'fontcolor',
+            //     data: {
+            //         command: 'foreColor'
+            //     }
+            // },
+            // 'fontbackgroundcolor': {
+            //     type: 'widget',
+            //     name: 'fontbackgroundcolor',
+            //     data: {
+            //         selection: true,
+            //         command: 'hiliteColor'
+            //     }
+            // }
         };
+    }
+
+    connectedCallback() {
 
         const contentSelector = this.getAttribute('content');
-        this.content = document.querySelector(contentSelector);
+        this.content = this.getTarget(contentSelector);
 
         if(!this.content) {
             throw new Error(`'${contentSelector}' is not an editable node`);
@@ -195,15 +207,24 @@ export default class TextEditor extends HTMLElement {
             this.setupToolbar();
             this.setupEventHandlers();
         }
+
+        document.execCommand('styleWithCss', false, false);
+        document.execCommand('insertbronreturn', false, false);
     }
 
     attributeChangedCallback(attr, oldVal, newVal) {
 
     }
 
+    getTarget(selector) {
+        const selectors = selector.split(' ');
+        const re = /^([a-z]+\-[a-z]+)+$/g;
+
+        return selectors.reduce((ctx, selector) => selector.match(re) ? ctx.querySelector(selector).shadowRoot : ctx.querySelector(selector), document);
+    }
+
     doCommand(target) {
-        if(target.dataset) {
-            console.log('doCommand');
+        if(target.dataset && target.dataset.command) {
             const commandData = target.dataset.command.split(',');
             const command = commandData[0];
             let args = commandData.length > 1 ? commandData[1] : null;
@@ -225,21 +246,26 @@ export default class TextEditor extends HTMLElement {
 
     setupToolbar() {
         this.toolbar = this.shadowRoot.querySelector('#toolbar');
-        this.toolbar.style.position = 'absolute';
-        this.toolbar.style.visibility = 'hidden';
+        this.hideToolbar();
 
         const {top, left} = this.content.getBoundingClientRect();
 
         this.toolbar.style.left = `${left}px`;
         this.toolbar.style.top = `${top - this.toolbar.offsetHeight}px`;
-        this.toolbar.style.display = 'none';
+    }
+
+    showToolbar() {
         this.toolbar.style.visibility = 'visible';
+    }
+
+    hideToolbar() {
+        this.toolbar.style.visibility = 'hidden';
     }
 
     setupEventHandlers() {
         this.content.addEventListener('click', e => {
             this.content.setAttribute('contenteditable', '');
-            this.toolbar.style.display = '';
+            this.showToolbar();
             this.content.focus();
         });
 
@@ -260,7 +286,7 @@ export default class TextEditor extends HTMLElement {
         document.addEventListener('click', ({path}) => {
             if(!path.includes(this.toolbar) && !path.includes(this.content)) {
                 this.content.removeAttribute('contenteditable');
-                this.toolbar.style.display = 'none';
+                this.hideToolbar();
             }
         });
     }

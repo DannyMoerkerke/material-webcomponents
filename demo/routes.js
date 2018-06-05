@@ -55,12 +55,23 @@ routes(outlet, [
         url: '/material-dialog',
         templateUrl: 'demo/partials/material-dialog.html',
         controller() {
-            document.querySelector('#open').onclick = () => {
-                document.querySelector('material-dialog').open();
+            const standardDialog = document.querySelector('#standard-dialog');
+            const modalDialog = document.querySelector('#modal-dialog');
+
+            document.querySelector('#open-standard').onclick = () => {
+                standardDialog.open();
             };
 
-            document.querySelector('#action').onclick = () => {
-                document.querySelector('material-dialog').close();
+            document.querySelector('#close-standard').onclick = () => {
+                standardDialog.close();
+            };
+
+            document.querySelector('#open-modal').onclick = () => {
+                modalDialog.open();
+            };
+
+            document.querySelector('#close-modal').onclick = () => {
+                modalDialog.close();
             };
         }
     },

@@ -1,4 +1,8 @@
 <h1>material-app-bar</h1>
+<p>
+    The app bar, formerly known as the action bar in Android, is a special kind of toolbar that’s used for branding,
+    navigation, search, and actions.
+</p>
 
 <h3>Usage</h3>
 <pre>
@@ -40,15 +44,18 @@
 </ul>
 
 
-<h3>Demo</h3>
-<material-app-bar label="Title">
-    <i class="material-icons" slot="left-content">add</i>
+<section class="demo">
+    <h3>Demo</h3>
+    <material-app-bar label="Title">
+        <i class="material-icons" slot="left-content">menu</i>
 
-    <material-dropdown slot="right-content">
-        <i class="material-icons" slot="icon" tabindex="1">menu</i>
-        <li slot="option">Javascript</li>
-        <li slot="option">PHP</li>
-        <li slot="option">Java</li>
-        <li slot="option">Scala</li>
-    </material-dropdown>
-</material-app-bar>
+        <i class="material-icons" slot="right-content">add</i>
+        <material-dropdown slot="right-content">
+            <i class="material-icons" slot="icon" tabindex="1">more_vert</i>
+            <li slot="option">Javascript</li>
+            <li slot="option">PHP</li>
+            <li slot="option">Java</li>
+            <li slot="option">Scala</li>
+        </material-dropdown>
+    </material-app-bar>
+</section>

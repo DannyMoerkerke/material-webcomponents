@@ -1,4 +1,7 @@
 <h1>material-progress</h1>
+<p>
+    Progress and activity indicators are visual indications of an app loading content.
+</p>
 
 <h3>Usage</h3>
 <pre>
@@ -9,7 +12,9 @@
 <ul>
     <li><code>value</code>: Number, current value of the progress indicator</li>
     <li><code>max</code>: Number, maximum value of the progress indicator</li>
-    <li><code>circle</code>: Number, will make the progress indicator appear as a circle, the value is the radius in pixels</li>
+    <li><code>circle</code>: Number, will make the progress indicator appear as a circle, the value is the radius in
+        pixels
+    </li>
 </ul>
 
 <h3>Styling</h3>
@@ -21,8 +26,21 @@
     <li><code>--progress-font-size</code>: font size of the progress bar when circular, default: 4px</li>
 </ul>
 
-<h3>Demo</h3>
-<material-progress value="68" max="100"></material-progress>
+<section class="demo">
+    <h3>Demo</h3>
 
-<b>Circular</b>
-<material-progress value="68" max="100" circle="64"></material-progress>
+    <div class="demo-option">
+        <em>determinate</em>
+        <material-progress value="68" max="100"></material-progress>
+    </div>
+
+    <div class="demo-option">
+        <em>indeterminate</em>
+        <material-progress></material-progress>
+    </div>
+
+    <div class="demo-option">
+        <em>circular</em>
+        <material-progress value="68" max="100" circle="64"></material-progress>
+    </div>
+</section>

@@ -13,24 +13,29 @@ export default class MaterialTabs extends HTMLElement {
                     --content-background: #cccccc;
                     --content-width: 0;
                     --content-container-width: 0;
+                    display: block;
+                    height: 96px;
                 }
                 #container {
                     display: grid;
                     grid-template-columns: 1fr;
                     grid-template-rows: 48px 1fr;
+                    height: 96px;
                 }
             
                 #tab-container {
+                    grid-row: 1 / 2;
+                    grid-column: 1 / 2;
                     display: flex;
                     position: relative;
                     background: var(--tabs-background);
-                    overflow: auto;
+                    /*overflow: auto;*/
                 }
                 #content-container {
+                    grid-row: 2 / 3;
+                    grid-column: 1 / 2;
                     width: var(--content-container-width);
-                    height: 50px;
-                    max-height: 50px;
-                    overflow: hidden;
+                    overflow-y: hidden;
                 }
                 .slide {
                     transition: margin-left .4s cubic-bezier(0, 0.92, 0.32, 0.98);
@@ -38,7 +43,6 @@ export default class MaterialTabs extends HTMLElement {
                 #tab-content {
                     background: var(--content-background);
                     width: var(--content-width);
-                    height: 50px;
                     overflow: hidden;
                 }
                 ::slotted([slot="tab"]) {
@@ -89,6 +93,7 @@ export default class MaterialTabs extends HTMLElement {
 
     connectedCallback() {
         this.curIndex = 0;
+        this.container = this.shadowRoot.querySelector('#container');
         this.tabContainer = this.shadowRoot.querySelector('#tab-container');
         this.contentContainer = this.shadowRoot.querySelector('#content-container');
         this.tabContent = this.shadowRoot.querySelector('#tab-content');
@@ -110,8 +115,9 @@ export default class MaterialTabs extends HTMLElement {
         this.tabs = [...this.shadowRoot.querySelectorAll('.tab')];
         this.tabs[0].classList.add('active');
 
-        const {width} = this.tabs[0].getBoundingClientRect();
-        console.log(this.tabContainer.offsetWidth);
+        const {width, height} = this.tabs[0].getBoundingClientRect();
+        console.log('tabscontainer height', this.tabContainer.offsetHeight, 'height', height);
+
         this.indicator.style.setProperty('--indicator-width', `${width}px`);
         this.host.style.setProperty('--content-width', `${this.tabContainer.offsetWidth}px`);
         this.host.style.setProperty('--content-container-width', `${this.tabContainer.offsetWidth * this.tabs.length}px`);

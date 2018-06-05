@@ -18,7 +18,7 @@ export default class MaterialProgress extends HTMLElement {
                     --progress-background: #eeeeee;
                     --progress-font-size: 4px;
                 }
-                progress[value]  {
+                progress  {
                     -webkit-appearance: none;
                     -moz-appearance: none;
                     appearance: none;
@@ -28,13 +28,42 @@ export default class MaterialProgress extends HTMLElement {
                     color: var(--progress-bar-color); 
                 }
                 
-                progress[value]::-webkit-progress-bar {
+                progress::-webkit-progress-bar {
                     background-color: var(--progress-background);
                     border-radius: 2px;
                     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25) inset;
                 }
                 progress[value]::-webkit-progress-value {
                     background-color: var(--progress-bar-color);
+                }
+                
+                progress:not([value]) {
+                    position: relative;
+                }
+                progress:not([value]):after {
+                    position: absolute;
+                    top: 0;
+                    left: 0%;
+                    background-color: var(--progress-bar-color);
+                    display: block;
+                    width: calc(var(--progress-bar-height) * 4);
+                    height: var(--progress-bar-height);
+                    content: ' ';
+                    animation-name: slide;
+                    animation-duration: 1s;
+                    animation-fill-mode: forwards;
+                    animation-timing-function: ease-in-out;
+                    animation-direction: alternate;
+                    animation-iteration-count: infinite;
+                }
+                
+                @keyframes slide {
+                    from {
+                        left: 0%;
+                    }
+                    to {
+                        left: calc(100% - calc(var(--progress-bar-height) * 4));
+                    }
                 }
                 
                 progress[value]::-moz-progress-bar {
@@ -45,14 +74,22 @@ export default class MaterialProgress extends HTMLElement {
                     position: relative;
                     display: inline-block;
                     height: 5px;
-                    margin-top: 20px;
                     overflow: visible;
+                }
+                progress[value] #progress-container {
+                    margin-top: 20px;
                 }
                 #progress-container #progress-value {
                     width: var(--progress-value, 0%);
                     height: 20px;
                     position: absolute;
                     top: -7px;
+                }
+                #progress-value {
+                    display: none;
+                }
+                :host([value]) #progress-value {
+                    display: block;
                 }
                 #progress-value::after {
                     position: absolute;
@@ -131,9 +168,11 @@ export default class MaterialProgress extends HTMLElement {
             this.container.appendChild(this.regular);
             this.progress = this.shadowRoot.querySelector('progress');
         }
-
         this.progressValue = this.shadowRoot.querySelector('#progress-value');
-        this.progressValue.style.setProperty('--progress-font-size', `${this.circleSize / 4}px`);
+
+        if(this.hasAttribute('circle')) {
+            this.progressValue.style.setProperty('--progress-font-size', `${this.circleSize / 4}px`);
+        }
     }
 
     connectedCallback() {
