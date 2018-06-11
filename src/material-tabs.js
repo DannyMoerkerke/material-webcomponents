@@ -31,19 +31,19 @@ export default class MaterialTabs extends HTMLElement {
                     background: var(--tabs-background);
                     /*overflow: auto;*/
                 }
-                #content-container {
+                #tab-content {
                     grid-row: 2 / 3;
                     grid-column: 1 / 2;
+                    background: var(--content-background);
+                    width: var(--content-width);
+                    overflow: hidden;
+                }
+                #content-container {
                     width: var(--content-container-width);
                     overflow-y: hidden;
                 }
                 .slide {
                     transition: margin-left .4s cubic-bezier(0, 0.92, 0.32, 0.98);
-                }
-                #tab-content {
-                    background: var(--content-background);
-                    width: var(--content-width);
-                    overflow: hidden;
                 }
                 ::slotted([slot="tab"]) {
                     padding: 20px;
