@@ -47,6 +47,9 @@ export default class MaterialButton extends HTMLElement {
                 :host([disabled]) button:hover {
                     background-color: transparent;
                 }
+                :host([disabled]) button .ripple {
+                    display: none;
+                }
                 button.active .ripple {
                     animation-name: ripple;
                     animation-duration: 0.4s;

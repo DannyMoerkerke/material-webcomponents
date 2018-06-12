@@ -26,7 +26,12 @@ ul {
 ul ul {
     /*margin-top: 10px;*/
 }
-
+ul li {
+    padding: 3px;
+}
+ul li a {
+    text-decoration: none;
+}
 h1,
 h2,
 h3 {

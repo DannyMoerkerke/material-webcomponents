@@ -2,7 +2,9 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>Custom element</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>Material Custom Element</title>
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <link rel="stylesheet" href="demo/demo.css">
         <style>
@@ -26,24 +28,26 @@
     <body>
 
         <main>
-            <material-slidemenu label="Components">
-                <a slot="item" href="/material-app-bar">material-app-bar</a>
-                <a slot="item" href="/material-button">material-button</a>
-                <a slot="item" href="/material-checkbox">material-checkbox</a>
-                <a slot="item" href="/material-datepicker">material-datepicker</a>
-                <a slot="item" href="/material-dialog">material-dialog</a>
-                <a slot="item" href="/material-dropdown">material-dropdown</a>
-                <a slot="item" href="/material-progress">material-progress</a>
-                <a slot="item" href="/material-drawer">material-drawer</a>
-                <a slot="item" href="/material-radiobutton">material-radiobutton</a>
-                <a slot="item" href="/material-slider">material-slider</a>
-                <a slot="item" href="/material-switch">material-switch</a>
-                <a slot="item" href="/material-table">material-table</a>
-                <a slot="item" href="/material-tabs">material-tabs</a>
-                <a slot="item" href="/material-textfield">material-textfield</a>
-                <a slot="item" href="/material-toggle-button">material-toggle-button</a>
-                <a slot="item" href="/material-slidemenu">material-slidemenu</a>
-            </material-slidemenu>
+            <!--<material-drawer label="Components" open>-->
+                <ul slot="content">
+                    <li><a slot="item" href="/material-app-bar">material-app-bar</a></li>
+                    <li><a slot="item" href="/material-button">material-button</a></li>
+                    <li><a slot="item" href="/material-checkbox">material-checkbox</a></li>
+                    <li><a slot="item" href="/material-datepicker">material-datepicker</a></li>
+                    <li><a slot="item" href="/material-dialog">material-dialog</a></li>
+                    <li><a slot="item" href="/material-dropdown">material-dropdown</a></li>
+                    <li><a slot="item" href="/material-progress">material-progress</a></li>
+                    <li><a slot="item" href="/material-drawer">material-drawer</a></li>
+                    <li><a slot="item" href="/material-radiobutton">material-radiobutton</a></li>
+                    <li><a slot="item" href="/material-slider">material-slider</a></li>
+                    <li><a slot="item" href="/material-switch">material-switch</a></li>
+                    <li><a slot="item" href="/material-table">material-table</a></li>
+                    <li><a slot="item" href="/material-tabs">material-tabs</a></li>
+                    <li><a slot="item" href="/material-textfield">material-textfield</a></li>
+                    <li><a slot="item" href="/material-toggle-button">material-toggle-button</a></li>
+                    <li><a slot="item" href="/material-slidemenu">material-slidemenu</a></li>
+                </ul>
+            <!--</material-drawer>-->
 
             <div id="content"></div>
         </main>

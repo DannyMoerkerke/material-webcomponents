@@ -1,7 +1,7 @@
 export default class MaterialProgress extends HTMLElement {
 
     static get observedAttributes() {
-        return ['value', 'max'];
+        return ['value', 'max', 'circle'];
     }
 
     constructor() {
@@ -40,15 +40,14 @@ export default class MaterialProgress extends HTMLElement {
                 progress:not([value]) {
                     position: relative;
                 }
-                progress:not([value]):after {
+                progress:not([value]) + .after {
                     position: absolute;
-                    top: 0;
+                    top: 14px;
                     left: 0%;
                     background-color: var(--progress-bar-color);
                     display: block;
                     width: calc(var(--progress-bar-height) * 4);
                     height: var(--progress-bar-height);
-                    content: ' ';
                     animation-name: slide;
                     animation-duration: 1s;
                     animation-fill-mode: forwards;
@@ -125,6 +124,7 @@ export default class MaterialProgress extends HTMLElement {
                 <div id="progress-container">
                     <div id="progress-value"></div>
                     <progress></progress>
+                    <div class="after"></div>
                 </div>
             </template>
             
@@ -143,7 +143,9 @@ export default class MaterialProgress extends HTMLElement {
         this.container = this.shadowRoot.querySelector('#container');
         this.regular = this.shadowRoot.querySelector('#regular').content.cloneNode(true);
         this.circular = this.shadowRoot.querySelector('#circular').content.cloneNode(true);
+    }
 
+    connectedCallback() {
         if(this.hasAttribute('circle')) {
             this.container.appendChild(this.circular);
             this.circle = this.shadowRoot.querySelector('#circle');
@@ -173,18 +175,12 @@ export default class MaterialProgress extends HTMLElement {
         if(this.hasAttribute('circle')) {
             this.progressValue.style.setProperty('--progress-font-size', `${this.circleSize / 4}px`);
         }
-    }
 
-    connectedCallback() {
-
-    }
-
-    attributeChangedCallback(attr, oldVal, newVal) {
-        if(attr === 'value') {
-            this.setProgressValue(newVal);
+        if(this.hasAttribute('value')) {
+            this.setProgressValue(this.getAttribute('value'));
         }
-        if(attr === 'max' && !this.hasAttribute('circle')) {
-            this.progress.setAttribute('max', newVal);
+        if(this.hasAttribute('max') && !this.hasAttribute('circle')) {
+            this.progress.setAttribute('max', this.getAttribute('max'));
         }
     }
 
