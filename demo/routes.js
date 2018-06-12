@@ -28,18 +28,14 @@ routes(outlet, [
             const dialog = document.querySelector('material-dialog');
             const locale = 'en-EN';
 
-            field.addEventListener('focus', () => {
-                dialog.open();
-            });
+            field.addEventListener('focus', dialog.open.bind(dialog));
 
             picker.addEventListener('change', e => {
                 field.value = e.detail.formattedDate;
                 dialog.close();
             });
 
-            picker.addEventListener('close', e => {
-                dialog.close();
-            });
+            picker.addEventListener('close', dialog.close.bind(dialog));
 
             const formattedDate = new Intl.DateTimeFormat(locale, {
                 day: '2-digit',
@@ -58,21 +54,10 @@ routes(outlet, [
             const standardDialog = document.querySelector('#standard-dialog');
             const modalDialog = document.querySelector('#modal-dialog');
 
-            document.querySelector('#open-standard').onclick = () => {
-                standardDialog.open();
-            };
-
-            document.querySelector('#close-standard').onclick = () => {
-                standardDialog.close();
-            };
-
-            document.querySelector('#open-modal').onclick = () => {
-                modalDialog.open();
-            };
-
-            document.querySelector('#close-modal').onclick = () => {
-                modalDialog.close();
-            };
+            document.querySelector('#open-standard').addEventListener('click', standardDialog.open.bind(standardDialog));
+            document.querySelector('#close-standard').addEventListener('click', standardDialog.close.bind(standardDialog));
+            document.querySelector('#open-modal').addEventListener('click', modalDialog.open.bind(modalDialog));
+            document.querySelector('#close-modal').addEventListener('click', modalDialog.close.bind(modalDialog));
         }
     },
     {
@@ -88,11 +73,9 @@ routes(outlet, [
         templateUrl: 'demo/partials/material-drawer.html',
         controller() {
             const button = document.querySelector('#material-drawer-toggle');
-            const drawer = document.querySelector('material-drawer');
+            const drawer = document.querySelector('#demo-material-drawer');
 
-            button.addEventListener('click', () => {
-                drawer.toggle();
-            });
+            button.addEventListener('click', drawer.toggle.bind(drawer));
         }
     },
     {
