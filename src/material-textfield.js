@@ -187,6 +187,10 @@ export default class MaterialTextfield extends HTMLElement {
 
         if(this.hasAttribute('readonly')) {
             this.input.addEventListener('keydown', e => e.preventDefault());
+            this.input.addEventListener('focus', e => {
+                e.preventDefault();
+                this.input.blur();
+            });
         }
         else {
             this.input.addEventListener('keyup', this.handleKeyUp.bind(this));

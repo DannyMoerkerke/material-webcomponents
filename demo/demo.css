@@ -1,6 +1,7 @@
 body {
     font-family: Verdana;
     line-height: 1.3em;
+    margin: 0;
 }
 
 main {
@@ -17,6 +18,7 @@ main {
     -ms-grid-column: 2;
     -ms-grid-column-span: 1;
     grid-column: 2 / 3;
+    padding: 10px;
 }
 
 ul {
@@ -53,6 +55,10 @@ p {
 code, pre {
     font-size: 1.1em;
 }
+pre {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
 
 .demo-option {
     margin-bottom: 15px;
@@ -73,8 +79,10 @@ code, pre {
 }
 
 #datepicker-dialog {
-    --dialog-height: 444px !important;
     --dialog-width: auto !important;
+    --header-background: transparent;
+    --body-background: transparent;
+    --footer-background: transparent;
 }
 
 material-slidemenu {

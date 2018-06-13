@@ -14,6 +14,7 @@ export default class MaterialDatepicker extends HTMLElement {
                 :host {
                     --datepicker-color: #0000ff;
                     --first-day-position: 1;
+                    display: block;
                 }
                 #datepicker-container {
                     display: grid;
@@ -31,6 +32,7 @@ export default class MaterialDatepicker extends HTMLElement {
                     grid-template-columns: 1fr;
                     grid-row: 2 / 3;
                     grid-column: 1 / 2;
+                    background: #ffffff;
                 }
                 #prev,
                 #next,
@@ -139,6 +141,7 @@ export default class MaterialDatepicker extends HTMLElement {
                     grid-row: 4 / 5;
                     display: flex;
                     justify-content: flex-end;
+                    background: #ffffff;
                 }
                 button {
                     border: none;

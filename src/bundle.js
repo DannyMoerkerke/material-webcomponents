@@ -17,5 +17,3 @@ import './material-button.js';
 import './material-progress.js';
 import './material-drawer.js';
 import '../demo/routes.js';
-
-// import '../demo/demo.css';

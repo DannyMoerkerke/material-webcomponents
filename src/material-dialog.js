@@ -18,6 +18,7 @@ export default class MaterialDialog extends HTMLElement {
                     --backdrop-color: rgba(128,128,128,0.5);
                     --dialog-width: 20%;
                     --dialog-height: auto;
+                    display: block;
                 }
                 
                 #backdrop {
@@ -36,13 +37,13 @@ export default class MaterialDialog extends HTMLElement {
                 #modal {
                     display: grid;
                     grid-template-rows: 1fr 3fr 1fr;
-                    position: absolute;
+                    position: fixed;
                     top: 50%;
                     left: 50%;
                     transform: translate(-50%, -50%);
                     width: var(--dialog-width);
                     height: var(--dialog-height);
-                    background: #ffffff;
+                    background: transparent;
                     animation-name: slidedown;
                     animation-duration: .2s;
                     animation-fill-mode: forwards;
@@ -127,11 +128,13 @@ export default class MaterialDialog extends HTMLElement {
                 </div>
             </div>
         `;
+
+        this.backdrop = this.shadowRoot.querySelector('#backdrop');
+        this.modal = this.shadowRoot.querySelector('#modal');
     }
 
     connectedCallback() {
         this.style.display = 'none';
-        this.backdrop = this.shadowRoot.querySelector('#backdrop');
 
         this.backdrop.addEventListener('click', this.handleClick.bind(this));
         this.backdrop.addEventListener('animationend', this.handleAnimationEnd.bind(this));

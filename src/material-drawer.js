@@ -14,12 +14,13 @@ export default class MaterialDrawer extends HTMLElement {
                 :host {
                     --drawer-color: #ffffff;
                     --backdrop-color: rgba(128,128,128,0.5);
+                    --top-pos: 0;
                 }
                 #container {
                     --desktop-drawer-width: 250px;
                     --mobile-drawer-width: 80%;
                     position: fixed;
-                    top: 0;
+                    top: var(--top-pos);
                     left: 0;
                     width: var(--drawer-width);
                     height: 100%;
@@ -94,6 +95,7 @@ export default class MaterialDrawer extends HTMLElement {
             this.container.style.setProperty('--drawer-width', (this.isMobile ? this.mobileDrawerWidth : this.desktopDrawerWidth));
 
             if(this.isMobile) {
+                this.container.addEventListener('click', this.close.bind(this));
                 this.backdrop.addEventListener('animationend', ({animationName}) => {
                     if(animationName === 'fadeout') {
                         this.backdrop.classList.remove('close');
