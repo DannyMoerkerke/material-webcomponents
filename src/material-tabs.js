@@ -29,7 +29,8 @@ export default class MaterialTabs extends HTMLElement {
                     display: flex;
                     position: relative;
                     background: var(--tabs-background);
-                    /*overflow: auto;*/
+                    overflow: auto;
+                    max-width: 100vw;
                 }
                 #tab-content {
                     grid-row: 2 / 3;
@@ -103,6 +104,8 @@ export default class MaterialTabs extends HTMLElement {
         this.indicator = this.shadowRoot.querySelector('#active-indicator');
         this.contentDivs = this.shadowRoot.querySelector('slot[name="tab"]').assignedNodes();
 
+        console.log(window.screen);
+
         this.contentDivs.forEach((contentDiv, index) => {
             const tab = document.createElement('div');
             tab.classList.add('tab');
@@ -116,7 +119,6 @@ export default class MaterialTabs extends HTMLElement {
         this.tabs[0].classList.add('active');
 
         const {width, height} = this.tabs[0].getBoundingClientRect();
-        console.log('tabscontainer height', this.tabContainer.offsetHeight, 'height', height);
 
         this.indicator.style.setProperty('--indicator-width', `${width}px`);
         this.host.style.setProperty('--content-width', `${this.tabContainer.offsetWidth}px`);

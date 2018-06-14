@@ -23,24 +23,25 @@ describe('material-progress', () => {
         expect(element.container.querySelector('circle')).not.to.eql(null);
     });
 
-    it('should call the setProgressValue method when the "value" attribute is changed', () => {
+    it('should set progress and update the "value" attribute when the "value" property is set', () => {
         template.innerHTML = '<material-progress></material-progress>';
         element = template.content.firstChild;
         document.body.appendChild(element);
 
         const spy = sinon.spy(element, 'setProgressValue');
 
-        element.setAttribute('value', 50);
+        element.value = 50;
 
-        expect(spy.calledWith('50')).to.eql(true);
+        expect(element.getAttribute('value')).to.eql('50');
+        expect(spy.calledWith(50)).to.eql(true);
     });
 
     it('should set the "max" attribute on the progress bar', () => {
         template.innerHTML = '<material-progress></material-progress>';
         element = template.content.firstChild;
+        element.setAttribute('max', 100);
         document.body.appendChild(element);
 
-        element.setAttribute('max', 100);
 
         expect(element.progress.getAttribute('max')).to.eql('100');
     });
@@ -51,19 +52,6 @@ describe('material-progress', () => {
         document.body.appendChild(element);
 
         expect(element.value).to.eql(progress)
-    });
-
-    it('should set progress and update the "value" attribute when the "value" property is set', () => {
-        template.innerHTML = '<material-progress></material-progress>';
-        element = template.content.firstChild;
-        document.body.appendChild(element);
-
-        const spy = sinon.spy(element, 'setProgressValue');
-
-        element.value = 50;
-
-        expect(spy.calledWith('50')).to.eql(true);
-        expect(element.getAttribute('value')).to.eql('50');
     });
 
     it('should set the "--dash-offset" CSS variable when progress is updated on a circular progress element', () => {

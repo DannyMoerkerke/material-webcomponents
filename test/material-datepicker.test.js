@@ -5,6 +5,7 @@ describe('material-datepicker', () => {
     let currentYear = currentDate.getFullYear();
     let currentDay = currentDate.getDay();
     let pickedDay = currentDate.getDate();
+    const locale = 'en-EN';
 
     beforeEach(function() {
         element = document.createElement('material-datepicker');
@@ -13,11 +14,11 @@ describe('material-datepicker', () => {
     });
 
     it('should display the current month and year', () => {
-        const month = new Intl.DateTimeFormat(this.locale, {
+        const month = new Intl.DateTimeFormat(locale, {
             month: 'short'
         }).format(currentDate);
 
-        const localDate = new Intl.DateTimeFormat(this.locale, {
+        const localDate = new Intl.DateTimeFormat(locale, {
             day: 'numeric',
             weekday: 'short',
             month: 'short'
@@ -55,7 +56,7 @@ describe('material-datepicker', () => {
         date.setMonth(prevMonth);
 
         expect(element.currentMonth).to.eql(prevMonth);
-        expect(spy.args[0][0].toString()).to.equal(date.toString());
+        expect(spy.args[0][0].getMonth()).to.equal(date.getMonth());
     });
 
     it('should go to the previous year when going from the first month of the year to the previous month', () => {
@@ -77,7 +78,7 @@ describe('material-datepicker', () => {
         date.setMonth(nextMonth);
 
         expect(element.currentMonth).to.eql(nextMonth);
-        expect(spy.args[0][0].toString()).to.equal(date.toString());
+        expect(spy.args[0][0].getMonth()).to.equal(date.getMonth());
     });
 
     it('should go to the next year when going from the last month of the year to the next month', () => {
@@ -153,7 +154,7 @@ describe('material-datepicker', () => {
     });
 
     it('should dispatch an event containing the picked date', () => {
-        const formattedDate = new Intl.DateTimeFormat(this.locale, {
+        const formattedDate = new Intl.DateTimeFormat(locale, {
             day: '2-digit',
             month: '2-digit',
             year: 'numeric'
@@ -194,7 +195,7 @@ describe('material-datepicker', () => {
     });
 
     it('should return a correctly formatted date', () => {
-        const expected = new Intl.DateTimeFormat(this.locale, {
+        const expected = new Intl.DateTimeFormat(locale, {
             day: '2-digit',
             month: '2-digit',
             year: 'numeric'

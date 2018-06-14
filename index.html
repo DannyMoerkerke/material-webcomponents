@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Material Custom Element</title>
+        <title>Material Custom Elements</title>
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <link rel="stylesheet" href="demo/demo.css">
         <style>
@@ -91,7 +91,9 @@
                         drawer.open();
                     }
                     else {
-                        drawer.close();
+                        if(drawer.hasAttribute('open')) {
+                            drawer.close();
+                        }
                     }
                 };
 
