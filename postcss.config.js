@@ -5,7 +5,7 @@ module.exports = {
             features: {
                 autoprefixer: {
                     browsers: [
-                        'last 2 IE versions', 'not IE < 11',
+                        'last 2 Edge versions', 'not Edge < 15',
                         'last 2 Chrome versions', 'not Chrome < 61',
                         'last 2 Safari versions', 'not Safari < 10.1',
                         'last 2 iOS versions', 'not iOS < 10.3',
