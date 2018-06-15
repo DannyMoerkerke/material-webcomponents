@@ -13,6 +13,11 @@
         <script>
             mocha.setup('bdd');
         </script>
+        <script>
+            window.addEventListener('WebComponentsReady', () => {
+                mocha.run();
+            });
+        </script>
         <script type="module" src="../src/bundle.js"></script>
         <script src="material-button.test.js"></script>
         <!--<script src="material-table.test.js"></script>-->
@@ -30,8 +35,5 @@
         <!--<script src="material-slidemenu.test.js"></script>-->
         <!--<script src="material-progress.test.js"></script>-->
 
-        <script>
-            mocha.run();
-        </script>
     </body>
 </html>
