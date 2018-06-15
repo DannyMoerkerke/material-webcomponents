@@ -54,6 +54,8 @@
     "autoprefixer": "^8.3.0",
     "css-loader": "^0.28.11",
     "fetch-polyfill": "^0.8.2",
+    "mocha": "^5.2.0",
+    "mocha-headless-chrome": "^2.0.0",
     "postcss": "^6.0.21",
     "postcss-cssnext": "^3.1.0",
     "postcss-loader": "^2.1.4",
