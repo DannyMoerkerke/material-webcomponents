@@ -51,12 +51,16 @@ export default class MaterialDialog extends HTMLElement {
                 }
                 header {
                     background: var(--header-background);
+                    display: flex;
+                    align-items: center;
                 }
                 main {
                     background: var(--body-background);
                 }
                 footer {
                     background: var(--footer-background);
+                    display: flex;
+                    align-items: center;
                 }
                 ::slotted([slot]) {
                     margin: 10px;

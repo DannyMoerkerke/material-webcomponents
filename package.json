@@ -2,9 +2,9 @@
   "name": "material-custom-elements",
   "version": "1.0.0",
   "description": "Material Design implemented in Custom elements",
-  "main": "webrtc-chat-client.js",
+  "main": "src/bundle.js",
   "scripts": {
-    "_postinstall": "mkdir -p bower_components/web-component-tester && cp -R node_modules/web-component-tester/* bower_components/web-component-tester",
+    "postinstall": "mkdir -p bower_components/web-component-tester && cp -R node_modules/web-component-tester/* bower_components/web-component-tester",
     "start": "ws -p 8080 --spa index.html",
     "start:bundle": "webpack-dev-server --config webpack.config.bundle.js",
     "start:legacy": "webpack-dev-server --config webpack.config.legacy.js",

@@ -108,3 +108,6 @@ material-switch {
 material-progress {
     --progress-bar-width: 250px !important;
 }
+material-dropdown {
+    margin-bottom: 150px;
+}

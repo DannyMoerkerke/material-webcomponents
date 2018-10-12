@@ -20,6 +20,7 @@ export default class MaterialDropdown extends HTMLElement {
                     --icon-height: 24px;
                     --font-color: #000000;
                     --hover-color: #cecece;
+                    display: block;
                     width: var(--menu-width);
                     height: var(--menu-height);
                 }
