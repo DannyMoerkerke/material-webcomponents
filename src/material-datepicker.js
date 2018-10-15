@@ -281,7 +281,7 @@ export default class MaterialDatepicker extends HTMLElement {
     showCurrentMonth() {
         this.showMonthView();
         this.displayMonth(this.currentDate);
-        console.log(new Date().getMonth() === this.currentMonth);
+
         if(new Date().getMonth() === this.currentMonth) {
             this.pickDate(this.currentDate);
         }

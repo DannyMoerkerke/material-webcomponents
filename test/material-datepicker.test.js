@@ -73,7 +73,7 @@ describe('material-datepicker', () => {
         const date = new Date(currentDate.toString());
         const nextMonth = currentMonth + 1;
         const spy = sinon.spy(element, 'displayMonth');
-        
+
         element.nextMonth();
         date.setMonth(nextMonth);
 
@@ -97,12 +97,12 @@ describe('material-datepicker', () => {
         element.nextMonth();
         expect(spy.called).to.eql(false);
 
-        spy.reset();
+        spy.resetHistory();
 
         element.prevMonth();
         expect(spy.called).to.eql(true);
 
-        spy.reset();
+        spy.restore();
 
         element.prevMonth();
         element.nextMonth();

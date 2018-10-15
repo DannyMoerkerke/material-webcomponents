@@ -104,8 +104,6 @@ export default class MaterialTabs extends HTMLElement {
         this.indicator = this.shadowRoot.querySelector('#active-indicator');
         this.contentDivs = this.shadowRoot.querySelector('slot[name="tab"]').assignedNodes();
 
-        console.log(window.screen);
-
         this.contentDivs.forEach((contentDiv, index) => {
             const tab = document.createElement('div');
             tab.classList.add('tab');
