@@ -1,11 +1,16 @@
-describe('material-button', () => {
+describe('material-button', function() {
     let element;
 
-    beforeEach(function() {
+    this.timeout(4000);
+
+    beforeEach(done => {
         element = document.createElement('material-button');
         element.setAttribute('label', 'ok');
 
         document.body.appendChild(element);
+
+        customElements.whenDefined('material-button')
+        .then(() => done());
     });
 
     it('should display the label', () => {
