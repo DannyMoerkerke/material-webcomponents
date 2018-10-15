@@ -19,6 +19,8 @@ export default class MaterialDrawer extends HTMLElement {
                 #container {
                     --desktop-drawer-width: 250px;
                     --mobile-drawer-width: 80%;
+                    padding: 10px;
+                    box-sizing: border-box;
                     position: fixed;
                     top: var(--top-pos);
                     left: 0;
@@ -120,7 +122,7 @@ export default class MaterialDrawer extends HTMLElement {
             }
         }
     }
-    
+
     open() {
         this.container.classList.add('open');
         this.setAttribute('open', '');

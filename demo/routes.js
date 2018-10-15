@@ -213,10 +213,6 @@ routes(outlet, [
         templateUrl: 'demo/partials/material-textfield.html'
     },
     {
-        url: '/material-toggle-button',
-        template: `<material-toggle-button left="Running" right="Complete" active="right"></material-toggle-button>`
-    },
-    {
         url: '/material-slidemenu',
         templateUrl: 'demo/partials/material-slidemenu.html'
     }
