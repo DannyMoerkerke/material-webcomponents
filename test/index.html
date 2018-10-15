@@ -4,10 +4,11 @@
         <meta charset="utf-8">
         <script src="../node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
         <script src="../node_modules/sinon/pkg/sinon.js"></script>
-        <script src="https://cdn.rawgit.com/Automattic/expect.js/0.3.1/index.js"></script>
+        <script src="../node_modules/chai/chai.js"></script>
         <script src="../node_modules/mocha/mocha.js"></script>
 
         <script>
+            window.expect = chai.expect;
             mocha.setup('bdd');
         </script>
         <script type="module" src="test/material-app-bar.test.js"></script>
