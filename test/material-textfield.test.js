@@ -1,3 +1,5 @@
+import '../src/material-textfield.js';
+
 describe('material-textfield', () => {
     let element;
 

@@ -1,3 +1,5 @@
+import '../src/material-slidemenu.js';
+
 describe('material-slidemenu', () => {
     let element;
     const items = [

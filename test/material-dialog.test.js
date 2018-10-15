@@ -1,3 +1,5 @@
+import '../src/material-dialog.js';
+
 describe('material-dialog', () => {
     let element;
 

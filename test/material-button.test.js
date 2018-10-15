@@ -1,3 +1,5 @@
+import '../src/material-button.js';
+
 describe('material-button', () => {
     let element;
 

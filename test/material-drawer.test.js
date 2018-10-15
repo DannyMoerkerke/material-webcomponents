@@ -1,3 +1,5 @@
+import '../src/material-drawer.js';
+
 describe('material-drawer', () => {
     let element;
 

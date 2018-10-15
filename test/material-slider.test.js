@@ -1,3 +1,5 @@
+import '../src/material-slider.js';
+
 describe('material-slider', () => {
     let element;
     const hex = '#b8b8b8';

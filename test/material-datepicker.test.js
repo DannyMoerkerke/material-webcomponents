@@ -1,3 +1,5 @@
+import '../src/material-datepicker.js';
+
 describe('material-datepicker', () => {
     let element;
     let currentDate = new Date();

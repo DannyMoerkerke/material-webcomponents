@@ -1,3 +1,5 @@
+import '../src/material-toggle-button.js';
+
 describe('material-toggle-button', () => {
     let element;
     const left = 'closed';

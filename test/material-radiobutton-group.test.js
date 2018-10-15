@@ -1,3 +1,5 @@
+import '../src/material-radiobutton-group.js';
+
 describe('material-radiobutton-group', () => {
     let element;
 

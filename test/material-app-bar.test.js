@@ -1,3 +1,5 @@
+import '../src/material-app-bar.js';
+
 describe('material-app-bar', () => {
     let element;
     const label = 'app bar';

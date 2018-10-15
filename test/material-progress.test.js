@@ -1,3 +1,5 @@
+import '../src/material-progress.js';
+
 describe('material-progress', () => {
     let element;
     const template = document.createElement('template');

@@ -1,3 +1,5 @@
+import '../src/material-dropdown.js';
+
 describe('material-dropdown', () => {
     let element;
     const options = ['javascript', 'php'];

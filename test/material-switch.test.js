@@ -1,3 +1,5 @@
+import '../src/material-switch.js';
+
 describe('material-switch', () => {
     let element;
 

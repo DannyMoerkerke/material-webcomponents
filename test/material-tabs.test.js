@@ -1,3 +1,5 @@
+import '../src/material-tabs.js';
+
 describe('material-tabs', () => {
     let element;
     const numTabs = 5;

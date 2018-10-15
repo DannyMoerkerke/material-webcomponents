@@ -1,3 +1,5 @@
+import '../src/material-table.js';
+
 describe('material-table', () => {
 
     let element;
@@ -8,11 +10,8 @@ describe('material-table', () => {
             const colA = typeof a[col] === 'string' ? a[col].toLowerCase() : a[col];
             const colB = typeof b[col] === 'string' ? b[col].toLowerCase() : b[col];
 
-            return colA < colB
-                ? order
-                : colA > colB
-                    ? -order
-                    : 0;
+            return colA < colB ? order :
+                   colA > colB ? -order : 0;
         });
     };
 

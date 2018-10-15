@@ -1,3 +1,5 @@
+import '../src/material-checkbox.js';
+
 describe('material-checkbox', () => {
     let element;
 
