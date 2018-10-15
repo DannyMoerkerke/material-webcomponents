@@ -67,4 +67,8 @@ describe('material-tabs', () => {
             expect(actual).to.eql(expected);
         });
     });
+
+    afterEach(() => {
+        document.body.removeChild(element);
+    });
 });

@@ -1,7 +1,7 @@
 describe('material-switch', () => {
     let element;
 
-    beforeEach(function() {
+    beforeEach(() => {
         element = document.createElement('material-switch');
 
         document.body.appendChild(element);
@@ -52,5 +52,9 @@ describe('material-switch', () => {
 
         element.removeAttribute('on');
         expect(element.value).to.eql(false);
+    });
+
+    afterEach(() => {
+        document.body.removeChild(element);
     });
 });

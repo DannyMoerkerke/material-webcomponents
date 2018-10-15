@@ -2,7 +2,7 @@ describe('material-app-bar', () => {
     let element;
     const label = 'app bar';
 
-    beforeEach(function() {
+    beforeEach(() => {
         element = document.createElement('material-app-bar');
 
         let icon = document.createElement('i');
@@ -31,5 +31,9 @@ describe('material-app-bar', () => {
         element.handleIconClick({target: left});
 
         expect(spy.args[0][0].detail.target).to.eql(left)
+    });
+
+    afterEach(() => {
+        document.body.removeChild(element);
     });
 });

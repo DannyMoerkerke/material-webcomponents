@@ -198,4 +198,8 @@ describe('material-table', () => {
 
         expect(spy.args[0]).to.eql(['language', -1]);
     });
+
+    afterEach(() => {
+        document.body.removeChild(element);
+    });
 });

@@ -7,7 +7,7 @@ describe('material-datepicker', () => {
     let pickedDay = currentDate.getDate();
     const locale = 'en-EN';
 
-    beforeEach(function() {
+    beforeEach(() => {
         element = document.createElement('material-datepicker');
 
         document.body.appendChild(element);
@@ -233,5 +233,9 @@ describe('material-datepicker', () => {
         expect(spy1.called).to.eql(true);
         expect(spy2.called).to.eql(true);
         expect(spy3.called).to.eql(false);
+    });
+
+    afterEach(() => {
+        document.body.removeChild(element);
     });
 });

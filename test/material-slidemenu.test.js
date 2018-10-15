@@ -8,7 +8,7 @@ describe('material-slidemenu', () => {
         'typescript'
     ];
 
-    beforeEach(function() {
+    beforeEach(() => {
         element = document.createElement('material-slidemenu');
         const frag = document.createDocumentFragment();
 
@@ -75,5 +75,9 @@ describe('material-slidemenu', () => {
         element.handleTransitionEnd();
 
         expect(element.container.style.zIndex).to.eql('-1');
+    });
+
+    afterEach(() => {
+        document.body.removeChild(element);
     });
 });

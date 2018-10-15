@@ -2,7 +2,7 @@ describe('material-dropdown', () => {
     let element;
     const options = ['javascript', 'php'];
 
-    beforeEach(function() {
+    beforeEach(() => {
         element = document.createElement('material-dropdown');
 
         const icon = document.createElement('i');
@@ -121,5 +121,9 @@ describe('material-dropdown', () => {
 
         expect(element.getAttribute('value')).to.eql(value);
         expect(spy.args[0][0].detail).to.eql(expected.detail);
+    });
+
+    afterEach(() => {
+        document.body.removeChild(element);
     });
 });

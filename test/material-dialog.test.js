@@ -1,7 +1,7 @@
 describe('material-dialog', () => {
     let element;
 
-    beforeEach(function() {
+    beforeEach(() => {
         element = document.createElement('material-dialog');
 
         document.body.appendChild(element);
@@ -52,5 +52,9 @@ describe('material-dialog', () => {
         element.handleAnimationEnd({animationName: 'foo'});
 
         expect(element.style.display).to.not.eql('none');
+    });
+
+    afterEach(() => {
+        document.body.removeChild(element);
     });
 });

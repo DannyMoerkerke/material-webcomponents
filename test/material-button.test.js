@@ -1,7 +1,5 @@
-describe('material-button', function() {
+describe('material-button', () => {
     let element;
-
-    this.timeout(4000);
 
     beforeEach(done => {
         element = document.createElement('material-button');
@@ -27,5 +25,9 @@ describe('material-button', function() {
 
         expect(element.button.disabled).to.eql(false);
         expect(element.hasAttribute('disabled')).to.eql(false);
+    });
+
+    afterEach(() => {
+        document.body.removeChild(element);
     });
 });

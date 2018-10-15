@@ -1,7 +1,7 @@
 describe('material-drawer', () => {
     let element;
 
-    beforeEach(function() {
+    beforeEach(() => {
         element = document.createElement('material-drawer');
 
         document.body.appendChild(element);
@@ -40,11 +40,15 @@ describe('material-drawer', () => {
         expect(element.open.called).to.eql(false);
         expect(element.close.called).to.eql(true);
 
-        spy2.reset();
+        spy2.resetHistory();
 
         element.toggle();
 
         expect(element.open.called).to.eql(true);
         expect(element.close.called).to.eql(false);
+    });
+
+    afterEach(() => {
+        document.body.removeChild(element);
     });
 });

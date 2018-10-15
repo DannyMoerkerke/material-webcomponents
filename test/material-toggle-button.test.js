@@ -3,7 +3,7 @@ describe('material-toggle-button', () => {
     const left = 'closed';
     const right = 'open';
 
-    beforeEach(function() {
+    beforeEach(() => {
         element = document.createElement('material-toggle-button');
         element.setAttribute('left', left);
         element.setAttribute('right', right);
@@ -81,5 +81,9 @@ describe('material-toggle-button', () => {
         expect(element.leftButton.classList.contains('active')).to.eql(true);
         expect(element.rightButton.classList.contains('active')).to.eql(false);
         expect(spy.called).to.eql(false);
+    });
+
+    afterEach(() => {
+        document.body.removeChild(element);
     });
 });

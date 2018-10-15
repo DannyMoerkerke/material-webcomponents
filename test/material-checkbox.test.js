@@ -1,7 +1,7 @@
 describe('material-checkbox', () => {
     let element;
 
-    beforeEach(function() {
+    beforeEach(() => {
         element = document.createElement('material-checkbox');
 
         document.body.appendChild(element);
@@ -64,5 +64,9 @@ describe('material-checkbox', () => {
 
         element.checked = true;
         expect(element.value).to.eql(value);
+    });
+
+    afterEach(() => {
+        document.body.removeChild(element);
     });
 });

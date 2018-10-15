@@ -1,7 +1,7 @@
 describe('material-textfield', () => {
     let element;
 
-    beforeEach(function() {
+    beforeEach(() => {
         element = document.createElement('material-textfield');
         element.setAttribute('value', 'value 1');
 
@@ -85,5 +85,9 @@ describe('material-textfield', () => {
         element.handleBlur();
 
         expect(element.error.textContent).to.eql(errorMessage);
+    });
+
+    afterEach(() => {
+        document.body.removeChild(element);
     });
 });

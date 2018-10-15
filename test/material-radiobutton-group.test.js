@@ -16,7 +16,7 @@ describe('material-radiobutton-group', () => {
         }
     ];
 
-    beforeEach(function() {
+    beforeEach(() => {
         element = document.createElement('material-radiobutton-group');
 
         data.forEach(item => {
@@ -80,9 +80,11 @@ describe('material-radiobutton-group', () => {
 
         document.body.appendChild(element);
 
-
-
         expect(element.target).to.eql(element.buttons[1]);
         expect(element.value).to.eql(element.target.value);
+    });
+
+    afterEach(() => {
+        document.body.removeChild(element);
     });
 });

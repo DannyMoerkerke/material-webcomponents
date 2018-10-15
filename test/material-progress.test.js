@@ -4,10 +4,6 @@ describe('material-progress', () => {
     const size = 64;
     const progress = '50';
 
-    afterEach(() => {
-        document.body.removeChild(element);
-    });
-
     it('should appear as a linear progress bar', () => {
         template.innerHTML = '<material-progress></material-progress>';
         element = template.content.firstChild;
@@ -78,5 +74,9 @@ describe('material-progress', () => {
 
         expect(element.progress.getAttribute('value')).to.eql(progress);
         expect(element.progressValue.style.getPropertyValue('--progress-value')).to.eql(`${progress}%`);
+    });
+
+    afterEach(() => {
+        document.body.removeChild(element);
     });
 });

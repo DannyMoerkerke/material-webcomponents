@@ -6,7 +6,7 @@ describe('material-slider', () => {
     const rgba3 = 'rgba(128, 128, 128, 0.1)';
     const rgb = 'rgb(128, 128, 128)';
 
-    beforeEach(function() {
+    beforeEach(() => {
         element = document.createElement('material-slider');
     });
 
@@ -53,5 +53,11 @@ describe('material-slider', () => {
         document.body.appendChild(element);
 
         expect(element.style.getPropertyValue('--thumb-color-light')).to.eql(rgba3);
+    });
+
+    afterEach(() => {
+        if(document.querySelector('material-slider')) {
+            document.body.removeChild(element);
+        }
     });
 });

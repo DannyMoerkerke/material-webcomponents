@@ -1,7 +1,7 @@
 describe('material-radiobutton', () => {
     let element;
 
-    beforeEach(function() {
+    beforeEach(() => {
         element = document.createElement('material-radiobutton');
         document.body.appendChild(element);
     });
@@ -78,5 +78,9 @@ describe('material-radiobutton', () => {
         element.checked = false;
 
         expect(element.hasAttribute('checked')).to.eql(false);
+    });
+
+    afterEach(() => {
+        document.body.removeChild(element);
     });
 });
