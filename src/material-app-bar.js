@@ -14,6 +14,7 @@ export default class MaterialAppBar extends HTMLElement {
                 :host {
                     --app-bar-background: #999999;
                     --app-bar-font-color: #000000;
+                    --app-bar-font-size: 24px;
                     --app-bar-padding: 15px;
                     display: block;
                 }
@@ -21,7 +22,7 @@ export default class MaterialAppBar extends HTMLElement {
                     font-family: 'Material Icons';
                     font-weight: normal;
                     font-style: normal;
-                    font-size: 24px;  /* Preferred icon size */
+                    font-size: var(--app-bar-font-size);  /* Preferred icon size */
                     display: inline-block;
                     line-height: 1;
                     text-transform: none;
@@ -53,7 +54,7 @@ export default class MaterialAppBar extends HTMLElement {
                 }
                 
                 #label {
-                    font-size: 24px;
+                    font-size: var(--app-bar-font-size);
                     display: inline-block;
                     padding: 0 0 0 12px;
                     grid-column: 2 / 3;
@@ -66,6 +67,7 @@ export default class MaterialAppBar extends HTMLElement {
                     display: block;
                     padding-top: 1px;
                     padding-bottom: 1px;
+                    font-size: var(--app-bar-font-size) !important; 
                 }
                 ::slotted([slot="left-content"]) {
                     margin-right: 10px;

@@ -1,26 +1,65 @@
-const fs = require('fs');
 const path = require('path');
-const common = require('./webpack.config.common');
+const WebpackStripLoader = require('strip-loader');
+const ProgressBarPlugin = require('progress-bar-webpack-plugin');
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
-// const files = fs.readdirSync('src');
-//
-// common.entry = files.reduce((acc, file) => {
-//     try {
-//         if(fs.lstatSync(path.join(__dirname, 'src', file)).isFile()) {
-//             console.log(path.join('src', file));
-//             console.log(file.substr(0, file.lastIndexOf('.')));
-//
-//             acc[file.substr(0, file.lastIndexOf('.'))] = `./${path.join('src', file)}`;
-//         }
-//     }
-//     catch(e) {
-//         console.log(e);
-//     }
-//     return acc;
-// }, {});
+module.exports = {
+    mode: 'development',
+    entry: {
+        bundle: './src/bundle.js'
+    },
+    output: {
+        path: path.join(__dirname, 'dist'),
+        publicPath: '/dist/',
+        filename: '[name].js'
+    },
+    module: {
+        rules: [
+            {
+                test: /\.js$/,
+                use: [
+                    {
+                        loader: WebpackStripLoader.loader('console.log')
+                    },
+                    {
+                        loader: 'custom-elements-loader'
+                    }
+                ],
 
-common.entry = {
-    bundle: './src/bundle.js'
+            },
+            {
+                test: /\.css$/,
+                use: ['style-loader',
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            sourceMap: true
+                        }
+                    },
+                    {
+                        loader: 'postcss-loader',
+                    }
+                ]
+            }
+        ]
+    },
+    plugins: [
+        new UglifyJSPlugin({
+            sourceMap: true,
+            uglifyOptions: {
+                mangle: {
+                    // Works around a Safari 10 bug:
+                    // https://github.com/mishoo/UglifyJS2/issues/1753
+                    safari10: true,
+                },
+            },
+        }),
+        new ProgressBarPlugin()
+    ],
+    devServer: {
+        host: '0.0.0.0',
+        port: 8080,
+        historyApiFallback: true,
+        hot: false
+    }
 };
-
-module.exports = common;

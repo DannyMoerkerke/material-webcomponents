@@ -173,7 +173,7 @@ export default class MaterialProgress extends HTMLElement {
         this.progressValue = this.shadowRoot.querySelector('#progress-value');
 
         if(this.hasAttribute('circle')) {
-            this.progressValue.style.setProperty('--progress-font-size', `${this.circleSize / 4}px`);
+            this.progressValue.style.setProperty('--progress-font-size', `${this.circleSize / 3.5}px`);
         }
 
         if(this.hasAttribute('value')) {
