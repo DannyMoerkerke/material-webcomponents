@@ -47,7 +47,7 @@
     "@webcomponents/webcomponentsjs": "^1.0.17",
     "autoprefixer": "^8.3.0",
     "css-loader": "^0.28.11",
-    "custom-elements-loader": "git@bitbucket.org:dannymoerkerke/custom-elements-loader.git",
+    "custom-elements-css-loader": "git@bitbucket.org:dannymoerkerke/custom-elements-css-loader.git",
     "fetch-polyfill": "^0.8.2",
     "mocha": "^5.2.0",
     "mocha-headless-chrome": "^2.0.0",
