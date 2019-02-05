@@ -125,6 +125,7 @@ export default class MaterialSlider extends HTMLElement {
                 }
       
                 #container {
+                    margin: 20px;
                     position: relative;
                     display: flex;
                 }

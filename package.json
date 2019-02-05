@@ -1,6 +1,6 @@
 {
   "name": "material-custom-elements",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Material Design implemented in Custom elements",
   "main": "src/bundle.js",
   "scripts": {
