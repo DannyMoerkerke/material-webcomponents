@@ -146,7 +146,7 @@ export default class MaterialSlider extends HTMLElement {
     this.container = this.shadowRoot.querySelector('#container');
     this.input = this.shadowRoot.querySelector('input[type=range]');
     this.host = this.input.getRootNode().host;
-    this.min = this.hasAttribute('min') ? this.getAttribute('min') : 100;
+    this.min = this.hasAttribute('min') ? this.getAttribute('min') : 1;
     this.input.min = this.min;
     this.max = this.hasAttribute('max') ? this.getAttribute('max') : 100;
     this.input.max = this.max;
