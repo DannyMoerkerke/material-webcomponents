@@ -1,15 +1,15 @@
 export default class MaterialSlider extends HTMLElement {
 
-    static get observedAttributes() {
-        return ['value'];
-    }
+  static get observedAttributes() {
+    return ['value'];
+  }
 
-    constructor() {
-        super();
+  constructor() {
+    super();
 
-        const shadowRoot = this.attachShadow({mode: 'open'});
+    const shadowRoot = this.attachShadow({mode: 'open'});
 
-        shadowRoot.innerHTML = `
+    shadowRoot.innerHTML = `
             <style>
                 :host {
                     display: block;
@@ -141,71 +141,77 @@ export default class MaterialSlider extends HTMLElement {
             </div>
         `;
 
+  }
+
+  connectedCallback() {
+    this.container = this.shadowRoot.querySelector('#container');
+    this.input = this.shadowRoot.querySelector('input[type=range]');
+    this.host = this.input.getRootNode().host;
+    this.min = this.hasAttribute('min') ? this.getAttribute('min') : 100;
+    this.input.min = this.min;
+    this.max = this.hasAttribute('max') ? this.getAttribute('max') : 100;
+    this.input.max = this.max;
+    this.step = this.hasAttribute('step') ? this.getAttribute('step') : 1;
+    this.input.step = this.step;
+    this.input.value = this.hasAttribute('value') ? this.getAttribute('value') : this.input.value;
+    this.value = this.input.value;
+
+    this.input.addEventListener('input', this.handleInput.bind(this));
+
+    const rgba = /rgba\((\d{1,3}),\s?(\d{1,3}),\s?(\d{1,3}),\s?(\d|\d\.\d+)\)/;
+    const hostStyle = getComputedStyle(this.host);
+    const thumbColor = hostStyle.getPropertyValue('--thumb-color').trim() || hostStyle.getPropertyValue('--thumb-color').trim();
+    let thumbColorLight;
+
+    if(/^#([A-Fa-f0-9]{3}){1,2}$/.test(thumbColor)) {
+      thumbColorLight = this.hexToRgbA(thumbColor);
     }
-
-    connectedCallback() {
-        this.container = this.shadowRoot.querySelector('#container');
-        this.input = this.shadowRoot.querySelector('input[type=range]');
-        this.host = this.input.getRootNode().host;
-        this.max = this.hasAttribute('max') ? this.getAttribute('max') : 100;
-        this.input.max = this.max;
-        this.step = this.hasAttribute('step') ? this.getAttribute('step') : 1;
-        this.input.step = this.step;
-        this.input.value = this.hasAttribute('value') ? this.getAttribute('value') : this.input.value;
-        this.value = this.input.value;
-
-        this.input.addEventListener('input', this.handleInput.bind(this));
-
-        const rgba = /rgba\((\d{1,3}),\s?(\d{1,3}),\s?(\d{1,3}),\s?(\d|\d\.\d+)\)/;
-        const hostStyle = getComputedStyle(this.host);
-        const thumbColor = hostStyle.getPropertyValue('--thumb-color').trim() || hostStyle.getPropertyValue('--thumb-color').trim();
-        let thumbColorLight;
-
-        if(/^#([A-Fa-f0-9]{3}){1,2}$/.test(thumbColor)) {
-            thumbColorLight = this.hexToRgbA(thumbColor);
-        }
-        else if(/rgb\((.+)\)/.test(thumbColor)) {
-            thumbColorLight = thumbColor.replace(/rgb\((.+)\)/, 'rgba($1, 0.1)');
-        }
-        else if(rgba.test(thumbColor)) {
-            const matches = rgba.exec(thumbColor);
-            thumbColorLight = `rgba(${matches[1]}, ${matches[2]}, ${matches[3]}, 0.1)`;
+    else {
+      if(/rgb\((.+)\)/.test(thumbColor)) {
+        thumbColorLight = thumbColor.replace(/rgb\((.+)\)/, 'rgba($1, 0.1)');
+      }
+      else {
+        if(rgba.test(thumbColor)) {
+          const matches = rgba.exec(thumbColor);
+          thumbColorLight = `rgba(${matches[1]}, ${matches[2]}, ${matches[3]}, 0.1)`;
         }
         else {
-            throw new Error(`invalid color specified for --thumb color: ${thumbColor}`);
+          throw new Error(`invalid color specified for --thumb color: ${thumbColor}`);
         }
-
-        this.host.style.setProperty('--thumb-color-light', thumbColorLight);
+      }
     }
 
-    handleInput(e) {
-        this.value = e.target.value;
+    this.host.style.setProperty('--thumb-color-light', thumbColorLight);
+  }
 
-        this.dispatchEvent(new CustomEvent('change', {
-            detail: {
-                value: e.target.value
-            }
-        }));
+  handleInput(e) {
+    this.value = e.target.value;
+
+    this.dispatchEvent(new CustomEvent('change', {
+      detail: {
+        value: e.target.value
+      }
+    }));
+  }
+
+  hexToRgbA(hex) {
+    let c = [...hex.substring(1)];
+    if(c.length === 3) {
+      c = [c[0], c[0], c[1], c[1], c[2], c[2]];
     }
+    c = `0x${c.join('')}`;
 
-    hexToRgbA(hex) {
-        let c = [...hex.substring(1)];
-        if(c.length === 3) {
-            c = [c[0], c[0], c[1], c[1], c[2], c[2]];
-        }
-        c = `0x${c.join('')}`;
-
-        return `rgba(${[(c>>16)&255, (c>>8)&255, c&255].join(',')}, 0.1)`;
-    }
+    return `rgba(${[(c >> 16) & 255, (c >> 8) & 255, c & 255].join(',')}, 0.1)`;
+  }
 
 
-    set value(value) {
-        this.setAttribute('value', value);
-    }
+  set value(value) {
+    this.setAttribute('value', value);
+  }
 
-    get value() {
-        return this.getAttribute('value');
-    }
+  get value() {
+    return this.getAttribute('value');
+  }
 }
 
 customElements.define('material-slider', MaterialSlider);
