@@ -1,17 +1,18 @@
 export default class MaterialProgress extends HTMLElement {
 
-    static get observedAttributes() {
-        return ['value', 'max', 'circle'];
-    }
+  static get observedAttributes() {
+    return ['value', 'max', 'circle'];
+  }
 
-    constructor() {
-        super();
+  constructor() {
+    super();
 
-        const shadowRoot = this.attachShadow({mode: 'open'});
+    const shadowRoot = this.attachShadow({mode: 'open'});
 
-        shadowRoot.innerHTML = `
+    shadowRoot.innerHTML = `
             <style>
                 :host {
+                    display: block;
                     --progress-bar-width: 100%;
                     --progress-bar-height: 5px;
                     --progress-bar-color: #00bcd4;
@@ -70,6 +71,7 @@ export default class MaterialProgress extends HTMLElement {
                 }
                 
                 #progress-container {
+                    width: 100%;
                     position: relative;
                     display: inline-block;
                     height: 5px;
@@ -89,6 +91,9 @@ export default class MaterialProgress extends HTMLElement {
                 }
                 :host([value]) #progress-value {
                     display: block;
+                }
+                :host([no-percentage]) #progress-value {
+                  display: none;
                 }
                 #progress-value::after {
                     position: absolute;
@@ -140,69 +145,71 @@ export default class MaterialProgress extends HTMLElement {
             <div id="container"></div>
         `;
 
-        this.container = this.shadowRoot.querySelector('#container');
-        this.regular = this.shadowRoot.querySelector('#regular').content.cloneNode(true);
-        this.circular = this.shadowRoot.querySelector('#circular').content.cloneNode(true);
+    this.container = this.shadowRoot.querySelector('#container');
+    this.regular = this.shadowRoot.querySelector('#regular').content.cloneNode(true);
+    this.circular = this.shadowRoot.querySelector('#circular').content.cloneNode(true);
+  }
+
+  connectedCallback() {
+    if(this.hasAttribute('circle')) {
+      this.container.appendChild(this.circular);
+      this.circle = this.shadowRoot.querySelector('#circle');
+      this.circleSize = parseInt(this.getAttribute('circle'), 10);
+      this.radius = this.circleSize / 2;
+      this.circle.setAttribute('cx', this.radius);
+      this.circle.setAttribute('cy', this.radius);
+      this.circle.setAttribute('r', this.radius - 2);
+      this.circumference = 2 * Math.PI * (this.radius - 2);
+      this.circleContainer = this.shadowRoot.querySelector('#circle-container');
+      this.circleContainer.style.width = `${this.circleSize}px`;
+      this.circleContainer.style.height = `${this.circleSize}px`;
+
+      this.svg = this.shadowRoot.querySelector('svg');
+      this.svg.setAttribute('width', this.circleSize);
+      this.svg.setAttribute('height', this.circleSize);
+      this.svg.setAttribute('viewBox', `0 0 ${this.circleSize} ${this.circleSize}`);
+
+      this.circle.style.setProperty('--circle-circumference', this.circumference);
+    }
+    else {
+      this.container.appendChild(this.regular);
+      this.progress = this.shadowRoot.querySelector('progress');
+    }
+    this.progressValue = this.shadowRoot.querySelector('#progress-value');
+
+    if(this.hasAttribute('circle')) {
+      this.progressValue.style.setProperty('--progress-font-size', `${this.circleSize / 3.5}px`);
     }
 
-    connectedCallback() {
-        if(this.hasAttribute('circle')) {
-            this.container.appendChild(this.circular);
-            this.circle = this.shadowRoot.querySelector('#circle');
-            this.circleSize = parseInt(this.getAttribute('circle'), 10);
-            this.radius = this.circleSize / 2;
-            this.circle.setAttribute('cx', this.radius);
-            this.circle.setAttribute('cy', this.radius);
-            this.circle.setAttribute('r', this.radius - 2);
-            this.circumference = 2 * Math.PI * (this.radius - 2);
-            this.circleContainer = this.shadowRoot.querySelector('#circle-container');
-            this.circleContainer.style.width = `${this.circleSize}px`;
-            this.circleContainer.style.height = `${this.circleSize}px`;
-
-            this.svg = this.shadowRoot.querySelector('svg');
-            this.svg.setAttribute('width', this.circleSize);
-            this.svg.setAttribute('height', this.circleSize);
-            this.svg.setAttribute('viewBox', `0 0 ${this.circleSize} ${this.circleSize}`);
-
-            this.circle.style.setProperty('--circle-circumference', this.circumference);
-        }
-        else {
-            this.container.appendChild(this.regular);
-            this.progress = this.shadowRoot.querySelector('progress');
-        }
-        this.progressValue = this.shadowRoot.querySelector('#progress-value');
-
-        if(this.hasAttribute('circle')) {
-            this.progressValue.style.setProperty('--progress-font-size', `${this.circleSize / 3.5}px`);
-        }
-
-        if(this.hasAttribute('value')) {
-            this.setProgressValue(this.getAttribute('value'));
-        }
-        if(this.hasAttribute('max') && !this.hasAttribute('circle')) {
-            this.progress.setAttribute('max', this.getAttribute('max'));
-        }
+    if(this.hasAttribute('value')) {
+      this.setProgressValue(this.getAttribute('value'));
     }
-
-    get value() {
-        return this.getAttribute('value');
+    if(this.hasAttribute('max') && !this.hasAttribute('circle')) {
+      this.progress.setAttribute('max', this.getAttribute('max'));
     }
+  }
 
-    set value(value) {
-        this.setAttribute('value', value);
-        this.setProgressValue(value);
-    }
+  get value() {
+    return this.getAttribute('value');
+  }
 
-    setProgressValue(value) {
-        if(this.hasAttribute('circle')) {
-            this.circle.style.setProperty('--dash-offset', this.circumference * (1 - (value/100)));
-        }
-        else {
-            this.progress.setAttribute('value', value);
-            this.progressValue.style.setProperty('--progress-value', `${value}%`);
-        }
-        this.progressValue.dataset.value = value;
+  set value(value) {
+    this.setAttribute('value', value);
+    this.setProgressValue(value);
+  }
+
+  setProgressValue(value) {
+    const progress = parseInt(value / parseInt(this.getAttribute('max'), 10) * 100, 10);
+
+    if(this.hasAttribute('circle')) {
+      this.circle.style.setProperty('--dash-offset', this.circumference * (1 - (progress / 100)));
     }
+    else {
+      this.progress.setAttribute('value', value);
+      this.progressValue.style.setProperty('--progress-value', `${progress}%`);
+    }
+    this.progressValue.dataset.value = progress;
+  }
 }
 
 customElements.define('material-progress', MaterialProgress);
