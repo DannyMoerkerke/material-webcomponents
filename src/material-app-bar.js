@@ -16,6 +16,8 @@ export default class MaterialAppBar extends HTMLElement {
                     --app-bar-font-color: #000000;
                     --app-bar-font-size: 24px;
                     --app-bar-padding: 15px;
+                    --app-bar-box-shadow: 0px 3px 5px -1px rgba(0,0,0,0.2), 0px 6px 10px 0px rgba(0,0,0,0.14), 0px 1px 18px 0px rgba(0,0,0,0.12);
+                    z-index: 999;
                     display: block;
                 }
                 .material-icons {
@@ -50,7 +52,8 @@ export default class MaterialAppBar extends HTMLElement {
                     box-sizing: border-box;
                     background: var(--app-bar-background);
                     color: var(--app-bar-font-color);
-                    box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 6px, rgba(0, 0, 0, 0.12) 0px 1px 4px;
+                    /*box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 6px, rgba(0, 0, 0, 0.12) 0px 1px 4px;*/
+                    box-shadow: var(--app-bar-box-shadow);
                 }
                 
                 #label {

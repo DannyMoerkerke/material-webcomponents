@@ -1,107 +1,147 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+  <head>
+    <base href="/material-webcomponents/">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Material Custom Elements</title>
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-        <link rel="stylesheet" href="demo/demo.css">
-        <style>
-            main {
-                width: 100%;
-                display: grid;
-                display: -ms-grid;
-                grid-template-columns: 250px 1fr;
-                -ms-grid-template-colums: 250px 1fr;
-                -ms-grid-colums: 250px 1fr;
-                grid-template-rows: 1fr;
-                -ms-grid-rows: 1fr;
-                grid-column-gap: 20px;
+    <title>Material Custom Elements</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link rel="stylesheet" href="/demo/assets/demo.css">
+    <style>
+      html, body {
+        min-height: 100%;
+        background-color: #fafafa;
+        /*background: linear-gradient(to bottom, #1867c0, #5CBBF6);*/
+        font-family: Roboto;
+      }
+      main {
+        width: 100%;
+        display: grid;
+        display: -ms-grid;
+        grid-template-columns: 250px 1fr;
+        -ms-grid-template-colums: 250px 1fr;
+        -ms-grid-colums: 250px 1fr;
+        grid-template-rows: 1fr;
+        -ms-grid-rows: 1fr;
+        grid-column-gap: 20px;
+      }
+
+      #main-app-bar {
+        grid-column: 1 / 3;
+        grid-row: 1 / 2;
+        margin-bottom: 20px;
+        display: none;
+        --app-bar-font-size: 18px;
+      }
+
+      #mobile-app-bar {
+        grid-column: 1 / 3;
+        grid-row: 1 / 2;
+        margin-bottom: 20px;
+      }
+
+      #main-menu {
+        --top-pos: 57px;
+        --drawer-box-shadow: none;
+      }
+
+      #content {
+        grid-column: 1 / 3;
+        -ms-grid-column: 1;
+      }
+
+      @media (min-width: 800px) {
+        #main-app-bar {
+          display: block;
+          --app-bar-padding: 10px 15px;
+        }
+        #mobile-app-bar {
+          display: none;
+        }
+
+        #main-menu {
+          --top-pos: 64px;
+        }
+        #sidebar {
+          grid-column: 1 / 2;
+          background-color: #ffffff;
+        }
+
+        #content {
+          grid-column: 2 / 3;
+          -ms-grid-column: 2;
+        }
+      }
+    </style>
+  </head>
+  <body>
+
+    <main>
+      <material-app-bar id="main-app-bar" label="Material Web Components">
+        <a href="/material-webcomponents" slot="left-content">
+          <img src="/demo/assets/custom-elements.svg" />
+        </a>
+        <a href="https://github.com/DannyMoerkerke/material-webcomponents" target="_blank" slot="right-content">
+          <img src="/demo/assets/github.svg" />
+        </a>
+      </material-app-bar>
+
+      <material-app-bar id="mobile-app-bar">
+        <i class="material-icons" slot="left-content">menu</i>
+      </material-app-bar>
+
+      <material-drawer id="main-menu">
+        <ul slot="content">
+          <li><a slot="item" href="/material-webcomponents/material-app-bar">material-app-bar</a></li>
+          <li><a slot="item" href="/material-webcomponents/material-button">material-button</a></li>
+          <li><a slot="item" href="/material-webcomponents/material-checkbox">material-checkbox</a></li>
+          <li><a slot="item" href="/material-webcomponents/material-datepicker">material-datepicker</a></li>
+          <li><a slot="item" href="/material-webcomponents/material-dialog">material-dialog</a></li>
+          <li><a slot="item" href="/material-webcomponents/material-dropdown">material-dropdown</a></li>
+          <li><a slot="item" href="/material-webcomponents/material-progress">material-progress</a></li>
+          <li><a slot="item" href="/material-webcomponents/material-drawer">material-drawer</a></li>
+          <li><a slot="item" href="/material-webcomponents/material-radiobutton">material-radiobutton</a></li>
+          <li><a slot="item" href="/material-webcomponents/material-slider">material-slider</a></li>
+          <li><a slot="item" href="/material-webcomponents/material-switch">material-switch</a></li>
+          <li><a slot="item" href="/material-webcomponents/material-table">material-table</a></li>
+          <li><a slot="item" href="/material-webcomponents/material-tabs">material-tabs</a></li>
+          <li><a slot="item" href="/material-webcomponents/material-textfield">material-textfield</a></li>
+          <li><a slot="item" href="/material-webcomponents/material-slidemenu">material-slidemenu</a></li>
+        </ul>
+      </material-drawer>
+
+      <div id="sidebar"></div>
+      <div id="content"></div>
+    </main>
+
+    <script type="module" src="/src/bundle.js"></script>
+    <script type="module" src="/demo/routes.js"></script>
+    <script src="/lib/polyfill-loader.js"></script>
+    <script>
+      const appBar = document.querySelector('#mobile-app-bar');
+      const drawer = document.querySelector('#main-menu');
+
+      customElements.whenDefined('material-drawer')
+      .then(() => {
+        const isDesktop = mq => {
+          if(mq.matches) {
+            drawer.open();
+          }
+          else {
+            if(drawer.hasAttribute('open')) {
+              drawer.close();
             }
-            #main-app-bar {
-                grid-column: 1 / 3;
-                grid-row: 1 / 2;
-                margin-bottom: 20px;
-            }
-            #main-menu {
-                --top-pos: 57px;
-            }
-            #content {
-                grid-column: 1 / 3;
-                -ms-grid-column: 1;
-            }
+          }
+        };
 
-            @media (min-width: 800px) {
-                #main-app-bar {
-                    display: none;
-                }
-                #main-menu {
-                    --top-pos: 0;
-                }
-                #content {
-                    grid-column: 2 / 3;
-                    -ms-grid-column: 2;
-                }
-            }
-        </style>
-    </head>
-    <body>
+        const mq = window.matchMedia('(min-width: 800px)');
+        mq.addListener(isDesktop);
+        isDesktop(mq);
 
-        <main>
-            <material-app-bar id="main-app-bar">
-                <i class="material-icons" slot="left-content">menu</i>
-            </material-app-bar>
-
-            <material-drawer id="main-menu">
-                <ul slot="content">
-                    <li><a slot="item" href="/material-app-bar">material-app-bar</a></li>
-                    <li><a slot="item" href="/material-button">material-button</a></li>
-                    <li><a slot="item" href="/material-checkbox">material-checkbox</a></li>
-                    <li><a slot="item" href="/material-datepicker">material-datepicker</a></li>
-                    <li><a slot="item" href="/material-dialog">material-dialog</a></li>
-                    <li><a slot="item" href="/material-dropdown">material-dropdown</a></li>
-                    <li><a slot="item" href="/material-progress">material-progress</a></li>
-                    <li><a slot="item" href="/material-drawer">material-drawer</a></li>
-                    <li><a slot="item" href="/material-radiobutton">material-radiobutton</a></li>
-                    <li><a slot="item" href="/material-slider">material-slider</a></li>
-                    <li><a slot="item" href="/material-switch">material-switch</a></li>
-                    <li><a slot="item" href="/material-table">material-table</a></li>
-                    <li><a slot="item" href="/material-tabs">material-tabs</a></li>
-                    <li><a slot="item" href="/material-textfield">material-textfield</a></li>
-                    <li><a slot="item" href="/material-slidemenu">material-slidemenu</a></li>
-                </ul>
-            </material-drawer>
-
-            <div id="content"></div>
-        </main>
-
-        <script type="module" src="src/bundle.js"></script>
-        <script type="module" src="demo/routes.js"></script>
-        <script src="lib/polyfill-loader.js"></script>
-        <script>
-            const appBar = document.querySelector('#main-app-bar');
-            const drawer = document.querySelector('#main-menu');
-
-            customElements.whenDefined('material-drawer')
-            .then(() => {
-                const isDesktop = mq => {
-                    if(mq.matches) {
-                        drawer.open();
-                    }
-                    else {
-                        if(drawer.hasAttribute('open')) {
-                            drawer.close();
-                        }
-                    }
-                };
-
-                const mq = window.matchMedia('(min-width: 800px)');
-                mq.addListener(isDesktop);
-                isDesktop(mq);
-
-                appBar.addEventListener('app-bar-click', drawer.toggle.bind(drawer));
-            });
-        </script>
-    </body>
+        appBar.addEventListener('app-bar-click', drawer.toggle.bind(drawer));
+      });
+    </script>
+  </body>
 </html>
