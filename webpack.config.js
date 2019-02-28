@@ -22,7 +22,7 @@ module.exports = {
                         loader: WebpackStripLoader.loader('console.log')
                     },
                     {
-                        loader: 'custom-elements-loader'
+                        loader: 'custom-elements-css-loader'
                     }
                 ],
 

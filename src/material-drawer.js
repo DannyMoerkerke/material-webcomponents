@@ -15,19 +15,20 @@ export default class MaterialDrawer extends HTMLElement {
                     --drawer-color: #ffffff;
                     --backdrop-color: rgba(128,128,128,0.5);
                     --top-pos: 0;
+                    --drawer-box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 10px, rgba(0, 0, 0, 0.23) 0px 3px 10px;
                 }
                 #container {
                     --desktop-drawer-width: 250px;
                     --mobile-drawer-width: 80%;
                     padding: 10px;
                     box-sizing: border-box;
-                    position: fixed;
+                    position: absolute;
                     top: var(--top-pos);
                     left: 0;
                     width: var(--drawer-width);
                     height: 100%;
                     background-color: var(--drawer-color);
-                    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 10px, rgba(0, 0, 0, 0.23) 0px 3px 10px;
+                    box-shadow: var(--drawer-box-shadow);
                     transform: translate(-100%, 0px);
                     transition: transform 450ms cubic-bezier(0.23, 1, 0.32, 1);
                     z-index: 10;
