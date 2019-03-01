@@ -5,11 +5,11 @@ const outlet = document.querySelector('#content');
 
 router(outlet, [
   {
-    url: '/',
+    url: '/material-webcomponents',
     template: index
   },
   {
-    url: '/material-app-bar',
+    url: '/material-webcomponents/material-app-bar',
     templateUrl: '../demo/partials/material-app-bar.html'
   },
   {
