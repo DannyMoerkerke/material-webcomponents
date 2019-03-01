@@ -1,7 +1,10 @@
 export default (outlet, routes) => {
   const getCurrentRoute = url => url.replace(location.origin, '');
 
-  const getMatchedRoute = url => routes.find(route => url === route.url);
+  const getMatchedRoute = url => routes.find(route => {
+    console.log(url, url.substr(-1), url.substr(0, url.length - 1), route.url);
+    return url === route.url || (url.substr(-1) === '/' ? url.substr(0, url.length - 1) === route.url : false);
+  });
 
   const handleRoute = matchedRoute => {
     let {template, templateUrl, url} = matchedRoute;
