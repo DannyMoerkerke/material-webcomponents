@@ -5,23 +5,23 @@ const outlet = document.querySelector('#content');
 
 router(outlet, [
   {
-    url: '/material-webcomponents',
+    url: '/',
     template: index
   },
   {
-    url: '/material-webcomponents/material-app-bar',
+    url: '/material-app-bar',
     templateUrl: '../demo/partials/material-app-bar.html'
   },
   {
-    url: '/material-webcomponents/material-button',
+    url: '/material-button',
     templateUrl: '../demo/partials/material-button.html'
   },
   {
-    url: '/material-webcomponents/material-checkbox',
+    url: '/material-checkbox',
     templateUrl: '../demo/partials/material-checkbox.html'
   },
   {
-    url: '/material-webcomponents/material-datepicker',
+    url: '/material-datepicker',
     templateUrl: '../demo/partials/material-datepicker.html',
     controller() {
       const picker = document.querySelector('material-datepicker');
@@ -49,7 +49,7 @@ router(outlet, [
     }
   },
   {
-    url: '/material-webcomponents/material-dialog',
+    url: '/material-dialog',
     templateUrl: '../demo/partials/material-dialog.html',
     controller() {
       const standardDialog = document.querySelector('#standard-dialog');
@@ -62,15 +62,15 @@ router(outlet, [
     }
   },
   {
-    url: '/material-webcomponents/material-dropdown',
+    url: '/material-dropdown',
     templateUrl: '../demo/partials/material-dropdown.html'
   },
   {
-    url: '/material-webcomponents/material-progress',
+    url: '/material-progress',
     templateUrl: '../demo/partials/material-progress.html'
   },
   {
-    url: '/material-webcomponents/material-drawer',
+    url: '/material-drawer',
     templateUrl: '../demo/partials/material-drawer.html',
     controller() {
       const button = document.querySelector('#material-drawer-toggle');
@@ -80,19 +80,19 @@ router(outlet, [
     }
   },
   {
-    url: '/material-webcomponents/material-radiobutton',
+    url: '/material-radiobutton',
     templateUrl: '../demo/partials/material-radiobutton.html'
   },
   {
-    url: '/material-webcomponents/material-slider',
+    url: '/material-slider',
     templateUrl: '../demo/partials/material-slider.html'
   },
   {
-    url: '/material-webcomponents/material-switch',
+    url: '/material-switch',
     templateUrl: '../demo/partials/material-switch.html'
   },
   {
-    url: '/material-webcomponents/material-table',
+    url: '/material-table',
     templateUrl: '../demo/partials/material-table.html',
     controller() {
       customElements.whenDefined('material-table')
@@ -206,15 +206,15 @@ router(outlet, [
     }
   },
   {
-    url: '/material-webcomponents/material-tabs',
+    url: '/material-tabs',
     templateUrl: '../demo/partials/material-tabs.html'
   },
   {
-    url: '/material-webcomponents/material-textfield',
+    url: '/material-textfield',
     templateUrl: '../demo/partials/material-textfield.html'
   },
   {
-    url: '/material-webcomponents/material-slidemenu',
+    url: '/material-slidemenu',
     templateUrl: '../demo/partials/material-slidemenu.html'
   }
 ]);
