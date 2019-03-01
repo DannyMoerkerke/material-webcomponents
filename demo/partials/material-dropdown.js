@@ -1,4 +1,4 @@
-<h1>material-dropdown</h1>
+export const template = `<h1>material-dropdown</h1>
 <p>
     A dropdown menu is a temporary piece of material that appears upon interaction with a button, action, pointer, or
     other
@@ -35,4 +35,4 @@
         <li slot="option" value="java">Java</li>
         <li slot="option" value="scala">Scala</li>
     </material-dropdown>
-</section>
+</section>`;

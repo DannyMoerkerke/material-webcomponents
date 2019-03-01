@@ -1,4 +1,4 @@
-<h1>material-progress</h1>
+export const template = `<h1>material-progress</h1>
 <p>
     Progress and activity indicators are visual indications of an app loading content.
 </p>
@@ -45,3 +45,4 @@
         <material-progress value="68" max="100" circle="64"></material-progress>
     </div>
 </section>
+`;

@@ -1,4 +1,4 @@
-<h1>material-table</h1>
+export const template = `<h1>material-table</h1>
 <p>
     Tables are used to display data and to organize it. Optionally, it provides sortable columns and pagination.
 </p>
@@ -72,3 +72,4 @@
     </div>
 </section>
 
+`;

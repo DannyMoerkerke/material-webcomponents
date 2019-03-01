@@ -1,4 +1,4 @@
-<h1>material-tabs</h1>
+export const template = `<h1>material-tabs</h1>
 <p>
     Tabs make it easy to explore and switch between different views.
 </p>
@@ -98,3 +98,4 @@
         </material-tabs>
     </div>
 </section>
+`;

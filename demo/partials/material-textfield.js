@@ -1,4 +1,4 @@
-<h1>material-textfield</h1>
+export const template = `<h1>material-textfield</h1>
 <p>
     Text fields allow users to input, edit, and select text.
 </p>
@@ -48,4 +48,4 @@
     <material-textfield type="text"
                         label="Name"
                         error-required="This field is required"></material-textfield>
-</section>
+</section>`;
