@@ -20,7 +20,7 @@ const outlet = document.querySelector('#content');
 
 router(outlet, [
   {
-    url: '/material-webcomponents/material-webcomponents',
+    url: '/material-webcomponents',
     template: index
   },
   {
