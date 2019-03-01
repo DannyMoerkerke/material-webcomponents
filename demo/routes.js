@@ -1,6 +1,6 @@
 import router from '../src/router.js';
 import {template as index} from './partials/index.js';
-import {template as appBar} from './partials/material-app-bar';
+import {template as appBar} from './partials/material-app-bar.js';
 
 const outlet = document.querySelector('#content');
 
