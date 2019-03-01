@@ -11,7 +11,7 @@
   "homepage": "https://dannymoerkerke.github.io/material-webcomponents/",
   "main": "src/bundle.js",
   "scripts": {
-    "start": "ws -p 8080 --spa index.html",
+    "start": "ws -p 8080 --rewrite '/material-webcomponents/* -> /$1' --spa index.html",
     "start:bundle": "webpack-dev-server --config webpack.config.js",
     "test": "ws -p 8080 --spa test/index.html",
     "test:headless": "concurrently \"npm test\" \"sleep 1 && mocha-headless-chrome -f http://localhost:8080/\"",

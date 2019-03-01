@@ -20,27 +20,27 @@ const outlet = document.querySelector('#content');
 
 router(outlet, [
   {
-    url: '/material-webcomponents',
+    url: '/material-webcomponents/material-webcomponents',
     template: index
   },
   {
-    url: '/material-webcomponents/',
+    url: '/material-webcomponents/material-webcomponents/',
     template: index
   },
   {
-    url: '/material-webcomponents/material-app-bar',
+    url: '/material-webcomponents/material-webcomponents/material-app-bar',
     template: appBar
   },
   {
-    url: '/material-button',
+    url: '/material-webcomponents/material-button',
     template: button
   },
   {
-    url: '/material-checkbox',
+    url: '/material-webcomponents/material-checkbox',
     template: checkBox
   },
   {
-    url: '/material-datepicker',
+    url: '/material-webcomponents/material-datepicker',
     template: datePicker,
     controller() {
       const picker = document.querySelector('material-datepicker');
@@ -68,7 +68,7 @@ router(outlet, [
     }
   },
   {
-    url: '/material-dialog',
+    url: '/material-webcomponents/material-dialog',
     template: dialog,
     controller() {
       const standardDialog = document.querySelector('#standard-dialog');
@@ -81,15 +81,15 @@ router(outlet, [
     }
   },
   {
-    url: '/material-dropdown',
+    url: '/material-webcomponents/material-dropdown',
     template: dropDown
   },
   {
-    url: '/material-progress',
+    url: '/material-webcomponents/material-progress',
     template: progress
   },
   {
-    url: '/material-drawer',
+    url: '/material-webcomponents/material-drawer',
     template: drawer,
     controller() {
       const button = document.querySelector('#material-drawer-toggle');
@@ -99,19 +99,19 @@ router(outlet, [
     }
   },
   {
-    url: '/material-radiobutton',
+    url: '/material-webcomponents/material-radiobutton',
     template: radio
   },
   {
-    url: '/material-slider',
+    url: '/material-webcomponents/material-slider',
     template: slider
   },
   {
-    url: '/material-switch',
+    url: '/material-webcomponents/material-switch',
     template: materialSwitch
   },
   {
-    url: '/material-table',
+    url: '/material-webcomponents/material-table',
     template: table,
     controller() {
       customElements.whenDefined('material-table')
@@ -225,15 +225,15 @@ router(outlet, [
     }
   },
   {
-    url: '/material-tabs',
+    url: '/material-webcomponents/material-tabs',
     template: tabs
   },
   {
-    url: '/material-textfield',
+    url: '/material-webcomponents/material-textfield',
     template: text
   },
   {
-    url: '/material-slidemenu',
+    url: '/material-webcomponents/material-slidemenu',
     template: slideMenu
   }
 ]);
