@@ -24,11 +24,11 @@ router(outlet, [
     template: index
   },
   {
-    url: '/material-webcomponents/material-webcomponents/',
+    url: '/material-webcomponents/',
     template: index
   },
   {
-    url: '/material-webcomponents/material-webcomponents/material-app-bar',
+    url: '/material-webcomponents/material-app-bar',
     template: appBar
   },
   {
