@@ -1,5 +1,6 @@
 import router from '../src/router.js';
 import {template as index} from './partials/index.js';
+import {template as appBar} from './partials/material-app-bar';
 
 const outlet = document.querySelector('#content');
 
@@ -10,7 +11,7 @@ router(outlet, [
   },
   {
     url: '/material-webcomponents/material-app-bar',
-    templateUrl: '../demo/partials/material-app-bar.html'
+    template: appBar
   },
   {
     url: '/material-button',
