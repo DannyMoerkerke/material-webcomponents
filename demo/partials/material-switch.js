@@ -1,4 +1,4 @@
-<h1>material-switch</h1>
+export const template = `<h1>material-switch</h1>
 <p>
     On/off switches toggle the state of a single settings option.
 </p>
@@ -37,4 +37,4 @@
         <em>label on the left</em>
         <material-switch label="switch label" label-position="left"></material-switch>
     </div>
-</section>
+</section>`;

@@ -1,4 +1,4 @@
-<h1>material-dialog</h1>
+export const template = `<h1>material-dialog</h1>
 <p>
     Dialogs inform users about a specific task and may contain critical information, require decisions, or involve
     multiple tasks.
@@ -62,4 +62,4 @@
 
     <material-button id="open-standard" label="Open standard" raised></material-button>
     <material-button id="open-modal" label="Open modal" raised></material-button>
-</section>
+</section>`;

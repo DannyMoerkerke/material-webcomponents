@@ -1,4 +1,4 @@
-<h1>material-datepicker</h1>
+export const template = `<h1>material-datepicker</h1>
 <p>
     A dialog datepicker is used to select a single date. Clicking the date and year in the header will toggle between
     the month view and years view.
@@ -49,4 +49,4 @@
     </material-dialog>
 
     <material-textfield label="Date" readonly></material-textfield>
-</section>
+</section>`;

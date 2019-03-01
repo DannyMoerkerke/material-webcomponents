@@ -1,4 +1,4 @@
-<h1>material-slidemenu</h1>
+export const template = `<h1>material-slidemenu</h1>
 <p>
     The slidemenu slides down when clicked and reveals extra options.
 </p>
@@ -39,3 +39,4 @@
     </material-slidemenu>
 </section>
 
+`;

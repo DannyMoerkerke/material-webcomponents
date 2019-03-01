@@ -1,4 +1,4 @@
-<h1>material-checkbox</h1>
+export const template = `<h1>material-checkbox</h1>
 <p>
     Checkboxes allow the user to select multiple options from a set.
 </p>
@@ -26,3 +26,4 @@
     <h3>Demo</h3>
     <material-checkbox label="Subscribe" value="subscribe"></material-checkbox>
 </section>
+`;

@@ -1,4 +1,4 @@
-<h1>material-slider</h1>
+export const template = `<h1>material-slider</h1>
 <p>
   Sliders let users select from a range of values by moving the slider thumb.
 </p>
@@ -49,3 +49,4 @@
     <material-slider value="60" max="100" step="10"></material-slider>
   </div>
 </section>
+`;

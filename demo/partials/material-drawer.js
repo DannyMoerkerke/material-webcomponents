@@ -1,4 +1,4 @@
-<h1>material-drawer</h1>
+export const template = `<h1>material-drawer</h1>
 <p>
     The navigation drawer slides in from the left and contains the navigation destinations for your app.
 </p>
@@ -39,3 +39,4 @@
         </material-slidemenu>
     </material-drawer>
 </section>
+`;

@@ -1,4 +1,4 @@
-<h1>material-button</h1>
+export const template = `<h1>material-button</h1>
 <p>
     Material buttons trigger an ink reaction on press. They may display text, imagery, or both. Flat buttons and raised
     buttons are the most commonly used types.
@@ -76,4 +76,4 @@
             <i class="material-icons" slot="left-icon">add</i>
         </material-button>
     </div>
-</section>
+</section>`;

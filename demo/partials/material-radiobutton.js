@@ -1,4 +1,4 @@
-<h1>material-radiobutton</h1>
+export const template = `<h1>material-radiobutton</h1>
 <p>
     Radio buttons allow the user to select one option from a set.
 </p>
@@ -35,4 +35,4 @@
         <material-radiobutton slot="radio" label="Typescript" value="typescript"></material-radiobutton>
         <material-radiobutton slot="radio" label="PHP" value="php" checked></material-radiobutton>
     </material-radiobutton-group>
-</section>
+</section>`;

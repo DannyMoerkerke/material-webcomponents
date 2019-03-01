@@ -1,10 +1,28 @@
 import router from '../src/router.js';
 import {template as index} from './partials/index.js';
 import {template as appBar} from './partials/material-app-bar.js';
+import {template as button} from './partials/material-button.js';
+import {template as checkBox} from './partials/material-checkbox.js';
+import {template as datePicker} from './partials/material-datepicker.js';
+import {template as dialog} from './partials/material-dialog.js';
+import {template as dropDown} from './partials/material-dropdown.js';
+import {template as progress} from './partials/material-progress.js';
+import {template as drawer} from './partials/material-drawer.js';
+import {template as radio} from './partials/material-radiobutton.js';
+import {template as slider} from './partials/material-slider.js';
+import {template as materialSwitch} from './partials/material-switch.js';
+import {template as table} from './partials/material-table.js';
+import {template as tabs} from './partials/material-tabs.js';
+import {template as text} from './partials/material-textfield.js';
+import {template as slideMenu} from './partials/material-slidemenu.js';
 
 const outlet = document.querySelector('#content');
 
 router(outlet, [
+  {
+    url: '/material-webcomponents',
+    template: index
+  },
   {
     url: '/material-webcomponents/',
     template: index
@@ -15,15 +33,15 @@ router(outlet, [
   },
   {
     url: '/material-button',
-    templateUrl: '../demo/partials/material-button.html'
+    template: button
   },
   {
     url: '/material-checkbox',
-    templateUrl: '../demo/partials/material-checkbox.html'
+    template: checkBox
   },
   {
     url: '/material-datepicker',
-    templateUrl: '../demo/partials/material-datepicker.html',
+    template: datePicker,
     controller() {
       const picker = document.querySelector('material-datepicker');
       const field = document.querySelector('material-textfield');
@@ -51,7 +69,7 @@ router(outlet, [
   },
   {
     url: '/material-dialog',
-    templateUrl: '../demo/partials/material-dialog.html',
+    template: dialog,
     controller() {
       const standardDialog = document.querySelector('#standard-dialog');
       const modalDialog = document.querySelector('#modal-dialog');
@@ -64,15 +82,15 @@ router(outlet, [
   },
   {
     url: '/material-dropdown',
-    templateUrl: '../demo/partials/material-dropdown.html'
+    template: dropDown
   },
   {
     url: '/material-progress',
-    templateUrl: '../demo/partials/material-progress.html'
+    template: progress
   },
   {
     url: '/material-drawer',
-    templateUrl: '../demo/partials/material-drawer.html',
+    template: drawer,
     controller() {
       const button = document.querySelector('#material-drawer-toggle');
       const drawer = document.querySelector('#demo-material-drawer');
@@ -82,19 +100,19 @@ router(outlet, [
   },
   {
     url: '/material-radiobutton',
-    templateUrl: '../demo/partials/material-radiobutton.html'
+    template: radio
   },
   {
     url: '/material-slider',
-    templateUrl: '../demo/partials/material-slider.html'
+    template: slider
   },
   {
     url: '/material-switch',
-    templateUrl: '../demo/partials/material-switch.html'
+    template: materialSwitch
   },
   {
     url: '/material-table',
-    templateUrl: '../demo/partials/material-table.html',
+    template: table,
     controller() {
       customElements.whenDefined('material-table')
       .then(() => {
@@ -208,14 +226,14 @@ router(outlet, [
   },
   {
     url: '/material-tabs',
-    templateUrl: '../demo/partials/material-tabs.html'
+    template: tabs
   },
   {
     url: '/material-textfield',
-    templateUrl: '../demo/partials/material-textfield.html'
+    template: text
   },
   {
     url: '/material-slidemenu',
-    templateUrl: '../demo/partials/material-slidemenu.html'
+    template: slideMenu
   }
 ]);
