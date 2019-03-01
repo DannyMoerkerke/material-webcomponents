@@ -5,7 +5,7 @@ const outlet = document.querySelector('#content');
 
 router(outlet, [
   {
-    url: '/material-webcomponents',
+    url: '/material-webcomponents/',
     template: index
   },
   {
