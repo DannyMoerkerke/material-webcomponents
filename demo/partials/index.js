@@ -14,7 +14,7 @@ export const template = `<div class="intro">
         </h3>
       </header>
       <section class="body">
-        <img src="/material-webcomponents/demo/assets/webcomponents.svg" style="width: 79px;">
+        <img src="demo/assets/webcomponents.svg" style="width: 79px;">
         <p>
           All components consist of semantic HTML, scoped CSS and standard JavaScript.
         </p>
@@ -31,7 +31,7 @@ export const template = `<div class="intro">
         </h3>
       </header>
       <section class="body">
-        <img src="/material-webcomponents/demo/assets/browsers.png">
+        <img src="demo/assets/browsers.png">
         <p>
           Material Web Components run out of the box in all modern browsers
         </p>
