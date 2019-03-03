@@ -51,5 +51,7 @@ export default (outlet, routes) => {
     activateRoute(matchedRoute);
   });
 
-  handleRoute(getMatchedRoute(getCurrentRoute(location.href)));
+  const currentRoute = sessionStorage.getItem('currentRoute') || location.href;
+  sessionStorage.removeItem('currentRoute');
+  handleRoute(getMatchedRoute(getCurrentRoute(currentRoute)));
 };
