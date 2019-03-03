@@ -105,6 +105,7 @@ export default class MaterialDatepicker extends HTMLElement {
                     grid-column: 1 / 2;
                     overflow-y: auto;
                     height: 304px;
+                    background: #ffffff;
                 }
                 .year {
                     display: flex;

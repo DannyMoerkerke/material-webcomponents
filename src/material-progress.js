@@ -43,9 +43,10 @@ export default class MaterialProgress extends HTMLElement {
                 }
                 progress:not([value]) + .after {
                     position: absolute;
-                    top: 14px;
+                    top: 13px;
                     left: 0%;
                     background-color: var(--progress-bar-color);
+                    border-radius: 2px;
                     display: block;
                     width: calc(var(--progress-bar-height) * 4);
                     height: var(--progress-bar-height);
@@ -68,6 +69,10 @@ export default class MaterialProgress extends HTMLElement {
                 
                 progress[value]::-moz-progress-bar {
                     background-color: var(--progress-bar-color);
+                }
+                
+                #container {
+                  width: var(--progress-bar-width);
                 }
                 
                 #progress-container {
