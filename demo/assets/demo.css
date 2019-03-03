@@ -45,7 +45,7 @@ h3 {
   font-weight: normal;
 }
 
-h1 {
+main > h1 {
   font-size: 32px;
   margin-bottom: 35px;
 }
