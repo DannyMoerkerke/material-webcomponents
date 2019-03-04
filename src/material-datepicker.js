@@ -1,4 +1,4 @@
-export default class MaterialDatepicker extends HTMLElement {
+export class MaterialDatepicker extends HTMLElement {
 
     static get observedAttributes() {
         return ['date', 'locale'];

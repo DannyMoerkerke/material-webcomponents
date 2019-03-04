@@ -1,4 +1,4 @@
-export default class MaterialProgress extends HTMLElement {
+export class MaterialProgress extends HTMLElement {
 
   static get observedAttributes() {
     return ['value', 'max', 'circle'];

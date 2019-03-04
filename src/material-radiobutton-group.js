@@ -1,4 +1,4 @@
-export default class MaterialRadiobuttonGroup extends HTMLElement {
+export class MaterialRadiobuttonGroup extends HTMLElement {
 
     static get observedAttributes() {
         return ['name'];

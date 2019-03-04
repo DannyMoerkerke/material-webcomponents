@@ -1,8 +1,4 @@
-export default class MaterialDialog extends HTMLElement {
-
-    static get observedAttributes() {
-        return [];
-    }
+export class MaterialDialog extends HTMLElement {
 
     constructor() {
         super();
@@ -16,9 +12,27 @@ export default class MaterialDialog extends HTMLElement {
                     --body-background: #ffffff;
                     --footer-background: #ffffff;
                     --backdrop-color: rgba(128,128,128,0.5);
-                    --dialog-width: 20%;
+                    --dialog-width: 90%;
                     --dialog-height: auto;
                     display: block;
+                }
+                
+                @media (min-width: 768px) {
+                  :host {
+                    --dialog-width: 70%;
+                  }
+                }
+                
+                @media (min-width: 1024px) {
+                  :host {
+                    --dialog-width: 40%;
+                  }
+                }
+                
+                @media (min-width: 1200px) {
+                  :host {
+                    --dialog-width: 30%;
+                  }
                 }
                 
                 #backdrop {

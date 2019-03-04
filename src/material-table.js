@@ -1,9 +1,4 @@
-
-export default class MaterialTable extends HTMLElement {
-
-    static get observedAttributes() {
-        return [];
-    }
+export class MaterialTable extends HTMLElement {
 
     constructor() {
         super();

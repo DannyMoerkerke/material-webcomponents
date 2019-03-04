@@ -1,8 +1,4 @@
-export default class MaterialToggleButton extends HTMLElement {
-
-    static get observedAttributes() {
-        return [];
-    }
+export class MaterialToggleButton extends HTMLElement {
 
     constructor() {
         super();

@@ -1,4 +1,4 @@
-export default class MaterialSlidemenu extends HTMLElement {
+export class MaterialSlidemenu extends HTMLElement {
     constructor() {
         super();
 
