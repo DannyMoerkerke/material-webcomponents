@@ -1,8 +1,4 @@
-export default class MaterialAppBar extends HTMLElement {
-
-    static get observedAttributes() {
-        return [];
-    }
+export class MaterialAppBar extends HTMLElement {
 
     constructor() {
         super();

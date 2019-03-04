@@ -1,4 +1,4 @@
-export default class MaterialTextfield extends HTMLElement {
+export class MaterialTextfield extends HTMLElement {
 
     static get observedAttributes() {
         return ['value', 'name', 'label', 'readonly', 'minLength', 'maxLength', 'pattern'];

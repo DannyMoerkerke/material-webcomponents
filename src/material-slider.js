@@ -1,4 +1,4 @@
-export default class MaterialSlider extends HTMLElement {
+export class MaterialSlider extends HTMLElement {
 
   static get observedAttributes() {
     return ['value'];

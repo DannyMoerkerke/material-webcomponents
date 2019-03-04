@@ -1,4 +1,4 @@
-export default class MaterialDrawer extends HTMLElement {
+export class MaterialDrawer extends HTMLElement {
 
     static get observedAttributes() {
         return ['open'];
@@ -26,7 +26,6 @@ export default class MaterialDrawer extends HTMLElement {
                     top: var(--top-pos);
                     left: 0;
                     width: var(--drawer-width);
-                    height: 100%;
                     background-color: var(--drawer-color);
                     box-shadow: var(--drawer-box-shadow);
                     transform: translate(-100%, 0px);

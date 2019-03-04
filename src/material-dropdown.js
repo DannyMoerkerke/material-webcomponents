@@ -1,4 +1,4 @@
-export default class MaterialDropdown extends HTMLElement {
+export class MaterialDropdown extends HTMLElement {
 
   static get observedAttributes() {
     return ['open'];
@@ -9,7 +9,6 @@ export default class MaterialDropdown extends HTMLElement {
 
     const shadowRoot = this.attachShadow({mode: 'open'});
 
-    // language=HTML
     shadowRoot.innerHTML = `
       <style>
         :host {

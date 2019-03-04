@@ -1,4 +1,4 @@
-export default class MaterialButton extends HTMLElement {
+export class MaterialButton extends HTMLElement {
 
     static get observedAttributes() {
         return ['label'];

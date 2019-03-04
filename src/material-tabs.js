@@ -1,4 +1,4 @@
-export default class MaterialTabs extends HTMLElement {
+export class MaterialTabs extends HTMLElement {
 
     constructor() {
         super();

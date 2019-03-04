@@ -1,4 +1,4 @@
-export default class MaterialSwitch extends HTMLElement {
+export class MaterialSwitch extends HTMLElement {
 
     static get observedAttributes() {
         return ['on', 'label'];
@@ -50,6 +50,7 @@ export default class MaterialSwitch extends HTMLElement {
                 #container {
                     display: flex;
                     cursor: pointer;
+                    -webkit-tap-highlight-color: transparent;
                 }
                 label {
                     margin-left: 1em;
