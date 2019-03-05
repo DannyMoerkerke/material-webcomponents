@@ -14,6 +14,16 @@ export const template = `<h1>material-switch</h1>
     <li><code>label-position</code>: (left|right), position of label (default: right)</li>
 </ul>
 
+<h3>Properties</h3>
+<ul>
+    <li><code>value</code>: Boolean, <code>true</code> when the switch is on, <code>false</code> when the switch is off</li>
+</ul>
+
+<h3>Methods</h3>
+<ul>
+    <li><code>toggle</code>: toggles the switch on and off</li>
+</ul>
+
 <h3>Styling</h3>
 <ul>
     <li><code>--switch-color</code>: color of the switch, default: #f5f5f5</li>

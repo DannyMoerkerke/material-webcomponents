@@ -128,6 +128,10 @@ material-progress {
   --progress-bar-width: 250px !important;
 }
 
+#demo-slidemenu {
+  /*background: #cccccc;*/
+}
+
 .cards-row {
   display: flex;
   justify-content: space-evenly;

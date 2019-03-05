@@ -15,6 +15,13 @@ export const template = `<h1>material-checkbox</h1>
     <li><code>checked</code>: empty, setting this attribute will check the checkbox</li>
 </ul>
 
+<h3>Properties</h3>
+<ul>
+    <li><code>value</code>: String, value of the checkbox</li>
+    <li><code>checked</code>: Boolean, checks the checkbox when set to <code>true</code>, unchecks the button when set 
+    to <code>false</code></li>
+</ul>
+
 <h3>Styling</h3>
 <ul>
     <li><code>--unchecked-color</code>: color of checkbox when not checked, default: #999999</li>

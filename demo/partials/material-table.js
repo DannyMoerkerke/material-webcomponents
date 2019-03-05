@@ -48,6 +48,13 @@ export const template = `<h1>material-table</h1>
     </li>
 </ul>
 
+<h3>Properties</h3>
+<ul>
+    <li><code>data</code>: Object[], data to be rendered by the table. The keys of the object will be uses as column 
+    names</li>
+</ul>
+ 
+
 
 <h3>Styling</h3>
 <ul>

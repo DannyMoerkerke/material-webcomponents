@@ -20,6 +20,18 @@ export const template = `<h1>material-drawer</h1>
     <li><code>open</code>: empty, when present the drawer will appear open</li>
 </ul>
 
+<h3>Slots</h3>
+<ul>
+    <li><code>content</code>: content to be rendered in the drawer</li>
+</ul>
+
+<h3>Methods</h3>
+<ul>
+    <li><code>open</code>: opens the drawer.</li>
+    <li><code>close</code>: closes the drawer.</li>
+    <li><code>toggle</code>: toggles the drawer.</li>
+</ul>
+
 <h3>Styling</h3>
 <ul>
     <li><code>--drawer-color</code>: color of the drawer, default: #ffffff</li>
@@ -30,13 +42,13 @@ export const template = `<h1>material-drawer</h1>
     <material-button label="Toggle" id="material-drawer-toggle" raised></material-button>
 
     <material-drawer id="demo-material-drawer">
-        <p slot="content">Click languages</p>
-        <material-slidemenu label="Languages" slot="content">
-            <a slot="item" href="#">Javascript</a>
-            <a slot="item" href="#">PHP</a>
-            <a slot="item" href="#">Typescript</a>
-            <a slot="item" href="#">Scala</a>
-        </material-slidemenu>
+        <ul slot="content">
+            <li><a href="#">Link 1</a></li>
+            <li><a href="#">Link 2</a></li>
+            <li><a href="#">Link 3</a></li>
+            <li><a href="#">Link 4</a></li>
+            <li><a href="#">Link 5</a></li>
+        </ul>
     </material-drawer>
 </section>
 `;

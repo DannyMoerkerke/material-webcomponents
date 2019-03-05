@@ -16,6 +16,11 @@ export const template = `<h1>material-slider</h1>
   <li><code>step</code>: Number, granularity of the slider</li>
 </ul>
 
+<h3>Properties</h3>
+<ul>
+  <li><code>value</code>: Number, current value of the slider</li>
+</ul>
+
 <h3>Events</h3>
 <ul>
   <li><code>change</code>: fired when the slider is dragged

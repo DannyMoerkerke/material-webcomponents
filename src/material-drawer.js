@@ -1,15 +1,15 @@
 export class MaterialDrawer extends HTMLElement {
 
-    static get observedAttributes() {
-        return ['open'];
-    }
+  static get observedAttributes() {
+    return ['open'];
+  }
 
-    constructor() {
-        super();
+  constructor() {
+    super();
 
-        const shadowRoot = this.attachShadow({mode: 'open'});
+    const shadowRoot = this.attachShadow({mode: 'open'});
 
-        shadowRoot.innerHTML = `
+    shadowRoot.innerHTML = `
             <style>
                 :host {
                     --drawer-color: #ffffff;
@@ -26,6 +26,7 @@ export class MaterialDrawer extends HTMLElement {
                     top: var(--top-pos);
                     left: 0;
                     width: var(--drawer-width);
+                    min-height: 100vh;
                     background-color: var(--drawer-color);
                     box-shadow: var(--drawer-box-shadow);
                     transform: translate(-100%, 0px);
@@ -80,75 +81,70 @@ export class MaterialDrawer extends HTMLElement {
             </div>
         `;
 
-        this.container = this.shadowRoot.querySelector('#container');
-        this.backdrop = this.shadowRoot.querySelector('#backdrop');
-    }
+    this.container = this.shadowRoot.querySelector('#container');
+    this.backdrop = this.shadowRoot.querySelector('#backdrop');
+  }
 
-    connectedCallback() {
-        this.backdrop.addEventListener('click', this.close.bind(this));
+  connectedCallback() {
+    this.backdrop.addEventListener('click', this.close.bind(this));
 
-        const containerStyle = getComputedStyle(this.container);
-        this.mobileDrawerWidth = containerStyle.getPropertyValue('--mobile-drawer-width');
-        this.desktopDrawerWidth = containerStyle.getPropertyValue('--desktop-drawer-width');
+    const containerStyle = getComputedStyle(this.container);
+    this.mobileDrawerWidth = containerStyle.getPropertyValue('--mobile-drawer-width');
+    this.desktopDrawerWidth = containerStyle.getPropertyValue('--desktop-drawer-width');
 
-        const isMobile = mq => {
-            this.isMobile = mq.matches;
+    const isMobile = mq => {
+      this.isMobile = mq.matches;
 
-            this.container.style.setProperty('--drawer-width', (this.isMobile ? this.mobileDrawerWidth : this.desktopDrawerWidth));
+      this.container.style.setProperty('--drawer-width', (this.isMobile ? this.mobileDrawerWidth : this.desktopDrawerWidth));
 
-            if(this.isMobile) {
-                this.container.addEventListener('click', this.close.bind(this));
-                this.backdrop.addEventListener('animationend', ({animationName}) => {
-                    if(animationName === 'fadeout') {
-                        this.backdrop.classList.remove('close');
-                        this.backdrop.style.display = 'none';
-                    }
-                });
-            }
-        };
+      if(this.isMobile) {
+        this.container.addEventListener('click', this.close.bind(this));
+        this.backdrop.addEventListener('animationend', ({animationName}) => {
+          if(animationName === 'fadeout') {
+            this.backdrop.classList.remove('close');
+            this.backdrop.style.display = 'none';
+          }
+        });
+      }
+    };
 
-        const mq = window.matchMedia('(max-width: 500px)');
-        mq.addListener(isMobile);
-        isMobile(mq);
-    }
+    const mq = window.matchMedia('(max-width: 500px)');
+    mq.addListener(isMobile);
+    isMobile(mq);
+  }
 
-    attributeChangedCallback(attr) {
-        if(attr === 'open') {
-            if(this.hasAttribute('open')) {
-                this.container.classList.add('open');
-            }
-            else {
-                this.container.classList.remove('open');
-            }
-        }
-    }
-
-    open() {
+  attributeChangedCallback(attr) {
+    if(attr === 'open') {
+      if(this.hasAttribute('open')) {
         this.container.classList.add('open');
-        this.setAttribute('open', '');
-
-        if(this.isMobile) {
-            this.backdrop.style.display = 'block';
-        }
-    }
-
-    close() {
+      }
+      else {
         this.container.classList.remove('open');
-        this.removeAttribute('open');
-
-        if(this.isMobile) {
-            this.backdrop.classList.add('close');
-        }
+      }
     }
+  }
 
-    toggle() {
-        if(this.hasAttribute('open')) {
-            this.close();
-        }
-        else {
-            this.open();
-        }
+  open() {
+    this.container.classList.add('open');
+    this.setAttribute('open', '');
+
+    if(this.isMobile) {
+      this.backdrop.style.display = 'block';
     }
+  }
+
+  close() {
+    this.container.classList.remove('open');
+    this.removeAttribute('open');
+
+    if(this.isMobile) {
+      this.backdrop.classList.add('close');
+    }
+  }
+
+  toggle() {
+    this.hasAttribute('open') ? this.close() : this.open();
+  }
 }
 
 customElements.define('material-drawer', MaterialDrawer);

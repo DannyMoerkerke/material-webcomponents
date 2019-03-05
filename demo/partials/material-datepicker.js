@@ -18,6 +18,14 @@ export const template = `<h1>material-datepicker</h1>
     <li><code>locale</code>: String, a BCP 47 language tag (default: en-EN)</li>
 </ul>
 
+<h3>Properties</h3>
+<ul>
+    <li><code>date</code>: String, an <a href="http://tools.ietf.org/html/rfc2822#section-3.3"
+                                         target="_blank">RFC2822</a>
+        or (a variant of) ISO 8601 date (default: current date)
+    </li>
+</ul>
+
 <h3>Events</h3>
 <ul>
     <li><code>close</code>: fired when the "cancel" button is clicked</li>

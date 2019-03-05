@@ -1,15 +1,15 @@
 export class MaterialSwitch extends HTMLElement {
 
-    static get observedAttributes() {
-        return ['on', 'label'];
-    }
+  static get observedAttributes() {
+    return ['on', 'label'];
+  }
 
-    constructor() {
-        super();
+  constructor() {
+    super();
 
-        const shadowRoot = this.attachShadow({mode: 'open'});
+    const shadowRoot = this.attachShadow({mode: 'open'});
 
-        shadowRoot.innerHTML = `
+    shadowRoot.innerHTML = `
             <style>
                 :host {
                     --track-color: #bdbdbd;
@@ -99,52 +99,46 @@ export class MaterialSwitch extends HTMLElement {
         
         `;
 
-        this.container = this.shadowRoot.querySelector('#container');
-        this.input = this.shadowRoot.querySelector('input');
-        this.label = this.shadowRoot.querySelector('label');
+    this.container = this.shadowRoot.querySelector('#container');
+    this.input = this.shadowRoot.querySelector('input');
+    this.label = this.shadowRoot.querySelector('label');
+  }
+
+  connectedCallback() {
+    this.container.addEventListener('click', this.handleClick.bind(this));
+  }
+
+  attributeChangedCallback(attr, oldVal, newVal) {
+    this.input.checked = this.hasAttribute('on');
+
+    if(attr === 'label') {
+      if(oldVal !== null) {
+        this.label.removeChild(this.label.lastChild);
+      }
+
+      this.setLabel(newVal);
     }
+  }
 
-    connectedCallback() {
-        this.container.addEventListener('click', this.handleClick.bind(this));
+  handleClick() {
+    if(!this.hasAttribute('disabled')) {
+      this.toggle();
     }
+  }
 
-    attributeChangedCallback(attr, oldVal, newVal) {
-        this.input.checked = this.hasAttribute('on');
+  setLabel(text) {
+    const label = document.createTextNode(text);
+    this.label.appendChild(label);
+  }
 
-        if(attr === 'label') {
-            if(oldVal !== null) {
-                this.label.removeChild(this.label.lastChild);
-            }
+  toggle() {
+    this.hasAttribute('on') ? this.removeAttribute('on') : this.setAttribute('on', '');
+    this.input.checked = this.hasAttribute('on');
+  }
 
-            this.setLabel(newVal);
-        }
-    }
-
-    handleClick() {
-        if(!this.hasAttribute('disabled')) {
-            this.toggle();
-        }
-    }
-
-    setLabel(text) {
-        const label = document.createTextNode(text);
-        this.label.appendChild(label);
-    }
-
-    toggle() {
-        if(this.hasAttribute('on')) {
-            this.removeAttribute('on');
-        }
-        else {
-            this.setAttribute('on', '');
-        }
-
-        this.input.checked = this.hasAttribute('on');
-    }
-
-    get value() {
-        return this.hasAttribute('on');
-    }
+  get value() {
+    return this.hasAttribute('on');
+  }
 }
 
 customElements.define('material-switch', MaterialSwitch);

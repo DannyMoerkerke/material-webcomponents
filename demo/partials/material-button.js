@@ -19,6 +19,12 @@ export const template = `<h1>material-button</h1>
     <li><code>disabled</code>: empty, disables the button</li>
 </ul>
 
+<h3>Properties</h3>
+<ul>
+    <li><code>disabled</code>: Boolean, disables the button when set to <code>true</code>, enables the button when set 
+    to <code>false</code></li>
+</ul>
+
 
 <h3>Slots</h3>
 <ul>
