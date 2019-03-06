@@ -70,6 +70,7 @@ export class MaterialSlidemenu extends HTMLElement {
   connectedCallback() {
     this.nav = this.shadowRoot.querySelector('nav');
     this.container = this.shadowRoot.querySelector('#slidemenu-container');
+    this.menuContainer = this.shadowRoot.querySelector('#menu-container');
     this.labelElement = this.shadowRoot.querySelector('label');
     this.items = this.shadowRoot.querySelector('slot[name=item]').assignedNodes();
     const height = this.nav.getBoundingClientRect().height;
@@ -80,18 +81,16 @@ export class MaterialSlidemenu extends HTMLElement {
 
     this.nav.style.setProperty('--open-height', `${(this.items.length) * height}px`);
     this.nav.addEventListener('click', this.toggleMenu.bind(this));
-    this.nav.addEventListener('transitionend', this.handleTransitionEnd.bind(this));
+    this.menuContainer.addEventListener('click', this.closeMenu.bind(this));
+  }
+
+  closeMenu() {
+    this.nav.classList.remove('open');
   }
 
   toggleMenu(e) {
     if(e.composedPath()[0] === this.labelElement) {
       this.nav.classList.toggle('open');
-    }
-  }
-
-  handleTransitionEnd() {
-    if(this.nav.classList.contains('open')) {
-      // this.container.style.zIndex = '0';
     }
   }
 }

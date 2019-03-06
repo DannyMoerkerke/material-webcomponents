@@ -22,7 +22,7 @@ main {
 }
 
 .demo {
-  padding-bottom: 150px;
+  padding-bottom: 250px;
 }
 
 ul {
@@ -72,6 +72,7 @@ pre {
 
 a {
   color: #000000;
+  cursor: pointer;
 }
 a:hover {
   color: rgb(0, 188, 212);

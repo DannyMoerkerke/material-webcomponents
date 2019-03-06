@@ -1,4 +1,5 @@
 import '../src/material-table.js';
+import '../src/material-checkbox.js';
 
 describe('material-table', () => {
 

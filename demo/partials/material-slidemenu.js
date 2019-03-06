@@ -33,11 +33,11 @@ export const template = `<h1>material-slidemenu</h1>
 <section class="demo">
     <h3>Demo</h3>
     <material-slidemenu id="demo-slidemenu" label="Options">
-        <a slot="item" href="#">Option 1</a>
-        <a slot="item" href="#">Option 2</a>
-        <a slot="item" href="#">Option 3</a>
-        <a slot="item" href="#">Option 4</a>
-        <a slot="item" href="#">Option 5</a>
+        <a slot="item">Option 1</a>
+        <a slot="item">Option 2</a>
+        <a slot="item">Option 3</a>
+        <a slot="item">Option 4</a>
+        <a slot="item">Option 5</a>
     </material-slidemenu>
 </section>
 
