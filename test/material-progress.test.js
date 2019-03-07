@@ -57,7 +57,7 @@ describe('material-progress', () => {
         const circumference = 2 * Math.PI * (radius - 2);
         const dashOffset = (circumference * (1 - (progress / 100))).toPrecision(6);
 
-        template.innerHTML = `<material-progress circle="${size}"></material-progress>`;
+        template.innerHTML = `<material-progress max="100" circle="${size}"></material-progress>`;
         element = template.content.firstChild;
         document.body.appendChild(element);
 
@@ -68,7 +68,7 @@ describe('material-progress', () => {
     });
 
     it('should set the "value" attribute of the progress bar and the "--progress-value" CSS variable when progress is updated on a linear progress element', () => {
-        template.innerHTML = `<material-progress></material-progress>`;
+        template.innerHTML = `<material-progress max="100"></material-progress>`;
         element = template.content.firstChild;
         document.body.appendChild(element);
 

@@ -10,7 +10,6 @@ import './material-switch.js';
 import './material-table.js';
 import './material-tabs.js';
 import './material-textfield.js';
-import './material-toggle-button.js';
 import './material-slidemenu.js';
 import './material-button.js';
 import './material-progress.js';

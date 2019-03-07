@@ -56,29 +56,6 @@ describe('material-slidemenu', () => {
         expect(actual).to.eql(expected)
     });
 
-    it('should set the z-index of the container to "0" when the menu is opened', () => {
-        element.nav.classList.add('open');
-
-        element.handleTransitionEnd();
-
-        expect(element.container.style.zIndex).to.eql('0');
-    });
-
-    it('should set the z-index of the container to "0" when the menu is opened', () => {
-        element.nav.classList.add('open');
-
-        element.handleTransitionEnd();
-
-        expect(element.container.style.zIndex).to.eql('0');
-    });
-
-    it('should NOT set the z-index of the container to "0" when the menu is closed', () => {
-        element.container.style.zIndex = '-1';
-        element.handleTransitionEnd();
-
-        expect(element.container.style.zIndex).to.eql('-1');
-    });
-
     afterEach(() => {
         document.body.removeChild(element);
     });

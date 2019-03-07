@@ -17,6 +17,11 @@ export const template = `<h1>material-progress</h1>
     </li>
 </ul>
 
+<h3>Properties</h3>
+<ul>
+    <li><code>value</code>: Number, current value of the progress indicator</li>
+</ul>
+
 <h3>Styling</h3>
 <ul>
     <li><code>--progress-bar-width</code>: width of progress bar, default: 100%</li>
@@ -36,7 +41,7 @@ export const template = `<h1>material-progress</h1>
     </div>
 
     <div class="demo-option">
-        <em>indeterminate</em>
+        <em>indeterminate (no <code>value</code> and <code>max</code>)</em>
         <material-progress></material-progress>
     </div>
 

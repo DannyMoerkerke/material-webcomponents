@@ -1,17 +1,20 @@
 export class MaterialSlidemenu extends HTMLElement {
-    constructor() {
-        super();
+  constructor() {
+    super();
 
-        const shadowRoot = this.attachShadow({mode: 'open'});
+    const shadowRoot = this.attachShadow({mode: 'open'});
 
-        shadowRoot.innerHTML = `
+    shadowRoot.innerHTML = `
             <style>
                 :host {
                     display: block;
                     --label-height: 40px;
+                    --menu-background: #efefef;
+                    --label-background: #cccccc;
                 }
                 nav {
                     height: var(--label-height);
+                    background: var(--label-background);
                 }
                 nav label {
                     cursor: pointer;
@@ -21,6 +24,7 @@ export class MaterialSlidemenu extends HTMLElement {
                     position: relative;
                     height: 0;
                     overflow: hidden;
+                    background: var(--menu-background);
                     transition: height 450ms cubic-bezier(0.23, 1, 0.32, 1);
                 }
                 nav.open #slidemenu-container {
@@ -33,7 +37,6 @@ export class MaterialSlidemenu extends HTMLElement {
                     position: absolute;
                     left: 0;
                     bottom: 0;
-                    z-index: -1;
                 }
                 nav label {
                     display: flex;
@@ -62,36 +65,34 @@ export class MaterialSlidemenu extends HTMLElement {
                 </div>
             </nav>
         `;
+  }
+
+  connectedCallback() {
+    this.nav = this.shadowRoot.querySelector('nav');
+    this.container = this.shadowRoot.querySelector('#slidemenu-container');
+    this.menuContainer = this.shadowRoot.querySelector('#menu-container');
+    this.labelElement = this.shadowRoot.querySelector('label');
+    this.items = this.shadowRoot.querySelector('slot[name=item]').assignedNodes();
+    const height = this.nav.getBoundingClientRect().height;
+
+    if(this.hasAttribute('label')) {
+      this.labelElement.textContent = this.getAttribute('label');
     }
 
-    connectedCallback() {
-        this.nav = this.shadowRoot.querySelector('nav');
-        this.container = this.shadowRoot.querySelector('#slidemenu-container');
-        this.labelElement = this.shadowRoot.querySelector('label');
-        this.items = this.shadowRoot.querySelector('slot[name=item]').assignedNodes();
-        const height = this.nav.getBoundingClientRect().height;
+    this.nav.style.setProperty('--open-height', `${(this.items.length) * height}px`);
+    this.nav.addEventListener('click', this.toggleMenu.bind(this));
+    this.menuContainer.addEventListener('click', this.closeMenu.bind(this));
+  }
 
-        if(this.hasAttribute('label')) {
-            this.labelElement.textContent = this.getAttribute('label');
-        }
+  closeMenu() {
+    this.nav.classList.remove('open');
+  }
 
-        this.nav.style.setProperty('--open-height', `${(this.items.length) * height}px`);
-        this.nav.addEventListener('click', this.toggleMenu.bind(this));
-        this.nav.addEventListener('transitionend', this.handleTransitionEnd.bind(this));
+  toggleMenu(e) {
+    if(e.composedPath()[0] === this.labelElement) {
+      this.nav.classList.toggle('open');
     }
-
-    toggleMenu(e) {
-        if(e.composedPath()[0] === this.labelElement) {
-            this.container.style.zIndex = '-1';
-            this.nav.classList.toggle('open');
-        }
-    }
-
-    handleTransitionEnd() {
-        if(this.nav.classList.contains('open')) {
-            this.container.style.zIndex = '0';
-        }
-    }
+  }
 }
 
 customElements.define('material-slidemenu', MaterialSlidemenu);

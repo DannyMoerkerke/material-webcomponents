@@ -37,6 +37,11 @@ export const template = `<h1>material-textfield</h1>
     </li>
 </ul>
 
+<h3>Properties</h3>
+<ul>
+    <li><code>value</code>: String, value of the field</li>
+</ul>
+
 <h3>Styling</h3>
 <ul>
     <li><code>--active-color</code>: color of the bottom bar and label when the field has focus, default: #337ab7</li>
