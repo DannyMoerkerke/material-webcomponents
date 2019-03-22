@@ -231,6 +231,10 @@ export class MaterialTextfield extends HTMLElement {
         }
     }
 
+    isValid() {
+        return this.input.validity.valid;
+    }
+
     get value() {
         return this.input.value;
     }
