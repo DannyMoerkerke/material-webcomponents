@@ -93,7 +93,7 @@ export const template = `<div class="intro">
     ...and you're in business!
   </p>
   <p>
-    Refer to the menu on the left to see documentation for each component.
+    Refer to the menu to see documentation for each component.
   </p>
 </div>
 `;
