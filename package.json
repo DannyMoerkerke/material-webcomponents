@@ -9,6 +9,9 @@
     "url": "git+ssh://git@github.com:DannyMoerkerke/material-webcomponents.git"
   },
   "homepage": "https://dannymoerkerke.github.io/material-webcomponents/",
+  "publishConfig": {
+    "access": "public"
+  },
   "main": "src/bundle.js",
   "files": [
     "/src"
