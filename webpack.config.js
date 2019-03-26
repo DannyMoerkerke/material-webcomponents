@@ -1,5 +1,4 @@
 const path = require('path');
-const WebpackStripLoader = require('strip-loader');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
@@ -19,27 +18,10 @@ module.exports = {
                 test: /\.js$/,
                 use: [
                     {
-                        loader: WebpackStripLoader.loader('console.log')
-                    },
-                    {
                         loader: 'custom-elements-css-loader'
                     }
                 ],
 
-            },
-            {
-                test: /\.css$/,
-                use: ['style-loader',
-                    {
-                        loader: 'css-loader',
-                        options: {
-                            sourceMap: true
-                        }
-                    },
-                    {
-                        loader: 'postcss-loader',
-                    }
-                ]
             }
         ]
     },

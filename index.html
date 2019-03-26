@@ -8,70 +8,6 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <link rel="stylesheet" href="demo/assets/demo.css">
-    <style>
-      html, body {
-        min-height: 100%;
-        background-color: #fafafa;
-        font-family: Roboto;
-      }
-      main {
-        width: 100%;
-        display: grid;
-        display: -ms-grid;
-        grid-template-columns: 250px 1fr;
-        grid-template-rows: 1fr;
-        grid-column-gap: 20px;
-      }
-
-      #main-app-bar {
-        grid-column: 1 / 3;
-        grid-row: 1 / 2;
-        margin-bottom: 20px;
-        display: none;
-        --app-bar-font-size: 18px;
-      }
-
-      #mobile-app-bar {
-        grid-column: 1 / 3;
-        grid-row: 1 / 2;
-        margin-bottom: 20px;
-      }
-
-      #main-menu {
-        --top-pos: 57px;
-        --drawer-box-shadow: none;
-      }
-
-      #demo-material-drawer {
-        --top-pos: 57px;
-      }
-
-      #content {
-        grid-column: 1 / 3;
-      }
-
-      @media (min-width: 800px) {
-        #main-app-bar {
-          display: block;
-          --app-bar-padding: 10px 15px;
-        }
-        #mobile-app-bar {
-          display: none;
-        }
-
-        #main-menu {
-          --top-pos: 64px;
-        }
-        #sidebar {
-          grid-column: 1 / 2;
-          background-color: #ffffff;
-        }
-
-        #content {
-          grid-column: 2 / 3;
-        }
-      }
-    </style>
   </head>
   <body>
 
@@ -114,31 +50,7 @@
     </main>
 
     <script type="module" src="src/bundle.js"></script>
-    <script type="module" src="demo/routes.js"></script>
+    <script type="module" src="lib/init.js"></script>
     <script src="lib/polyfill-loader.js"></script>
-    <script>
-      const appBar = document.querySelector('#mobile-app-bar');
-      const drawer = document.querySelector('#main-menu');
-
-      customElements.whenDefined('material-drawer')
-      .then(() => {
-        const isDesktop = mq => {
-          if(mq.matches) {
-            drawer.open();
-          }
-          else {
-            if(drawer.hasAttribute('open')) {
-              drawer.close();
-            }
-          }
-        };
-
-        const mq = window.matchMedia('(min-width: 800px)');
-        mq.addListener(isDesktop);
-        isDesktop(mq);
-
-        appBar.addEventListener('app-bar-click', drawer.toggle.bind(drawer));
-      });
-    </script>
   </body>
 </html>
