@@ -54,7 +54,7 @@ tests from your IDE using [Wallaby.js](https://wallabyjs.com/)
 ### Polyfilling Edge 16+
 Refer to `/lib/polyfill-loader.js` to see how the [webcomponentsjs polyfill](https://github.com/webcomponents/webcomponentsjs)
 and the Webpack bundle are loaded. The Webpack bundle only parses the CSS
-inside Shadow DOM 
+inside Shadow DOM
 
 
 
