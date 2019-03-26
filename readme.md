@@ -12,13 +12,13 @@ npm install @dannymoerkerke/material-webcomponents
 Then simply `import` the component you need in your script, for example:
 
 ```
-import './node_modules/material-webcomponents/src/material-button.js';
+import './node_modules/@dannymoerkerke/material-webcomponents/src/material-button.js';
 ```
 
 Or include it with a script tag as an ES6 module:
 
 ```
-<script src="node_modules/material-webcomponents/src/material-button.js" type="module"></script>
+<script src="node_modules/@dannymoerkerke/material-webcomponents/src/material-button.js" type="module"></script>
 ```
 
 Add the HTML tag:
