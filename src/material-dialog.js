@@ -1,11 +1,11 @@
 export class MaterialDialog extends HTMLElement {
 
-    constructor() {
-        super();
+  constructor() {
+    super();
 
-        const shadowRoot = this.attachShadow({mode: 'open'});
+    const shadowRoot = this.attachShadow({mode: 'open'});
 
-        shadowRoot.innerHTML = `
+    shadowRoot.innerHTML = `
             <style>
                 :host {
                     --header-background: #ffffff;
@@ -150,37 +150,37 @@ export class MaterialDialog extends HTMLElement {
             </div>
         `;
 
-        this.backdrop = this.shadowRoot.querySelector('#backdrop');
-        this.modal = this.shadowRoot.querySelector('#modal');
-    }
+    this.backdrop = this.shadowRoot.querySelector('#backdrop');
+    this.modal = this.shadowRoot.querySelector('#modal');
+  }
 
-    connectedCallback() {
-        this.style.display = 'none';
+  connectedCallback() {
+    this.style.display = 'none';
 
-        this.backdrop.addEventListener('click', this.handleClick.bind(this));
-        this.backdrop.addEventListener('animationend', this.handleAnimationEnd.bind(this));
-    }
+    this.backdrop.addEventListener('click', this.handleClick.bind(this));
+    this.backdrop.addEventListener('animationend', this.handleAnimationEnd.bind(this));
+  }
 
-    handleAnimationEnd(e) {
-        if(e.animationName === 'fadeout') {
-            this.style.display = 'none';
-            this.backdrop.classList.remove('close');
-        }
+  handleAnimationEnd(e) {
+    if(e.animationName === 'fadeout') {
+      this.style.display = 'none';
+      this.backdrop.classList.remove('close');
     }
+  }
 
-    handleClick(e) {
-        if(!this.hasAttribute('modal') && e.composedPath()[0] === this.backdrop) {
-            this.close();
-        }
+  handleClick(e) {
+    if(!this.hasAttribute('modal') && e.composedPath()[0] === this.backdrop) {
+      this.close();
     }
+  }
 
-    open() {
-        this.style.display = 'block';
-    }
+  open() {
+    this.style.display = 'block';
+  }
 
-    close() {
-        this.backdrop.classList.add('close');
-    }
+  close() {
+    this.backdrop.classList.add('close');
+  }
 }
 
 customElements.define('material-dialog', MaterialDialog);

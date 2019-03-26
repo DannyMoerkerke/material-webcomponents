@@ -1,16 +1,16 @@
 export class MaterialTable extends HTMLElement {
 
-    constructor() {
-        super();
+  constructor() {
+    super();
 
-        const shadowRoot = this.attachShadow({mode: 'open'});
+    const shadowRoot = this.attachShadow({mode: 'open'});
 
-        this._data = [];
-        this.sort = [];
-        this.sortable = [];
-        this.curPage = 1;
+    this._data = [];
+    this.sort = [];
+    this.sortable = [];
+    this.curPage = 1;
 
-        this.css = `
+    this.css = `
             <style>
                 :host {
                     --row-hover-color: #eeeeee;
@@ -133,113 +133,117 @@ export class MaterialTable extends HTMLElement {
             </style>
         `;
 
+  }
+
+  connectedCallback() {
+    if(this.hasAttribute('sortable')) {
+      this.sortable = this.getAttribute('sortable').split(' ');
     }
 
-    connectedCallback() {
-        if(this.hasAttribute('sortable')) {
-            this.sortable = this.getAttribute('sortable').split(' ');
-        }
+    if(this.hasAttribute('sort')) {
+      const tmp = this.getAttribute('sort').split(' ');
 
-        if(this.hasAttribute('sort')) {
-            const tmp = this.getAttribute('sort').split(' ');
+      if(['asc', 'desc'].includes(tmp[1])) {
+        const sort = tmp[1] === 'asc' ? -1 : 1;
+        this.sort = [tmp[0], sort];
+      }
+    }
 
-            if(['asc', 'desc'].includes(tmp[1])) {
-                const sort = tmp[1] === 'asc' ? -1 : 1;
-                this.sort = [tmp[0], sort];
+    if(this.hasAttribute('per-page')) {
+      this.perPage = parseInt(this.getAttribute('per-page'));
+      this.curPage = 1;
+    }
+
+    this.start = 0;
+    this.maxVisiblePages = 5;
+    this.selectAll = customElements.get('material-checkbox')
+      ? `<material-checkbox class="select-all"></material-checkbox>`
+      : `<input type="checkbox" class="select-all">`;
+
+    this.checkBox = customElements.get('material-checkbox')
+      ? `<material-checkbox></material-checkbox>`
+      : `<input type="checkbox">`;
+
+    this.checkBoxSelector = customElements.get('material-checkbox')
+      ? `material-checkbox`
+      : `input`;
+  }
+
+  handleClick(e) {
+    const tbody = this.table.querySelector('tbody');
+    const rows = tbody.querySelectorAll('tr');
+
+    const findByTagname = tagName => node => node.tagName && node.tagName.toLowerCase() === tagName;
+    const getCheckBox = findByTagname(this.checkBoxSelector);
+    const getHeading = findByTagname('th');
+    const getButton = findByTagname('button');
+
+    const nodes = e.composedPath();
+    const checkbox = nodes.find(getCheckBox);
+    const heading = nodes.find(getHeading);
+    const button = nodes.find(getButton);
+
+    if(checkbox) {
+      setTimeout(() => {
+        if(checkbox.classList.contains('select-all')) {
+          rows.forEach(row => {
+            const box = row.querySelector(this.checkBoxSelector);
+
+            if(checkbox.checked) {
+              row.classList.add('selected');
             }
-        }
-
-        if(this.hasAttribute('per-page')) {
-            this.perPage = parseInt(this.getAttribute('per-page'));
-            this.curPage = 1;
-        }
-
-        this.start = 0;
-        this.maxVisiblePages = 5;
-        this.selectAll = customElements.get('material-checkbox')
-                         ? `<material-checkbox class="select-all"></material-checkbox>`
-                         : `<input type="checkbox" class="select-all">`;
-
-        this.checkBox = customElements.get('material-checkbox')
-                        ? `<material-checkbox></material-checkbox>`
-                        : `<input type="checkbox">`;
-
-        this.checkBoxSelector = customElements.get('material-checkbox')
-            ? `material-checkbox`
-            : `input`;
-    }
-
-    handleClick(e) {
-        const tbody = this.table.querySelector('tbody');
-        const rows = tbody.querySelectorAll('tr');
-
-        const findByTagname = tagName => node => node.tagName && node.tagName.toLowerCase() === tagName;
-        const getCheckBox = findByTagname(this.checkBoxSelector);
-        const getHeading = findByTagname('th');
-        const getButton = findByTagname('button');
-
-        const nodes = e.composedPath();
-        const checkbox = nodes.find(getCheckBox);
-        const heading = nodes.find(getHeading);
-        const button = nodes.find(getButton);
-
-        if(checkbox) {
-            setTimeout(() => {
-                if(checkbox.classList.contains('select-all')) {
-                    rows.forEach(row => {
-                        const box = row.querySelector(this.checkBoxSelector);
-
-                        if(checkbox.checked) {
-                            row.classList.add('selected');
-                        }
-                        else {
-                            row.classList.remove('selected');
-                        }
-
-                        box.checked = checkbox.checked;
-                    })
-                }
-                else {
-                    let target = checkbox;
-
-                    while(target.parentNode) {
-                        if(target.tagName.toLowerCase() === 'tr') {
-                            target.classList.toggle('selected');
-
-                            break;
-                        }
-                        target = target.parentNode;
-                    }
-                }
-            });
-        }
-        else if(heading) {
-            if(heading.classList.contains('sortable')) {
-                const col = heading.dataset.col;
-                const order = heading.classList.contains('asc') ? 1 : -1;
-
-                this.sortData(col, order);
-                this.render(this._data);
+            else {
+              row.classList.remove('selected');
             }
+
+            box.checked = checkbox.checked;
+          });
         }
-        else if(button) {
-            this.curPage = parseInt(button.dataset.page);
-            this.start = (this.curPage - 1) * this.perPage;
-            this.end = this.start + this.perPage;
+        else {
+          let target = checkbox;
 
-            this.render(this._data);
+          while(target.parentNode) {
+            if(target.tagName.toLowerCase() === 'tr') {
+              target.classList.toggle('selected');
+
+              break;
+            }
+            target = target.parentNode;
+          }
         }
+      });
     }
+    else {
+      if(heading) {
+        if(heading.classList.contains('sortable')) {
+          const col = heading.dataset.col;
+          const order = heading.classList.contains('asc') ? 1 : -1;
 
-    setupEventlisteners() {
-        this.table = this.shadowRoot.querySelector('table');
-        this.table.addEventListener('click', this.handleClick.bind(this));
+          this.sortData(col, order);
+          this.render(this._data);
+        }
+      }
+      else {
+        if(button) {
+          this.curPage = parseInt(button.dataset.page);
+          this.start = (this.curPage - 1) * this.perPage;
+          this.end = this.start + this.perPage;
+
+          this.render(this._data);
+        }
+      }
     }
+  }
 
-    render(data) {
-        this.cols = Object.keys(data[0]);
+  setupEventlisteners() {
+    this.table = this.shadowRoot.querySelector('table');
+    this.table.addEventListener('click', this.handleClick.bind(this));
+  }
 
-        this.shadowRoot.innerHTML = `
+  render(data) {
+    this.cols = Object.keys(data[0]);
+
+    this.shadowRoot.innerHTML = `
            ${this.css}
             <table>
                 <thead>
@@ -261,95 +265,95 @@ export class MaterialTable extends HTMLElement {
             </table>
         `;
 
-        this.setupEventlisteners();
+    this.setupEventlisteners();
+  }
+
+  getPagination(currentPage) {
+    const prevPage = currentPage - 1 < 1 ? 1 : currentPage - 1;
+    const nextPage = currentPage + 1 > this.numPages ? this.numPages : currentPage + 1;
+    const nextPageButton = `<button type="button" class="next" data-page="${nextPage}" ${nextPage === currentPage ? `disabled` : ``}>&gt;</button>`;
+    const start = currentPage <= this.maxVisiblePages ? 1 :
+      this.numPages - currentPage < this.maxVisiblePages ? (currentPage - this.maxVisiblePages) + 1 :
+        currentPage;
+
+    const end = this.numPages <= this.maxVisiblePages
+      ? this.numPages
+      : currentPage > this.maxVisiblePages
+        ? Math.min(currentPage, this.numPages)
+        : this.maxVisiblePages;
+
+    let pages = `<button type="button" class="prev" data-page="${prevPage}" ${prevPage === currentPage ? `disabled` : ``}>&lt;</button>`;
+
+    if(end === this.numPages) {
+      pages = `${pages}<button type="button" class="page" data-page="1" ${currentPage === 1 ? `disabled` : ``}>1</button>`;
+    }
+    for(let i = start; i <= end; i++) {
+      pages = `${pages}<button type="button" class="page" data-page="${i}" ${i === currentPage ? `disabled` : ``}>${i}</button>`;
     }
 
-    getPagination(currentPage) {
-        const prevPage = currentPage - 1 < 1 ? 1 : currentPage - 1;
-        const nextPage = currentPage + 1 > this.numPages ? this.numPages : currentPage + 1;
-        const nextPageButton = `<button type="button" class="next" data-page="${nextPage}" ${nextPage === currentPage ? `disabled` : ``}>&gt;</button>`;
-        const start = currentPage <= this.maxVisiblePages ? 1 :
-                      this.numPages - currentPage < this.maxVisiblePages ? (currentPage - this.maxVisiblePages) + 1 :
-                      currentPage;
-
-        const end = this.numPages <= this.maxVisiblePages
-                    ? this.numPages
-                    : currentPage > this.maxVisiblePages
-                    ? Math.min(currentPage, this.numPages)
-                    : this.maxVisiblePages;
-
-        let pages = `<button type="button" class="prev" data-page="${prevPage}" ${prevPage === currentPage ? `disabled` : ``}>&lt;</button>`;
-
-        if(end === this.numPages) {
-            pages = `${pages}<button type="button" class="page" data-page="1" ${currentPage === 1 ? `disabled` : ``}>1</button>`;
-        }
-        for(let i = start; i <= end; i++) {
-            pages = `${pages}<button type="button" class="page" data-page="${i}" ${i === currentPage ? `disabled` : ``}>${i}</button>`;
-        }
-
-        if(end < this.numPages) {
-            pages = `${pages}<button type="button" class="page" data-page="${this.numPages}" ${this.numPages === currentPage ? `disabled` : ``}>${this.numPages}</button>`;
-        }
-
-        return `<div>${pages}${nextPageButton}</div>`;
+    if(end < this.numPages) {
+      pages = `${pages}<button type="button" class="page" data-page="${this.numPages}" ${this.numPages === currentPage ? `disabled` : ``}>${this.numPages}</button>`;
     }
 
-    getHeading(col) {
-        let classes = [];
+    return `<div>${pages}${nextPageButton}</div>`;
+  }
 
-        if(this.sortable.includes(col)) {
-            classes.push('sortable');
-        }
-        if(this.sort.includes(col)) {
-            const sortClass = this.sort[1] === -1 ? 'asc' : 'desc';
-            classes.push(sortClass);
-        }
+  getHeading(col) {
+    let classes = [];
 
-        return `<th ${classes.length ? `class="${classes.join(' ')}"` : ``} data-col="${col}">${col}</th>`;
+    if(this.sortable.includes(col)) {
+      classes.push('sortable');
+    }
+    if(this.sort.includes(col)) {
+      const sortClass = this.sort[1] === -1 ? 'asc' : 'desc';
+      classes.push(sortClass);
     }
 
-    getTableRow(row) {
-        return `<tr>
+    return `<th ${classes.length ? `class="${classes.join(' ')}"` : ``} data-col="${col}">${col}</th>`;
+  }
+
+  getTableRow(row) {
+    return `<tr>
                     <td>${this.checkBox}</td>
                     ${Object.values(row).map(val => `<td>${val}</td>`).join('')}
                 </tr>`;
+  }
+
+  get data() {
+    return this._data;
+  }
+
+  set data(data) {
+    this._data = data;
+    if(this.perPage) {
+      this.hasPagination = this.perPage < this.data.length;
+      this.numPages = data.length / this.perPage;
+      this.start = (this.curPage - 1) * this.perPage;
+      this.end = this.start + this.perPage;
+    }
+    else {
+      this.end = this.data.length;
     }
 
-    get data() {
-        return this._data;
+    if(this.sort.length) {
+      this.sortData(...this.sort);
     }
+    this.render(this._data);
+  }
 
-    set data(data) {
-        this._data = data;
-        if(this.perPage) {
-            this.hasPagination = this.perPage < this.data.length;
-            this.numPages = data.length / this.perPage;
-            this.start = (this.curPage - 1) * this.perPage;
-            this.end = this.start + this.perPage;
-        }
-        else {
-            this.end = this.data.length;
-        }
+  sortData(col, order) {
+    if(this.sortable.includes(col)) {
+      this._data.sort((a, b) => {
+        const colA = typeof a[col] === 'string' ? a[col].toLowerCase() : a[col];
+        const colB = typeof b[col] === 'string' ? b[col].toLowerCase() : b[col];
 
-        if(this.sort.length) {
-            this.sortData(...this.sort);
-        }
-        this.render(this._data);
+        return colA < colB ? order :
+          colA > colB ? -order : 0;
+      });
+
+      this.sort = [col, order];
     }
-
-    sortData(col, order) {
-        if(this.sortable.includes(col)) {
-            this._data.sort((a, b) => {
-                const colA = typeof a[col] === 'string' ? a[col].toLowerCase() : a[col];
-                const colB = typeof b[col] === 'string' ? b[col].toLowerCase() : b[col];
-
-                return colA < colB ? order :
-                       colA > colB ? -order : 0;
-            });
-
-            this.sort = [col, order];
-        }
-    }
+  }
 }
 
 customElements.define('material-table', MaterialTable);

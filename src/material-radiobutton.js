@@ -1,15 +1,15 @@
 export class MaterialRadiobutton extends HTMLElement {
 
-    static get observedAttributes() {
-        return ['label', 'checked', 'value', 'name'];
-    }
+  static get observedAttributes() {
+    return ['label', 'checked', 'value', 'name'];
+  }
 
-    constructor() {
-        super();
+  constructor() {
+    super();
 
-        const shadowRoot = this.attachShadow({mode: 'open'});
+    const shadowRoot = this.attachShadow({mode: 'open'});
 
-        shadowRoot.innerHTML = `
+    shadowRoot.innerHTML = `
             <style>
                 :host {
                     --unchecked-color: #999999;
@@ -115,72 +115,72 @@ export class MaterialRadiobutton extends HTMLElement {
             </div>
         `;
 
-        this.input = this.shadowRoot.querySelector('input');
-        this.label = this.shadowRoot.querySelector('label');
+    this.input = this.shadowRoot.querySelector('input');
+    this.label = this.shadowRoot.querySelector('label');
+  }
+
+  connectedCallback() {
+    this.input.addEventListener('click', this.handleClick.bind(this));
+  }
+
+  attributeChangedCallback(attr, oldVal, newVal) {
+    if(attr === 'value' || attr === 'name') {
+      this.input[attr] = newVal;
     }
 
-    connectedCallback() {
-        this.input.addEventListener('click', this.handleClick.bind(this));
+    if(attr === 'value') {
+      this.input.setAttribute('value', newVal);
     }
 
-    attributeChangedCallback(attr, oldVal, newVal) {
-        if(attr === 'value' || attr === 'name') {
-            this.input[attr] = newVal;
-        }
+    if(attr === 'label') {
+      if(oldVal !== null) {
+        this.label.removeChild(this.label.lastChild);
+      }
 
-        if(attr === 'value') {
-            this.input.setAttribute('value', newVal);
-        }
-
-        if(attr === 'label') {
-            if(oldVal !== null) {
-                this.label.removeChild(this.label.lastChild);
-            }
-
-            this.setLabel(newVal);
-        }
-
-        if(attr === 'checked') {
-            this.input.checked = this.hasAttribute('checked');
-        }
+      this.setLabel(newVal);
     }
 
-    handleClick() {
-        this.setAttribute('checked', '');
-
-        const {name, value} = this.input;
-
-        this.dispatchEvent(new CustomEvent('change', {
-            detail: {
-                name,
-                value
-            },
-            composed: true,
-            bubbles: false
-        }));
+    if(attr === 'checked') {
+      this.input.checked = this.hasAttribute('checked');
     }
+  }
 
-    get value() {
-        return this.input.checked ? this.getAttribute('value') : undefined;
-    }
+  handleClick() {
+    this.setAttribute('checked', '');
 
-    get checked() {
-        return this.hasAttribute('checked');
-    }
+    const {name, value} = this.input;
 
-    set checked(isChecked) {
-        if(isChecked) {
-            this.setAttribute('checked', '');
-        }
-        else {
-            this.removeAttribute('checked');
-        }
-    }
+    this.dispatchEvent(new CustomEvent('change', {
+      detail: {
+        name,
+        value
+      },
+      composed: true,
+      bubbles: false
+    }));
+  }
 
-    setLabel(text) {
-        const label = document.createTextNode(text);
-        this.label.appendChild(label);
+  get value() {
+    return this.input.checked ? this.getAttribute('value') : undefined;
+  }
+
+  get checked() {
+    return this.hasAttribute('checked');
+  }
+
+  set checked(isChecked) {
+    if(isChecked) {
+      this.setAttribute('checked', '');
     }
+    else {
+      this.removeAttribute('checked');
+    }
+  }
+
+  setLabel(text) {
+    const label = document.createTextNode(text);
+    this.label.appendChild(label);
+  }
 }
 
 customElements.define('material-radiobutton', MaterialRadiobutton);

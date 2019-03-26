@@ -26,6 +26,19 @@ export const template = `<h1>material-radiobutton</h1>
     <li><code>value</code>: Read-only, value of the radiobutton when it is checked, <code>undefined</code> when the 
     radiobutton is not checked. Available on a single radiobutton and on a radiobutton group.</li>
 
+<h3>Events</h3>
+<ul>
+    <li><code>change</code>: fired when the radiobutton is checked
+        <ul>
+            <li>Event detail:
+                <ul>
+                    <li><code>name</code>: String, value of the "name" attribute</li>
+                    <li><code>value</code>: String, value of the "value" attribute</li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+</ul>
 <h3>Styling</h3>
 <ul>
     <li><code>--unchecked-color</code>: color of radiobutton when not checked, default: #999999</li>

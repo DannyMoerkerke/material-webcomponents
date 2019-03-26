@@ -1,15 +1,15 @@
 export class MaterialTextfield extends HTMLElement {
 
-    static get observedAttributes() {
-        return ['value', 'name', 'label', 'readonly', 'minLength', 'maxLength', 'pattern'];
-    }
+  static get observedAttributes() {
+    return ['value', 'name', 'label', 'readonly', 'minLength', 'maxLength', 'pattern'];
+  }
 
-    constructor() {
-        super();
+  constructor() {
+    super();
 
-        const shadowRoot = this.attachShadow({mode: 'open'});
+    const shadowRoot = this.attachShadow({mode: 'open'});
 
-        shadowRoot.innerHTML = `
+    shadowRoot.innerHTML = `
             <style>
                 :host {
                     --active-color: #337ab7;
@@ -144,104 +144,104 @@ export class MaterialTextfield extends HTMLElement {
             </div>
         `;
 
-        this.input = this.shadowRoot.querySelector('input');
-        this.label = this.shadowRoot.querySelector('label');
-        this.error = this.shadowRoot.querySelector('.error');
+    this.input = this.shadowRoot.querySelector('input');
+    this.label = this.shadowRoot.querySelector('label');
+    this.error = this.shadowRoot.querySelector('.error');
 
-        this.pristine = true;
-        this.errorMap = {
-            valueMissing: 'required',
-            typeMismatch: 'type',
-            pattern: 'pattern',
-            tooShort: 'short',
-            tooLong: 'long'
-        };
+    this.pristine = true;
+    this.errorMap = {
+      valueMissing: 'required',
+      typeMismatch: 'type',
+      pattern: 'pattern',
+      tooShort: 'short',
+      tooLong: 'long'
+    };
 
-        this.allowedTypes = ['text', 'number', 'email', 'password', 'tel', 'url']
+    this.allowedTypes = ['text', 'number', 'email', 'password', 'tel', 'url'];
+  }
+
+  connectedCallback() {
+    if(this.hasAttribute('value')) {
+      this.input.value = this.getAttribute('value');
     }
 
-    connectedCallback() {
-        if(this.hasAttribute('value')) {
-            this.input.value = this.getAttribute('value');
-        }
-
-        if(this.hasAttribute('name')) {
-            this.input.name = this.getAttribute('name');
-        }
-
-        if(this.hasAttribute('pattern')) {
-            this.input.pattern = this.getAttribute('pattern');
-        }
-
-        if(this.hasAttribute('maxLength')) {
-            this.input.maxLength = this.getAttribute('maxLength');
-        }
-
-        if(this.hasAttribute('minLength')) {
-            this.input.minLength = this.getAttribute('minLength');
-        }
-
-        if(this.hasAttribute('type') && this.allowedTypes.includes(this.getAttribute('type'))) {
-            this.input.type = this.getAttribute('type');
-        }
-
-        if(this.hasAttribute('readonly')) {
-            this.input.addEventListener('keydown', e => e.preventDefault());
-            this.input.addEventListener('focus', e => {
-                e.preventDefault();
-                this.input.blur();
-            });
-        }
-        else {
-            this.input.addEventListener('keyup', this.handleKeyUp.bind(this));
-            this.input.addEventListener('blur', this.handleBlur.bind(this));
-        }
+    if(this.hasAttribute('name')) {
+      this.input.name = this.getAttribute('name');
     }
 
-    attributeChangedCallback(attr, oldVal, newVal) {
-        if(attr === 'value' || attr === 'name') {
-            this.input[attr] = newVal;
-        }
-
-        if(attr === 'label') {
-            this.label.textContent = newVal;
-        }
+    if(this.hasAttribute('pattern')) {
+      this.input.pattern = this.getAttribute('pattern');
     }
 
-    handleKeyUp() {
-        this.pristine = false;
-        if(this.input.validity.valid) {
-            this.removeAttribute('invalid');
-            this.input.classList.remove('invalid');
-        }
-        this.dispatchEvent(new CustomEvent('change', {
-            detail: {
-                value: this.input.value
-            }
-        }));
+    if(this.hasAttribute('maxLength')) {
+      this.input.maxLength = this.getAttribute('maxLength');
     }
 
-    handleBlur() {
-        for(let error in this.input.validity) {
-            if(!this.pristine && this.input.validity[error] && this.hasAttribute(`error-${this.errorMap[error]}`)) {
-                this.error.textContent = this.getAttribute(`error-${this.errorMap[error]}`);
-                this.setAttribute('invalid', '');
-                this.input.classList.add('invalid');
-            }
-        }
+    if(this.hasAttribute('minLength')) {
+      this.input.minLength = this.getAttribute('minLength');
     }
 
-    isValid() {
-        return this.input.validity.valid;
+    if(this.hasAttribute('type') && this.allowedTypes.includes(this.getAttribute('type'))) {
+      this.input.type = this.getAttribute('type');
     }
 
-    get value() {
-        return this.input.value;
+    if(this.hasAttribute('readonly')) {
+      this.input.addEventListener('keydown', e => e.preventDefault());
+      this.input.addEventListener('focus', e => {
+        e.preventDefault();
+        this.input.blur();
+      });
+    }
+    else {
+      this.input.addEventListener('keyup', this.handleKeyUp.bind(this));
+      this.input.addEventListener('blur', this.handleBlur.bind(this));
+    }
+  }
+
+  attributeChangedCallback(attr, oldVal, newVal) {
+    if(attr === 'value' || attr === 'name') {
+      this.input[attr] = newVal;
     }
 
-    set value(value) {
-        this.input.value = value;
+    if(attr === 'label') {
+      this.label.textContent = newVal;
     }
+  }
+
+  handleKeyUp() {
+    this.pristine = false;
+    if(this.input.validity.valid) {
+      this.removeAttribute('invalid');
+      this.input.classList.remove('invalid');
+    }
+    this.dispatchEvent(new CustomEvent('change', {
+      detail: {
+        value: this.input.value
+      }
+    }));
+  }
+
+  handleBlur() {
+    for(let error in this.input.validity) {
+      if(!this.pristine && this.input.validity[error] && this.hasAttribute(`error-${this.errorMap[error]}`)) {
+        this.error.textContent = this.getAttribute(`error-${this.errorMap[error]}`);
+        this.setAttribute('invalid', '');
+        this.input.classList.add('invalid');
+      }
+    }
+  }
+
+  isValid() {
+    return this.input.validity.valid;
+  }
+
+  get value() {
+    return this.input.value;
+  }
+
+  set value(value) {
+    this.input.value = value;
+  }
 }
 
 customElements.define('material-textfield', MaterialTextfield);

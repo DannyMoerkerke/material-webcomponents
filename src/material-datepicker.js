@@ -1,15 +1,15 @@
 export class MaterialDatepicker extends HTMLElement {
 
-    static get observedAttributes() {
-        return ['date', 'locale'];
-    }
+  static get observedAttributes() {
+    return ['date', 'locale'];
+  }
 
-    constructor() {
-        super();
+  constructor() {
+    super();
 
-        const shadowRoot = this.attachShadow({mode: 'open'});
+    const shadowRoot = this.attachShadow({mode: 'open'});
 
-        shadowRoot.innerHTML = `
+    shadowRoot.innerHTML = `
             <style>
                 :host {
                     --datepicker-color: #0000ff;
@@ -218,304 +218,304 @@ export class MaterialDatepicker extends HTMLElement {
             </div>
         `;
 
-        this.container = this.shadowRoot.querySelector('#datepicker-container');
-        this.buttonsContainer = this.shadowRoot.querySelector('#buttons-container');
-        this.mainHeader = this.shadowRoot.querySelector('#main-header');
+    this.container = this.shadowRoot.querySelector('#datepicker-container');
+    this.buttonsContainer = this.shadowRoot.querySelector('#buttons-container');
+    this.mainHeader = this.shadowRoot.querySelector('#main-header');
 
-        this.headerYear = this.mainHeader.querySelector('p');
-        this.headerDate = this.mainHeader.querySelector('h1');
-        this.cancelButton = this.shadowRoot.querySelector('#cancel');
-        this.okButton = this.shadowRoot.querySelector('#ok');
+    this.headerYear = this.mainHeader.querySelector('p');
+    this.headerDate = this.mainHeader.querySelector('h1');
+    this.cancelButton = this.shadowRoot.querySelector('#cancel');
+    this.okButton = this.shadowRoot.querySelector('#ok');
 
-        this.okButton.addEventListener('click', this.handleOkClick.bind(this));
-        this.cancelButton.addEventListener('click', this.handleCancelClick.bind(this));
-        this.headerYear.addEventListener('click', this.showYearsView.bind(this));
-        this.headerDate.addEventListener('click', this.showCurrentMonth.bind(this));
+    this.okButton.addEventListener('click', this.handleOkClick.bind(this));
+    this.cancelButton.addEventListener('click', this.handleCancelClick.bind(this));
+    this.headerYear.addEventListener('click', this.showYearsView.bind(this));
+    this.headerDate.addEventListener('click', this.showCurrentMonth.bind(this));
 
-        this.locale = 'en-EN';
+    this.locale = 'en-EN';
+  }
+
+  connectedCallback() {
+    this.days = this.getShortDays();
+    this.daysFragment = document.createDocumentFragment();
+
+    this.days.forEach(dayObj => {
+      const day = document.createElement('div');
+      day.className = 'day';
+      day.textContent = dayObj.narrow;
+      this.daysFragment.appendChild(day);
+    });
+
+    if(!this.currentDate) {
+      this.currentDate = new Date();
     }
 
-    connectedCallback() {
-        this.days = this.getShortDays();
-        this.daysFragment = document.createDocumentFragment();
+    this.showMonthView();
+    this.displayMonth(this.currentDate);
+    this.pickDate(this.currentDate);
+  }
 
-        this.days.forEach(dayObj => {
-            const day = document.createElement('div');
-            day.className = 'day';
-            day.textContent = dayObj.narrow;
-            this.daysFragment.appendChild(day);
-        });
+  attributeChangedCallback(attr, oldVal, newVal) {
+    if(attr === 'date') {
+      const newDate = new Date(newVal);
 
-        if(!this.currentDate) {
-            this.currentDate = new Date();
-        }
+      if(isNaN(Date.parse(newVal))) {
+        throw new Error(`"${newVal}" is not a valid date`);
+      }
 
-        this.showMonthView();
-        this.displayMonth(this.currentDate);
-        this.pickDate(this.currentDate);
+      this.currentDate = newDate;
     }
 
-    attributeChangedCallback(attr, oldVal, newVal) {
-        if(attr === 'date') {
-            const newDate = new Date(newVal);
+    if(attr === 'locale') {
+      this.locale = newVal;
+    }
+  }
 
-            if(isNaN(Date.parse(newVal))) {
-                throw new Error(`"${newVal}" is not a valid date`);
-            }
+  set date(date) {
+    this.currentDate = date instanceof Date ? date : new Date(date);
 
-            this.currentDate = newDate;
-        }
+    this.showMonthView();
+    this.displayMonth(this.currentDate);
+    this.pickDate(this.currentDate);
+  }
 
-        if(attr === 'locale') {
-            this.locale = newVal;
-        }
+  showCurrentMonth() {
+    this.showMonthView();
+    this.displayMonth(this.currentDate);
+
+    if(new Date().getMonth() === this.currentMonth) {
+      this.pickDate(this.currentDate);
+    }
+  }
+
+  showMonthView() {
+    if(this.shadowRoot.querySelector('#month-view-container')) {
+      return;
+    }
+    this.monthView = this.shadowRoot.querySelector('#month-view').content.cloneNode(true);
+
+    if(this.shadowRoot.querySelector('#years-view-container')) {
+      this.container.removeChild(this.yearsViewContainer);
+    }
+    this.container.insertBefore(this.monthView, this.buttonsContainer);
+
+    this.subHeader = this.shadowRoot.querySelector('#sub-header');
+    this.subHeader.appendChild(this.daysFragment);
+
+    this.monthViewContainer = this.monthView = this.shadowRoot.querySelector('#month-view-container');
+    this.daysContainer = this.shadowRoot.querySelector('#days-container');
+    this.host = this.daysContainer.getRootNode().host;
+    this.currentMonthContainer = this.shadowRoot.querySelector('#current-month-container');
+    this.prev = this.shadowRoot.querySelector('#prev');
+    this.next = this.shadowRoot.querySelector('#next');
+    this.mainHeader.classList.add('month-view');
+    this.mainHeader.classList.remove('years-view');
+
+    this.prev.addEventListener('click', this.prevMonth.bind(this));
+    this.next.addEventListener('click', this.nextMonth.bind(this));
+    this.daysContainer.addEventListener('click', this.handleDayClick.bind(this));
+  }
+
+  showYearsView() {
+    if(this.shadowRoot.querySelector('#years-view-container')) {
+      return;
+    }
+    this.yearsView = this.shadowRoot.querySelector('#years-view').content.cloneNode(true);
+
+    if(this.shadowRoot.querySelector('#month-view-container')) {
+      this.container.removeChild(this.monthViewContainer);
+    }
+    this.container.insertBefore(this.yearsView, this.buttonsContainer);
+
+    const startYear = this.currentYear - 50;
+    const endYear = this.currentYear + 50;
+
+    this.yearsViewContainer = this.shadowRoot.querySelector('#years-view-container');
+
+    for(let y = startYear; y <= endYear; y++) {
+      const year = document.createElement('div');
+      year.dataset.year = y;
+      year.textContent = y;
+      year.classList.add('year');
+
+      if(y === this.currentYear) {
+        year.classList.add('current');
+      }
+
+      this.yearsViewContainer.appendChild(year);
     }
 
-    set date(date) {
-        this.currentDate = date instanceof Date ? date : new Date(date);
+    const currentYear = this.shadowRoot.querySelector('.current');
+    const offset = currentYear.offsetTop;
 
-        this.showMonthView();
-        this.displayMonth(this.currentDate);
-        this.pickDate(this.currentDate);
+    this.yearsViewContainer.scrollTop = offset - this.yearsViewContainer.offsetTop - (this.yearsViewContainer.offsetHeight / 2) + (currentYear.offsetHeight / 2);
+
+    this.mainHeader.classList.add('years-view');
+    this.mainHeader.classList.remove('month-view');
+
+    this.yearsViewContainer.addEventListener('click', this.handleYearClick.bind(this));
+  }
+
+  handleDayClick(e) {
+    const target = e.composedPath()[0];
+
+    if(target.classList.contains('day')) {
+      const pickedDay = target.dataset.day;
+      this.currentDate.setDate(pickedDay);
+      this.pickDate(this.currentDate);
+    }
+  }
+
+  handleYearClick(e) {
+    const target = e.composedPath()[0];
+
+    if(target.classList.contains('year')) {
+      const pickedYear = target.dataset.year;
+      this.currentDate.setFullYear(pickedYear);
+      this.showMonthView();
+      this.displayMonth(this.currentDate);
+      this.pickDate(this.currentDate);
+    }
+  }
+
+  handleCancelClick() {
+    this.dispatchEvent(new CustomEvent('close'));
+  }
+
+  handleOkClick() {
+    const formattedDate = this.formatDate(this.currentDate);
+
+    this.dispatchEvent(new CustomEvent('change', {
+      detail: {
+        date: this.currentDate,
+        formattedDate
+      }
+    }));
+  }
+
+  formatDate(date) {
+    return new Intl.DateTimeFormat(this.locale, {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric'
+    }).format(date);
+  }
+
+  prevMonth() {
+    this.currentMonth--;
+
+    if(this.currentMonth < 0) {
+      this.currentMonth = 11;
+      this.currentYear--;
+      this.currentDate.setFullYear(this.currentYear);
     }
 
-    showCurrentMonth() {
-        this.showMonthView();
-        this.displayMonth(this.currentDate);
+    this.currentDate.setMonth(this.currentMonth);
 
-        if(new Date().getMonth() === this.currentMonth) {
-            this.pickDate(this.currentDate);
-        }
+    this.displayMonth(this.currentDate);
+
+    if(new Date().getMonth() === this.currentMonth) {
+      this.pickDate(this.currentDate);
+    }
+  }
+
+  nextMonth() {
+    this.currentMonth++;
+
+    if(this.currentMonth > 11) {
+      this.currentMonth = 0;
+      this.currentYear++;
+      this.currentDate.setFullYear(this.currentYear);
     }
 
-    showMonthView() {
-        if(this.shadowRoot.querySelector('#month-view-container')) {
-            return;
-        }
-        this.monthView = this.shadowRoot.querySelector('#month-view').content.cloneNode(true);
+    this.currentDate.setMonth(this.currentMonth);
 
-        if(this.shadowRoot.querySelector('#years-view-container')) {
-            this.container.removeChild(this.yearsViewContainer);
-        }
-        this.container.insertBefore(this.monthView, this.buttonsContainer);
+    this.displayMonth(this.currentDate);
 
-        this.subHeader = this.shadowRoot.querySelector('#sub-header');
-        this.subHeader.appendChild(this.daysFragment);
+    if(new Date().getMonth() === this.currentMonth) {
+      this.pickDate(this.currentDate);
+    }
+  }
 
-        this.monthViewContainer = this.monthView = this.shadowRoot.querySelector('#month-view-container');
-        this.daysContainer = this.shadowRoot.querySelector('#days-container');
-        this.host = this.daysContainer.getRootNode().host;
-        this.currentMonthContainer = this.shadowRoot.querySelector('#current-month-container');
-        this.prev = this.shadowRoot.querySelector('#prev');
-        this.next = this.shadowRoot.querySelector('#next');
-        this.mainHeader.classList.add('month-view');
-        this.mainHeader.classList.remove('years-view');
+  getDaysInMonth(year, month) {
+    return new Date(year, month + 1, 0).getDate();
+  }
 
-        this.prev.addEventListener('click', this.prevMonth.bind(this));
-        this.next.addEventListener('click', this.nextMonth.bind(this));
-        this.daysContainer.addEventListener('click', this.handleDayClick.bind(this));
+  displayMonth(date) {
+    this.currentDate = date;
+    this.currentMonth = this.currentDate.getMonth();
+    this.currentYear = this.currentDate.getFullYear();
+    const firstDay = new Date(this.currentYear, this.currentMonth, 1).getDay();
+    const lastDay = this.getDaysInMonth(this.currentYear, this.currentMonth);
+
+    this.host.style.setProperty('--first-day-position', (firstDay + 1));
+    this.currentMonthContainer.textContent = `${this.getMonthName(this.currentDate)} ${this.currentYear}`;
+
+    this.daysContainer.innerHTML = '';
+
+    for(let d = 1; d <= lastDay; d++) {
+      const day = document.createElement('div');
+      day.className = 'day';
+      day.dataset.day = d;
+      day.textContent = d;
+
+      if(d === 1) {
+        day.id = 'first-day';
+      }
+
+      this.daysContainer.appendChild(day);
+    }
+  }
+
+  getMonthName(date) {
+    return new Intl.DateTimeFormat(this.locale, {
+      month: 'short'
+    }).format(date);
+  }
+
+  getShortDays() {
+    const date = new Date();
+    date.setDate(date.getDate() - date.getDay());
+
+    const days = [];
+    const start = date.getDate();
+
+    for(let i = 0; i <= 6; i++) {
+      date.setDate(start + i);
+
+      const narrow = new Intl.DateTimeFormat(this.locale, {weekday: 'narrow'}).format(date);
+      const short = new Intl.DateTimeFormat(this.locale, {weekday: 'short'}).format(date);
+
+      days.push({short, narrow});
     }
 
-    showYearsView() {
-        if(this.shadowRoot.querySelector('#years-view-container')) {
-            return;
-        }
-        this.yearsView = this.shadowRoot.querySelector('#years-view').content.cloneNode(true);
+    return days;
+  }
 
-        if(this.shadowRoot.querySelector('#month-view-container')) {
-            this.container.removeChild(this.monthViewContainer);
-        }
-        this.container.insertBefore(this.yearsView, this.buttonsContainer);
+  pickDate(date) {
+    const year = date.getFullYear();
+    const pickedDay = date.getDate();
 
-        const startYear = this.currentYear - 50;
-        const endYear = this.currentYear + 50;
+    this.headerYear.textContent = year;
+    this.headerDate.textContent = this.getLocalDate(date);
 
-        this.yearsViewContainer = this.shadowRoot.querySelector('#years-view-container');
+    this.shadowRoot.querySelectorAll('.day').forEach(day => {
+      if(parseInt(day.dataset.day) === pickedDay) {
+        day.classList.add('active');
+      }
+      else {
+        day.classList.remove('active');
+      }
+    });
+  }
 
-        for(let y = startYear; y <= endYear; y++) {
-            const year = document.createElement('div');
-            year.dataset.year = y;
-            year.textContent = y;
-            year.classList.add('year');
-
-            if(y === this.currentYear) {
-                year.classList.add('current');
-            }
-
-            this.yearsViewContainer.appendChild(year);
-        }
-
-        const currentYear = this.shadowRoot.querySelector('.current');
-        const offset = currentYear.offsetTop;
-
-        this.yearsViewContainer.scrollTop = offset - this.yearsViewContainer.offsetTop - (this.yearsViewContainer.offsetHeight / 2) + (currentYear.offsetHeight / 2);
-
-        this.mainHeader.classList.add('years-view');
-        this.mainHeader.classList.remove('month-view');
-
-        this.yearsViewContainer.addEventListener('click', this.handleYearClick.bind(this));
-    }
-
-    handleDayClick(e) {
-        const target = e.composedPath()[0];
-
-        if(target.classList.contains('day')) {
-            const pickedDay = target.dataset.day;
-            this.currentDate.setDate(pickedDay);
-            this.pickDate(this.currentDate);
-        }
-    }
-
-    handleYearClick(e) {
-        const target = e.composedPath()[0];
-
-        if(target.classList.contains('year')) {
-            const pickedYear = target.dataset.year;
-            this.currentDate.setFullYear(pickedYear);
-            this.showMonthView();
-            this.displayMonth(this.currentDate);
-            this.pickDate(this.currentDate);
-        }
-    }
-
-    handleCancelClick() {
-        this.dispatchEvent(new CustomEvent('close'));
-    }
-
-    handleOkClick() {
-        const formattedDate = this.formatDate(this.currentDate);
-
-        this.dispatchEvent(new CustomEvent('change', {
-            detail: {
-                date: this.currentDate,
-                formattedDate
-            }
-        }));
-    }
-
-    formatDate(date) {
-        return new Intl.DateTimeFormat(this.locale, {
-            day: '2-digit',
-            month: '2-digit',
-            year: 'numeric'
-        }).format(date)
-    }
-
-    prevMonth() {
-        this.currentMonth--;
-
-        if(this.currentMonth < 0) {
-            this.currentMonth = 11;
-            this.currentYear--;
-            this.currentDate.setFullYear(this.currentYear);
-        }
-
-        this.currentDate.setMonth(this.currentMonth);
-
-        this.displayMonth(this.currentDate);
-
-        if(new Date().getMonth() === this.currentMonth) {
-            this.pickDate(this.currentDate);
-        }
-    }
-
-    nextMonth() {
-        this.currentMonth++;
-
-        if(this.currentMonth > 11) {
-            this.currentMonth = 0;
-            this.currentYear++;
-            this.currentDate.setFullYear(this.currentYear);
-        }
-
-        this.currentDate.setMonth(this.currentMonth);
-
-        this.displayMonth(this.currentDate);
-
-        if(new Date().getMonth() === this.currentMonth) {
-            this.pickDate(this.currentDate);
-        }
-    }
-
-    getDaysInMonth(year, month) {
-        return new Date(year, month + 1, 0).getDate();
-    }
-
-    displayMonth(date) {
-        this.currentDate = date;
-        this.currentMonth = this.currentDate.getMonth();
-        this.currentYear = this.currentDate.getFullYear();
-        const firstDay = new Date(this.currentYear, this.currentMonth, 1).getDay();
-        const lastDay = this.getDaysInMonth(this.currentYear, this.currentMonth);
-
-        this.host.style.setProperty('--first-day-position', (firstDay + 1));
-        this.currentMonthContainer.textContent = `${this.getMonthName(this.currentDate)} ${this.currentYear}`;
-
-        this.daysContainer.innerHTML = '';
-
-        for(let d = 1; d <= lastDay; d++) {
-            const day = document.createElement('div');
-            day.className = 'day';
-            day.dataset.day = d;
-            day.textContent = d;
-
-            if(d === 1) {
-                day.id = 'first-day';
-            }
-
-            this.daysContainer.appendChild(day);
-        }
-    }
-
-    getMonthName(date) {
-        return new Intl.DateTimeFormat(this.locale, {
-            month: 'short'
-        }).format(date);
-    }
-
-    getShortDays() {
-        const date = new Date();
-        date.setDate(date.getDate() - date.getDay());
-
-        const days = [];
-        const start = date.getDate();
-
-        for(let i=0;i<=6;i++) {
-            date.setDate(start + i);
-
-            const narrow = new Intl.DateTimeFormat(this.locale, {weekday: 'narrow'}).format(date);
-            const short = new Intl.DateTimeFormat(this.locale, {weekday: 'short'}).format(date);
-
-            days.push({short, narrow});
-        }
-
-        return days;
-    }
-
-    pickDate(date) {
-        const year = date.getFullYear();
-        const pickedDay = date.getDate();
-
-        this.headerYear.textContent = year;
-        this.headerDate.textContent = this.getLocalDate(date);
-
-        this.shadowRoot.querySelectorAll('.day').forEach(day => {
-            if(parseInt(day.dataset.day) === pickedDay) {
-                day.classList.add('active');
-            }
-            else {
-                day.classList.remove('active');
-            }
-        });
-    }
-
-    getLocalDate(date) {
-        return new Intl.DateTimeFormat(this.locale, {
-            day: 'numeric',
-            weekday: 'short',
-            month: 'short'
-        }).format(date);
-    }
+  getLocalDate(date) {
+    return new Intl.DateTimeFormat(this.locale, {
+      day: 'numeric',
+      weekday: 'short',
+      month: 'short'
+    }).format(date);
+  }
 }
 
 customElements.define('material-datepicker', MaterialDatepicker);

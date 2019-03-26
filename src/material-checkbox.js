@@ -1,15 +1,15 @@
 export default class MaterialCheckbox extends HTMLElement {
 
-    static get observedAttributes() {
-        return ['label', 'checked', 'value', 'name'];
-    }
+  static get observedAttributes() {
+    return ['label', 'checked', 'value', 'name'];
+  }
 
-    constructor() {
-        super();
+  constructor() {
+    super();
 
-        const shadowRoot = this.attachShadow({mode: 'open'});
+    const shadowRoot = this.attachShadow({mode: 'open'});
 
-        shadowRoot.innerHTML = `
+    shadowRoot.innerHTML = `
             <style>
                 :host {
                     --unchecked-color: #999999;
@@ -129,59 +129,59 @@ export default class MaterialCheckbox extends HTMLElement {
             </div>
         `;
 
-        this.input = this.shadowRoot.querySelector('input');
-        this.label = this.shadowRoot.querySelector('label');
+    this.input = this.shadowRoot.querySelector('input');
+    this.label = this.shadowRoot.querySelector('label');
+  }
+
+  connectedCallback() {
+    this.input.addEventListener('click', this.handleClick.bind(this));
+  }
+
+  handleClick(e) {
+    e.stopPropagation();
+
+    if(this.input.checked) {
+      this.setAttribute('checked', '');
+    }
+    else {
+      this.removeAttribute('checked');
+    }
+  }
+
+  attributeChangedCallback(attr, oldVal, newVal) {
+    if(attr === 'value' || attr === 'name') {
+      this.input[attr] = newVal;
     }
 
-    connectedCallback() {
-        this.input.addEventListener('click', this.handleClick.bind(this));
+    if(attr === 'label') {
+      if(oldVal !== null) {
+        this.label.removeChild(this.label.lastChild);
+      }
+
+      this.setLabel(newVal);
     }
 
-    handleClick(e) {
-        e.stopPropagation();
-
-        if(this.input.checked) {
-            this.setAttribute('checked', '');
-        }
-        else {
-            this.removeAttribute('checked');
-        }
+    if(attr === 'checked') {
+      this.input.checked = this.hasAttribute('checked');
     }
+  }
 
-    attributeChangedCallback(attr, oldVal, newVal) {
-        if(attr === 'value' || attr === 'name') {
-            this.input[attr] = newVal;
-        }
+  setLabel(text) {
+    const label = document.createTextNode(text);
+    this.label.appendChild(label);
+  }
 
-        if(attr === 'label') {
-            if(oldVal !== null) {
-                this.label.removeChild(this.label.lastChild);
-            }
+  get value() {
+    return this.input.checked ? this.getAttribute('value') : undefined;
+  }
 
-            this.setLabel(newVal);
-        }
+  get checked() {
+    return this.input.checked;
+  }
 
-        if(attr === 'checked') {
-            this.input.checked = this.hasAttribute('checked');
-        }
-    }
-
-    setLabel(text) {
-        const label = document.createTextNode(text);
-        this.label.appendChild(label);
-    }
-
-    get value() {
-        return this.input.checked ? this.getAttribute('value') : undefined;
-    }
-
-    get checked() {
-        return this.input.checked;
-    }
-
-    set checked(isChecked) {
-        this.input.checked = isChecked;
-    }
+  set checked(isChecked) {
+    this.input.checked = isChecked;
+  }
 }
 
 customElements.define('material-checkbox', MaterialCheckbox);

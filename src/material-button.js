@@ -1,15 +1,15 @@
 export class MaterialButton extends HTMLElement {
 
-    static get observedAttributes() {
-        return ['label'];
-    }
+  static get observedAttributes() {
+    return ['label'];
+  }
 
-    constructor() {
-        super();
+  constructor() {
+    super();
 
-        const shadowRoot = this.attachShadow({mode: 'open'});
+    const shadowRoot = this.attachShadow({mode: 'open'});
 
-        shadowRoot.innerHTML = `
+    shadowRoot.innerHTML = `
             <style>
                 :host {
                     --button-color: #e2e2e2;
@@ -103,42 +103,42 @@ export class MaterialButton extends HTMLElement {
             </button>
         `;
 
-        this.button = this.shadowRoot.querySelector('button');
-        this.label = this.shadowRoot.querySelector('#label');
-        this.ripple = this.shadowRoot.querySelector('.ripple');
+    this.button = this.shadowRoot.querySelector('button');
+    this.label = this.shadowRoot.querySelector('#label');
+    this.ripple = this.shadowRoot.querySelector('.ripple');
+  }
+
+  connectedCallback() {
+    if(this.hasAttribute('label')) {
+      this.label.textContent = this.getAttribute('label');
+    }
+    else {
+      this.label.style.display = 'none';
     }
 
-    connectedCallback() {
-        if(this.hasAttribute('label')) {
-            this.label.textContent = this.getAttribute('label');
-        }
-        else {
-            this.label.style.display = 'none';
-        }
+    this.button.addEventListener('click', () => {
+      this.button.classList.add('active');
+    });
 
-        this.button.addEventListener('click', () => {
-            this.button.classList.add('active');
-        });
+    this.ripple.addEventListener('animationend', () => {
+      this.button.classList.remove('active');
+    });
+  }
 
-        this.ripple.addEventListener('animationend', () => {
-            this.button.classList.remove('active');
-        });
+  get disabled() {
+    return this.hasAttribute('disabled');
+  }
+
+  set disabled(isDisabled) {
+    this.button.disabled = isDisabled;
+
+    if(isDisabled) {
+      this.setAttribute('disabled', '');
     }
-
-    get disabled() {
-        return this.hasAttribute('disabled');
+    else {
+      this.removeAttribute('disabled');
     }
-
-    set disabled(isDisabled) {
-        this.button.disabled = isDisabled;
-
-        if(isDisabled) {
-            this.setAttribute('disabled', '');
-        }
-        else {
-            this.removeAttribute('disabled');
-        }
-    }
+  }
 }
 
 customElements.define('material-button', MaterialButton);

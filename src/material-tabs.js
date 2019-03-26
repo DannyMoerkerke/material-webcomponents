@@ -1,11 +1,11 @@
 export class MaterialTabs extends HTMLElement {
 
-    constructor() {
-        super();
+  constructor() {
+    super();
 
-        const shadowRoot = this.attachShadow({mode: 'open'});
+    const shadowRoot = this.attachShadow({mode: 'open'});
 
-        shadowRoot.innerHTML = `
+    shadowRoot.innerHTML = `
             <style>
                 :host {
                     --tabs-background: #999999;
@@ -90,78 +90,78 @@ export class MaterialTabs extends HTMLElement {
                 </div>
             </div>
         `;
+  }
+
+  connectedCallback() {
+    this.curIndex = 0;
+    this.container = this.shadowRoot.querySelector('#container');
+    this.tabContainer = this.shadowRoot.querySelector('#tab-container');
+    this.contentContainer = this.shadowRoot.querySelector('#content-container');
+    this.tabContent = this.shadowRoot.querySelector('#tab-content');
+    this.host = this.tabContainer.getRootNode().host;
+    const {left} = this.tabContainer.getBoundingClientRect();
+    this.tabContainerLeft = left;
+    this.indicator = this.shadowRoot.querySelector('#active-indicator');
+    this.contentDivs = this.shadowRoot.querySelector('slot[name="tab"]').assignedNodes();
+
+    this.contentDivs.forEach((contentDiv, index) => {
+      const tab = document.createElement('div');
+      tab.classList.add('tab');
+      tab.dataset.index = index;
+      tab.textContent = contentDiv.dataset.title;
+
+      this.tabContainer.insertBefore(tab, this.indicator);
+    });
+
+    this.tabs = [...this.shadowRoot.querySelectorAll('.tab')];
+    this.tabs[0].classList.add('active');
+
+    const {width, height} = this.tabs[0].getBoundingClientRect();
+
+    this.indicator.style.setProperty('--indicator-width', `${width}px`);
+    this.host.style.setProperty('--content-width', `${this.tabContainer.offsetWidth}px`);
+    this.host.style.setProperty('--content-container-width', `${this.tabContainer.offsetWidth * this.tabs.length}px`);
+
+    if(this.hasAttribute('slide')) {
+      this.contentContainer.classList.add('slide');
     }
 
-    connectedCallback() {
-        this.curIndex = 0;
-        this.container = this.shadowRoot.querySelector('#container');
-        this.tabContainer = this.shadowRoot.querySelector('#tab-container');
-        this.contentContainer = this.shadowRoot.querySelector('#content-container');
-        this.tabContent = this.shadowRoot.querySelector('#tab-content');
-        this.host = this.tabContainer.getRootNode().host;
-        const {left} = this.tabContainer.getBoundingClientRect();
-        this.tabContainerLeft = left;
-        this.indicator = this.shadowRoot.querySelector('#active-indicator');
-        this.contentDivs = this.shadowRoot.querySelector('slot[name="tab"]').assignedNodes();
+    this.setupEventHandlers();
+  }
 
-        this.contentDivs.forEach((contentDiv, index) => {
-            const tab = document.createElement('div');
-            tab.classList.add('tab');
-            tab.dataset.index = index;
-            tab.textContent = contentDiv.dataset.title;
+  setupEventHandlers() {
+    this.tabContainer.addEventListener('click', this.handleClick.bind(this));
 
-            this.tabContainer.insertBefore(tab, this.indicator);
-        });
+    window.addEventListener('resize', () => {
+      const {width} = this.shadowRoot.querySelector('.tab').getBoundingClientRect();
+      const {left} = this.shadowRoot.querySelector('.active').getBoundingClientRect();
 
-        this.tabs = [...this.shadowRoot.querySelectorAll('.tab')];
-        this.tabs[0].classList.add('active');
+      this.contentContainer.style.marginLeft = `-${this.tabContent.offsetWidth * this.curIndex}px`;
+      this.host.style.setProperty('--content-width', `${this.tabContainer.offsetWidth}px`);
+      this.host.style.setProperty('--content-container-width', `${this.tabContainer.offsetWidth * this.tabs.length}px`);
+      this.indicator.style.setProperty('--indicator-width', `${width}px`);
+      this.indicator.style.setProperty('--indicator-left', `${left - this.tabContainerLeft + this.tabContainer.scrollLeft}px`);
+    });
+  }
 
-        const {width, height} = this.tabs[0].getBoundingClientRect();
+  handleClick(e) {
+    const tab = e.composedPath().find(el => el.classList.contains('tab'));
+    const {left} = tab.getBoundingClientRect();
 
-        this.indicator.style.setProperty('--indicator-width', `${width}px`);
-        this.host.style.setProperty('--content-width', `${this.tabContainer.offsetWidth}px`);
-        this.host.style.setProperty('--content-container-width', `${this.tabContainer.offsetWidth * this.tabs.length}px`);
+    this.indicator.style.setProperty('--indicator-left', `${left - this.tabContainerLeft + this.tabContainer.scrollLeft}px`);
 
-        if(this.hasAttribute('slide')) {
-            this.contentContainer.classList.add('slide')
-        }
+    this.tabs.forEach((t, index) => {
+      if(t === tab) {
+        t.classList.add('active');
+        this.contentContainer.style.marginLeft = `${0 - this.tabContent.offsetWidth * index}px`;
+        this.curIndex = index;
+      }
+      else {
+        t.classList.remove('active');
+      }
 
-        this.setupEventHandlers();
-    }
-
-    setupEventHandlers() {
-        this.tabContainer.addEventListener('click', this.handleClick.bind(this));
-
-        window.addEventListener('resize', () => {
-            const {width} = this.shadowRoot.querySelector('.tab').getBoundingClientRect();
-            const {left} = this.shadowRoot.querySelector('.active').getBoundingClientRect();
-
-            this.contentContainer.style.marginLeft = `-${this.tabContent.offsetWidth * this.curIndex}px`;
-            this.host.style.setProperty('--content-width', `${this.tabContainer.offsetWidth}px`);
-            this.host.style.setProperty('--content-container-width', `${this.tabContainer.offsetWidth * this.tabs.length}px`);
-            this.indicator.style.setProperty('--indicator-width', `${width}px`);
-            this.indicator.style.setProperty('--indicator-left', `${left - this.tabContainerLeft + this.tabContainer.scrollLeft}px`);
-        });
-    }
-
-    handleClick(e) {
-        const tab = e.composedPath().find(el => el.classList.contains('tab'));
-        const {left} = tab.getBoundingClientRect();
-
-        this.indicator.style.setProperty('--indicator-left', `${left - this.tabContainerLeft + this.tabContainer.scrollLeft}px`);
-
-        this.tabs.forEach((t, index) => {
-            if(t === tab) {
-                t.classList.add('active');
-                this.contentContainer.style.marginLeft = `${0 - this.tabContent.offsetWidth * index}px`;
-                this.curIndex = index;
-            }
-            else {
-                t.classList.remove('active');
-            }
-
-        });
-    }
+    });
+  }
 }
 
 customElements.define('material-tabs', MaterialTabs);

@@ -1,11 +1,11 @@
 export class MaterialAppBar extends HTMLElement {
 
-    constructor() {
-        super();
+  constructor() {
+    super();
 
-        const shadowRoot = this.attachShadow({mode: 'open'});
+    const shadowRoot = this.attachShadow({mode: 'open'});
 
-        shadowRoot.innerHTML = `
+    shadowRoot.innerHTML = `
             <style>
                 :host {
                     --app-bar-background: #999999;
@@ -102,29 +102,29 @@ export class MaterialAppBar extends HTMLElement {
                 </div>
             </div>
         `;
+  }
+
+  connectedCallback() {
+    this.container = this.shadowRoot.querySelector('#container');
+    this.label = this.shadowRoot.querySelector('#label');
+    if(this.hasAttribute('label')) {
+      this.label.textContent = this.getAttribute('label');
     }
 
-    connectedCallback() {
-        this.container = this.shadowRoot.querySelector('#container');
-        this.label = this.shadowRoot.querySelector('#label');
-        if(this.hasAttribute('label')) {
-            this.label.textContent = this.getAttribute('label');
-        }
+    this.setupEventHandlers();
+  }
 
-        this.setupEventHandlers();
-    }
+  handleIconClick({target}) {
+    this.dispatchEvent(new CustomEvent('app-bar-click', {
+      detail: {target}
+    }));
+  }
 
-    handleIconClick({target}) {
-        this.dispatchEvent(new CustomEvent('app-bar-click', {
-            detail: {target}
-        }));
-    }
-
-    setupEventHandlers() {
-        this.shadowRoot.querySelectorAll('[name$="content"]').forEach(icon => {
-            icon.addEventListener('click', this.handleIconClick.bind(this));
-        });
-    }
+  setupEventHandlers() {
+    this.shadowRoot.querySelectorAll('[name$="content"]').forEach(icon => {
+      icon.addEventListener('click', this.handleIconClick.bind(this));
+    });
+  }
 }
 
 customElements.define('material-app-bar', MaterialAppBar);
