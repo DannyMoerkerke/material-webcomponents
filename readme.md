@@ -6,7 +6,7 @@ Material Design implemented in Web Components (Custom Elements v1)
 To install Material Web Components run:
 
 ```
-npm install material-webcomponents
+npm install @dannymoerkerke/material-webcomponents
 ```
 
 Then simply `import` the component you need in your script, for example:
