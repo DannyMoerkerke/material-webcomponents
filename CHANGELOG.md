@@ -5,6 +5,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.4] - 2019-03-27
+### Added
+- added initialization for demo to separate file for correct loading in polyfilled browsers
+- added license
+- added eslint config
+- added pre-push hook
+
+### Changed
+- added "files" key to package.json for npm
+- renamed to scoped package
+
+### Fixed
+- fixed webpack config and removed redundant code
+- fixes issues reported by eslint
+
 ## [1.1.3] - 2019-03-26
 ### Added
 - added isValid method to material-textfield
