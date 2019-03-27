@@ -31,8 +31,11 @@ Add the HTML tag:
 
 ### Documentation
 Refer to [https://dannymoerkerke.github.io/material-webcomponents/](https://dannymoerkerke.github.io/material-webcomponents/)
- for documentation of each component or run `npm install` once and then
- `npm start` and view the demo on [http://localhost:8080/material-webcomponents](http://localhost:8080/material-webcomponents)
+ for documentation of each component.
+
+### Demo
+To run the demo, run `npm install` once and then `npm start` and view the demo on
+[http://localhost:8080/material-webcomponents](http://localhost:8080/material-webcomponents)
 
 ### Testing
 Run `npm test` and view the results on [http://localhost:8080/](http://localhost:8080/)
@@ -53,8 +56,8 @@ tests from your IDE using [Wallaby.js](https://wallabyjs.com/)
 
 ### Polyfilling Edge 16+
 Refer to `/lib/polyfill-loader.js` to see how the [webcomponentsjs polyfill](https://github.com/webcomponents/webcomponentsjs)
-and the Webpack bundle are loaded. The Webpack bundle only parses the CSS
-inside Shadow DOM
+and the Webpack bundle are loaded. The Webpack bundle only parses the CSS inside Shadow DOM.
+Note that the webpack loader is only suitable for browsers that do not support Shadow DOM.
 
 
 
