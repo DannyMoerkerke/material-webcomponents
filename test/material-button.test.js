@@ -1,35 +1,35 @@
 import '../src/material-button.js';
 
 describe('material-button', () => {
-    let element;
+  let element;
 
-    beforeEach(done => {
-        element = document.createElement('material-button');
-        element.setAttribute('label', 'ok');
+  beforeEach(done => {
+    element = document.createElement('material-button');
+    element.setAttribute('label', 'ok');
 
-        document.body.appendChild(element);
+    document.body.appendChild(element);
 
-        customElements.whenDefined('material-button')
-        .then(() => done());
-    });
+    customElements.whenDefined('material-button')
+      .then(() => done());
+  });
 
-    it('should display the label', () => {
-        expect(element.label.textContent).to.eql('ok');
-    });
+  it('should display the label', () => {
+    expect(element.label.textContent).to.eql('ok');
+  });
 
-    it('should reflect the "disabled" attribute to the button', () => {
-        element.disabled = true;
+  it('should reflect the "disabled" attribute to the button', () => {
+    element.disabled = true;
 
-        expect(element.button.disabled).to.eql(true);
-        expect(element.hasAttribute('disabled')).to.eql(true);
+    expect(element.button.disabled).to.eql(true);
+    expect(element.hasAttribute('disabled')).to.eql(true);
 
-        element.disabled = false;
+    element.disabled = false;
 
-        expect(element.button.disabled).to.eql(false);
-        expect(element.hasAttribute('disabled')).to.eql(false);
-    });
+    expect(element.button.disabled).to.eql(false);
+    expect(element.hasAttribute('disabled')).to.eql(false);
+  });
 
-    afterEach(() => {
-        document.body.removeChild(element);
-    });
+  afterEach(() => {
+    document.body.removeChild(element);
+  });
 });

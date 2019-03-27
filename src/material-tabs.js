@@ -116,7 +116,7 @@ export class MaterialTabs extends HTMLElement {
     this.tabs = [...this.shadowRoot.querySelectorAll('.tab')];
     this.tabs[0].classList.add('active');
 
-    const {width, height} = this.tabs[0].getBoundingClientRect();
+    const {width} = this.tabs[0].getBoundingClientRect();
 
     this.indicator.style.setProperty('--indicator-width', `${width}px`);
     this.host.style.setProperty('--content-width', `${this.tabContainer.offsetWidth}px`);

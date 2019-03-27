@@ -3,7 +3,7 @@ export class MaterialTable extends HTMLElement {
   constructor() {
     super();
 
-    const shadowRoot = this.attachShadow({mode: 'open'});
+    this.attachShadow({mode: 'open'});
 
     this._data = [];
     this.sort = [];
@@ -150,7 +150,7 @@ export class MaterialTable extends HTMLElement {
     }
 
     if(this.hasAttribute('per-page')) {
-      this.perPage = parseInt(this.getAttribute('per-page'));
+      this.perPage = parseInt(this.getAttribute('per-page'), 10);
       this.curPage = 1;
     }
 
@@ -213,25 +213,20 @@ export class MaterialTable extends HTMLElement {
         }
       });
     }
-    else {
-      if(heading) {
-        if(heading.classList.contains('sortable')) {
-          const col = heading.dataset.col;
-          const order = heading.classList.contains('asc') ? 1 : -1;
+    else if(heading && heading.classList.contains('sortable')) {
 
-          this.sortData(col, order);
-          this.render(this._data);
-        }
-      }
-      else {
-        if(button) {
-          this.curPage = parseInt(button.dataset.page);
-          this.start = (this.curPage - 1) * this.perPage;
-          this.end = this.start + this.perPage;
+      const col = heading.dataset.col;
+      const order = heading.classList.contains('asc') ? 1 : -1;
 
-          this.render(this._data);
-        }
-      }
+      this.sortData(col, order);
+      this.render(this._data);
+    }
+    else if(button) {
+      this.curPage = parseInt(button.dataset.page, 10);
+      this.start = (this.curPage - 1) * this.perPage;
+      this.end = this.start + this.perPage;
+
+      this.render(this._data);
     }
   }
 
@@ -270,17 +265,15 @@ export class MaterialTable extends HTMLElement {
 
   getPagination(currentPage) {
     const prevPage = currentPage - 1 < 1 ? 1 : currentPage - 1;
-    const nextPage = currentPage + 1 > this.numPages ? this.numPages : currentPage + 1;
+    const nextPage = this.numPages < currentPage + 1 ? this.numPages : currentPage + 1;
     const nextPageButton = `<button type="button" class="next" data-page="${nextPage}" ${nextPage === currentPage ? `disabled` : ``}>&gt;</button>`;
     const start = currentPage <= this.maxVisiblePages ? 1 :
       this.numPages - currentPage < this.maxVisiblePages ? (currentPage - this.maxVisiblePages) + 1 :
-        currentPage;
+      currentPage;
 
-    const end = this.numPages <= this.maxVisiblePages
-      ? this.numPages
-      : currentPage > this.maxVisiblePages
-        ? Math.min(currentPage, this.numPages)
-        : this.maxVisiblePages;
+    const end = this.numPages <= this.maxVisiblePages ? this.numPages :
+      this.maxVisiblePages < currentPage ? Math.min(currentPage, this.numPages) :
+      this.maxVisiblePages;
 
     let pages = `<button type="button" class="prev" data-page="${prevPage}" ${prevPage === currentPage ? `disabled` : ``}>&lt;</button>`;
 
@@ -299,7 +292,7 @@ export class MaterialTable extends HTMLElement {
   }
 
   getHeading(col) {
-    let classes = [];
+    const classes = [];
 
     if(this.sortable.includes(col)) {
       classes.push('sortable');
@@ -314,9 +307,9 @@ export class MaterialTable extends HTMLElement {
 
   getTableRow(row) {
     return `<tr>
-                    <td>${this.checkBox}</td>
-                    ${Object.values(row).map(val => `<td>${val}</td>`).join('')}
-                </tr>`;
+              <td>${this.checkBox}</td>
+              ${Object.values(row).map(val => `<td>${val}</td>`).join('')}
+          </tr>`;
   }
 
   get data() {

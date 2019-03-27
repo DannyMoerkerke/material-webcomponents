@@ -160,24 +160,15 @@ export class MaterialSlider extends HTMLElement {
     const rgba = /rgba\((\d{1,3}),\s?(\d{1,3}),\s?(\d{1,3}),\s?(\d|\d\.\d+)\)/;
     const hostStyle = getComputedStyle(this.host);
     const thumbColor = hostStyle.getPropertyValue('--thumb-color').trim() || hostStyle.getPropertyValue('--thumb-color').trim();
-    let thumbColorLight;
 
-    if(/^#([A-Fa-f0-9]{3}){1,2}$/.test(thumbColor)) {
-      thumbColorLight = this.hexToRgbA(thumbColor);
-    }
-    else {
-      if(/rgb\((.+)\)/.test(thumbColor)) {
-        thumbColorLight = thumbColor.replace(/rgb\((.+)\)/, 'rgba($1, 0.1)');
-      }
-      else {
-        if(rgba.test(thumbColor)) {
-          const matches = rgba.exec(thumbColor);
-          thumbColorLight = `rgba(${matches[1]}, ${matches[2]}, ${matches[3]}, 0.1)`;
-        }
-        else {
-          throw new Error(`invalid color specified for --thumb color: ${thumbColor}`);
-        }
-      }
+    const matches = rgba.exec(thumbColor);
+    const thumbColorLight =
+          /^#([A-Fa-f0-9]{3}){1,2}$/.test(thumbColor) ? this.hexToRgbA(thumbColor) :
+          /rgb\((.+)\)/.test(thumbColor) ? thumbColor.replace(/rgb\((.+)\)/, 'rgba($1, 0.1)') :
+          rgba.test(thumbColor) ? `rgba(${matches[1]}, ${matches[2]}, ${matches[3]}, 0.1)` : null;
+
+    if(thumbColorLight === null) {
+      throw new Error(`invalid color specified for --thumb color: ${thumbColor}`);
     }
 
     this.host.style.setProperty('--thumb-color-light', thumbColorLight);

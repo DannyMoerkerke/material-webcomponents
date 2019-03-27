@@ -327,8 +327,9 @@ export class MaterialDatepicker extends HTMLElement {
     }
     this.container.insertBefore(this.yearsView, this.buttonsContainer);
 
-    const startYear = this.currentYear - 50;
-    const endYear = this.currentYear + 50;
+    const range = 50;
+    const startYear = this.currentYear - range;
+    const endYear = this.currentYear + range;
 
     this.yearsViewContainer = this.shadowRoot.querySelector('#years-view-container');
 
@@ -421,8 +422,9 @@ export class MaterialDatepicker extends HTMLElement {
 
   nextMonth() {
     this.currentMonth++;
+    const endMonth = 11;
 
-    if(this.currentMonth > 11) {
+    if(this.currentMonth > endMonth) {
       this.currentMonth = 0;
       this.currentYear++;
       this.currentDate.setFullYear(this.currentYear);
@@ -479,8 +481,9 @@ export class MaterialDatepicker extends HTMLElement {
 
     const days = [];
     const start = date.getDate();
+    const endDay = 6;
 
-    for(let i = 0; i <= 6; i++) {
+    for(let i = 0; i <= endDay; i++) {
       date.setDate(start + i);
 
       const narrow = new Intl.DateTimeFormat(this.locale, {weekday: 'narrow'}).format(date);
@@ -500,7 +503,7 @@ export class MaterialDatepicker extends HTMLElement {
     this.headerDate.textContent = this.getLocalDate(date);
 
     this.shadowRoot.querySelectorAll('.day').forEach(day => {
-      if(parseInt(day.dataset.day) === pickedDay) {
+      if(parseInt(day.dataset.day, 10) === pickedDay) {
         day.classList.add('active');
       }
       else {

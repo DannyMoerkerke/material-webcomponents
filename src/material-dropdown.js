@@ -182,16 +182,14 @@ export class MaterialDropdown extends HTMLElement {
       this.notifyChange(option.getAttribute('value'));
       this.closeMenu();
     }
-    else {
-      if(icon) {
-        this.open = !this.open;
+    else if(icon) {
+      this.open = !this.open;
 
-        if(this.open) {
-          this.openMenu();
-        }
-        else {
-          this.closeMenu();
-        }
+      if(this.open) {
+        this.openMenu();
+      }
+      else {
+        this.closeMenu();
       }
     }
   }

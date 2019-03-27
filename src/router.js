@@ -1,12 +1,18 @@
 export default (outlet, routes) => {
   const getCurrentRoute = url => url.replace(location.origin, '');
 
-  const getMatchedRoute = url => routes.find(route => {
-    return url === route.url || (url.substr(-1) === '/' ? url.substr(0, url.length - 1) === route.url : false);
-  });
+  const getMatchedRoute = url => routes.find(route => url === route.url || (url.substr(-1) === '/' ? url.substr(0, url.length - 1) === route.url : false));
+
+  const activateRoute = ({template, controller}) => {
+    outlet.innerHTML = template;
+
+    if(controller && typeof controller === 'function') {
+      controller();
+    }
+  };
 
   const handleRoute = matchedRoute => {
-    let {template, templateUrl, url} = matchedRoute;
+    const {template, templateUrl, url} = matchedRoute;
 
     if(templateUrl) {
       fetch(templateUrl)
@@ -21,14 +27,6 @@ export default (outlet, routes) => {
     else {
       history.pushState({template, url}, null, url);
       activateRoute(matchedRoute);
-    }
-  };
-
-  const activateRoute = ({template, controller}) => {
-    outlet.innerHTML = template;
-
-    if(controller && typeof controller === 'function') {
-      controller();
     }
   };
 

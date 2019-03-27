@@ -222,7 +222,7 @@ export class MaterialTextfield extends HTMLElement {
   }
 
   handleBlur() {
-    for(let error in this.input.validity) {
+    for(const error in this.input.validity) {
       if(!this.pristine && this.input.validity[error] && this.hasAttribute(`error-${this.errorMap[error]}`)) {
         this.error.textContent = this.getAttribute(`error-${this.errorMap[error]}`);
         this.setAttribute('invalid', '');
