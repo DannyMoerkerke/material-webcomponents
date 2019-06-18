@@ -12,37 +12,43 @@ export class MaterialCard extends HTMLElement {
                     --header-background: #ffffff;
                     --body-background: #ffffff;
                     --footer-background: #ffffff;
+                    --card-width: auto;
+                    --card-height: auto;
                     display: block;
                 }
                
                 #container {
                     display: grid;
-                    grid-template-rows: 1fr 3fr 1fr;
+                    grid-template-rows: minmax(min-content, 72px) 1fr minmax(min-content, 72px);
                     width: var(--card-width);
                     height: var(--card-height);
                     background: var(--card-background);
-                    box-shadow: 0px 7px 8px -4px rgba(0,0,0,0.2), 0px 12px 17px 2px rgba(0,0,0,0.14), 0px 5px 22px 4px rgba(0,0,0,0.12);
+                    box-shadow: 0 2px 6px 0 rgba(0,0,0,.24),0 -2px 0 #eeeeee;
                     border-radius: 3px;
                     overflow: hidden;
                 }
                 header {
                     background: var(--header-background);
                     display: flex;
-                    align-items: center;
-                    padding: 0 10px;
+                    flex-direction: column;
+                    /*align-items: center;*/
+                    padding: 16px;
                 }
                 main {
                     background: var(--body-background);
-                    padding: 0 10px;
+                    padding: 16px;
                 }
                 footer {
                     background: var(--footer-background);
                     display: flex;
                     align-items: center;
-                    padding: 0 10px;
+                    padding: 16px;
                 }
-                ::slotted([slot]) {
-                    margin: 10px;
+                ::slotted([slot="header"]) {
+                    margin: 0 0 8px 0;
+                }
+                ::slotted([slot="subheader"]) {
+                    margin: 0px;
                 }
                 ::slotted([slot]:empty) {
                     margin: 0px;
@@ -52,8 +58,10 @@ export class MaterialCard extends HTMLElement {
             <div id="container">
                 <header>
                     <slot name="header"></slot>
+                    <slot name="subheader"></slot>
                 </header>
                 <main>
+                    <slot name="media"></slot>
                     <slot name="body"></slot>
                 </main>
                 <footer>
@@ -61,10 +69,6 @@ export class MaterialCard extends HTMLElement {
                 </footer>
             </div>
         `;
-
-  }
-
-  connectedCallback() {
 
   }
 }

@@ -166,8 +166,7 @@ material-app-bar {
 
 material-card {
   --card-width: 300px;
-  --card-height: 300px;
-  --header-background: #8CC7FA;
+  --header-background: #8cc7fa;
 }
 
 material-slider {
