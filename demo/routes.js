@@ -2,6 +2,7 @@ import router from '../src/router.js';
 import {template as index} from './partials/index.js';
 import {template as appBar} from './partials/material-app-bar.js';
 import {template as button} from './partials/material-button.js';
+import {template as card} from './partials/material-card.js';
 import {template as checkBox} from './partials/material-checkbox.js';
 import {template as datePicker} from './partials/material-datepicker.js';
 import {template as dialog} from './partials/material-dialog.js';
@@ -34,6 +35,10 @@ router(outlet, [
   {
     url: '/material-webcomponents/material-button',
     template: button
+  },
+  {
+    url: '/material-webcomponents/material-card',
+    template: card
   },
   {
     url: '/material-webcomponents/material-checkbox',

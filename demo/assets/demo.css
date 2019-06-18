@@ -164,6 +164,11 @@ material-app-bar {
   --app-bar-font-color: #ffffff !important;
 }
 
+material-card {
+  --card-width: 300px;
+  --header-background: #8cc7fa;
+}
+
 material-slider {
   --track-color: rgb(0, 188, 212) !important;
   --thumb-color: rgb(0, 188, 212) !important;

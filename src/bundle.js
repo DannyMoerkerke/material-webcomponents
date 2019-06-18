@@ -1,4 +1,5 @@
 import './material-app-bar.js';
+import './material-card.js';
 import './material-checkbox.js';
 import './material-datepicker.js';
 import './material-dialog.js';
