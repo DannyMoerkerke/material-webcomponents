@@ -15,4 +15,5 @@ import './material-slidemenu.js';
 import './material-button.js';
 import './material-progress.js';
 import './material-drawer.js';
+import './material-loader.js';
 import '../demo/routes.js';

@@ -16,6 +16,7 @@ import {template as table} from './partials/material-table.js';
 import {template as tabs} from './partials/material-tabs.js';
 import {template as text} from './partials/material-textfield.js';
 import {template as slideMenu} from './partials/material-slidemenu.js';
+import {template as loader} from './partials/material-loader.js';
 
 const outlet = document.querySelector('#content');
 
@@ -90,10 +91,6 @@ router(outlet, [
     template: dropDown
   },
   {
-    url: '/material-webcomponents/material-progress',
-    template: progress
-  },
-  {
     url: '/material-webcomponents/material-drawer',
     template: drawer,
     controller() {
@@ -102,6 +99,14 @@ router(outlet, [
 
       button.addEventListener('click', drawer.toggle.bind(drawer));
     }
+  },
+  {
+    url: '/material-webcomponents/material-loader',
+    template: loader
+  },
+  {
+    url: '/material-webcomponents/material-progress',
+    template: progress
   },
   {
     url: '/material-webcomponents/material-radiobutton',

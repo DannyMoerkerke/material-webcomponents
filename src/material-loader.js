@@ -1,57 +1,81 @@
-export default class MaterialLoader extends HTMLElement {
+export class MaterialLoader extends HTMLElement {
 
-    static get observedAttributes() {
-        return [];
+  static get observedAttributes() {
+    return ['size'];
+  }
+
+  constructor() {
+    super();
+
+    const shadowRoot = this.attachShadow({mode: 'open'});
+
+    shadowRoot.innerHTML = `
+      <style>
+        :host {
+          --loader-color: #008000;
+          --line-width: 3px;
+        }
+        svg {
+          animation: 2s linear infinite svg-animation;
+          width: 50px;
+        }
+        
+        circle {
+          animation: 1.4s ease-in-out infinite both circle-animation;
+          display: block;
+          fill: transparent;
+          stroke: var(--loader-color);
+          stroke-linecap: round;
+          stroke-dasharray: 283;
+          stroke-dashoffset: 280;
+          stroke-width: var(--line-width);
+          transform-origin: 50% 50%;
+        }
+        
+        @keyframes svg-animation {
+          0% {
+            transform: rotateZ(0deg);
+          }
+          100% {
+            transform: rotateZ(360deg)
+          }
+        }
+        
+        @keyframes circle-animation {
+          0%,
+          25% {
+            stroke-dashoffset: 280;
+            transform: rotate(0);
+          }
+          
+          50%,
+          75% {
+            stroke-dashoffset: 75;
+            transform: rotate(45deg);
+          }
+          
+          100% {
+            stroke-dashoffset: 280;
+            transform: rotate(360deg);
+          }
+        }
+      </style>
+      
+      <div id="loader">
+          <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="50" cy="50" r="45"/>
+          </svg>
+      </div>
+    `;
+
+    this.svg = this.shadowRoot.querySelector('svg');
+  }
+
+  attributeChangedCallback(attr, oldVal, newVal) {
+    if(attr === 'size') {
+      this.svg.style.width = `${parseInt(newVal)}px`;
     }
-
-    constructor() {
-        super();
-
-        const shadowRoot = this.attachShadow({mode: 'open'});
-
-        shadowRoot.innerHTML = `
-            <style>
-                #spinner {
-                    box-sizing: border-box;
-                    stroke: var(--spinner-color, #008000);
-                    stroke-width: 3px;
-                    transform-origin: 50%;
-                    animation: line 1.6s cubic-bezier(0.4, 0, 0.2, 1) infinite, rotate 1.6s linear infinite;
-                }
-                
-                @keyframes rotate {
-                    from {
-                        transform: rotate(0); 
-                    }
-                    to {
-                        transform: rotate(450deg);
-                    }
-                }
-                
-                @keyframes line {
-                    0% {
-                        stroke-dasharray: 2, 85.964;
-                        transform: rotate(0);
-                    }
-                    50% {
-                        stroke-dasharray: 65.973, 21.9911;
-                        stroke-dashoffset: 0;
-                    }
-                    100% {
-                        stroke-dasharray: 2, 85.964;
-                        stroke-dashoffset: -65.973;
-                        transform: rotate(90deg);
-                    }
-                }
-            </style>
-            
-            <div id="loader">
-                <svg viewBox="0 0 32 32" width="32" height="32">
-                    <circle id="spinner" cx="16" cy="16" r="14" fill="none"></circle>
-                </svg>
-            </div>
-        `;
-    }
+  }
 }
 
 customElements.define('material-loader', MaterialLoader);
