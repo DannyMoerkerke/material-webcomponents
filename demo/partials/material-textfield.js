@@ -42,6 +42,19 @@ export const template = `<h1>material-textfield</h1>
     <li><code>value</code>: String, value of the field</li>
 </ul>
 
+<h3>Events</h3>
+<ul>
+    <li><code>change</code>: fired when the value of the textfield is changed
+        <ul>
+            <li>Event detail:
+                <ul>
+                    <li><code>value</code>: String, value of the textfield</li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+</ul>
+
 <h3>Styling</h3>
 <ul>
     <li><code>--active-color</code>: color of the bottom bar and label when the field has focus, default: #337ab7</li>

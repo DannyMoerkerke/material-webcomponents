@@ -14,6 +14,8 @@ export class MaterialButton extends HTMLElement {
                 :host {
                     --button-color: #e2e2e2;
                     --font-color: #000000;
+                    --font-size: 1em;
+                    --icon-size: 24px;
                     display: block;
                 }
                 button {
@@ -22,7 +24,7 @@ export class MaterialButton extends HTMLElement {
                     min-height: 36px;
                     padding-left: 8px;
                     padding-right: 8px;
-                    font-size: 1em;
+                    font-size: var(--font-size);
                     color: var(--font-color);
                     background-color: transparent;
                     cursor: pointer;
@@ -76,9 +78,11 @@ export class MaterialButton extends HTMLElement {
                 }
                 ::slotted([slot="left-icon"]) {
                     float: left;
+                    font-size: var(--icon-size) !important;
                 }
                 ::slotted([slot="right-icon"]) {
                     float: right;
+                    font-size: var(--icon-size) !important;
                 }
                 
                 @keyframes ripple {

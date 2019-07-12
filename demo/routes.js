@@ -87,7 +87,23 @@ router(outlet, [
   },
   {
     url: '/material-webcomponents/material-dropdown',
-    template: dropDown
+    template: dropDown,
+    controller() {
+      const menu = document.querySelector('material-dropdown');
+
+      console.log(menu);
+
+      menu.setData([
+        {
+          value: 'uri1',
+          label: 'U1'
+        },
+        {
+          value: 'uri2',
+          label: 'U2'
+        }
+      ])
+    }
   },
   {
     url: '/material-webcomponents/material-progress',
