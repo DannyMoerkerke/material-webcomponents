@@ -16,6 +16,32 @@ export const template = `<h1>material-dropdown</h1>
     &lt;/material-dropdown&gt;
 </pre>
 
+<h3>Methods</h3>
+<ul>
+    <li><code>setData(data: Array&lt;{}&gt;[, fields: {value: String, label: String}])</code>: sets data for the dropdown
+        <ul>
+            <li><code>data</code>: objects holding data for the dropdown, the value for the dropdown option 
+            should be in the <code>value</code> property and the label for the option should be in the <code>label</code>
+            property</li>
+            <li><code>fields</code>: optional, when the value and label for the dropdown option are not in the <code>value</code> 
+            and <code>label</code> properties of the data objects, this <code>fields</code> object specifies which properties to 
+            use instead, e.g. <code>{value: 'id', label: 'name'}</code></li>
+        </ul>
+    </li>
+</ul>
+
+<h3>Events</h3>
+<ul>
+    <li><code>change</code>: fired when an option is selected
+        <ul>
+            <li>Event detail:
+                <ul>
+                    <li><code>value</code>: String, value of the selected option</li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+</ul>
 
 <h3>Styling</h3>
 <ul>

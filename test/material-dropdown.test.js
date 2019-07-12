@@ -125,6 +125,45 @@ describe('material-dropdown', () => {
     expect(spy.args[0][0].detail).to.eql(expected.detail);
   });
 
+  it('should set the correct data through the setData() method with "fields" parameter', () => {
+    const data = [
+      {
+        uri: 'uri1',
+        name: 'name1'
+      },
+      {
+        uri: 'uri2',
+        name: 'name2'
+      }
+    ];
+
+    const fields = {
+      value: 'uri',
+      label: 'name'
+    };
+
+    element.setData(data, fields);
+
+    expect(element.menu.innerHTML).to.eql('<li value="uri1">name1</li><li value="uri2">name2</li>');
+  });
+
+  it('should set the correct data through the setData() method with "fields" parameter', () => {
+    const data = [
+      {
+        value: 'uri1',
+        label: 'name1'
+      },
+      {
+        value: 'uri2',
+        label: 'name2'
+      }
+    ];
+
+    element.setData(data);
+
+    expect(element.menu.innerHTML).to.eql('<li value="uri1">name1</li><li value="uri2">name2</li>');
+  });
+
   afterEach(() => {
     document.body.removeChild(element);
   });

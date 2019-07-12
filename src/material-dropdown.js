@@ -83,7 +83,7 @@ export class MaterialDropdown extends HTMLElement {
           animation-timing-function: ease-out;
         }
 
-        ::slotted([slot="option"]) {
+        ::slotted([slot="option"]), li {
           padding: 10px;
           cursor: pointer;
           list-style-type: none;
@@ -92,7 +92,7 @@ export class MaterialDropdown extends HTMLElement {
           color: var(--font-color);
         }
 
-        ::slotted([slot="option"]:hover) {
+        ::slotted([slot="option"]:hover), li:hover {
           background: var(--hover-color);
         }
 
@@ -152,13 +152,12 @@ export class MaterialDropdown extends HTMLElement {
 
       const {x, width: w} = this.menu.getBoundingClientRect();
 
-      if(x + w >= screen.width) {
-        this.menuContainer.style.right = 0;
-      }
-      else {
-        this.menuContainer.style.left = 0;
-      }
+      x + w >= screen.width ? this.menuContainer.style.right = 0 : this.menuContainer.style.left = 0;
     });
+  }
+
+  setData(data, {value, label} = {value: 'value', label: 'label'}) {
+    this.menu.innerHTML = `${data.reduce((acc, item) => `${acc}<li value="${item[value]}">${item[label]}</li>`, ``)}`;
   }
 
   openMenu() {

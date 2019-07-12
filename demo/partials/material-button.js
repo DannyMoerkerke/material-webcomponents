@@ -36,6 +36,8 @@ export const template = `<h1>material-button</h1>
 <ul>
     <li><code>--button-color</code>: background color, default: #e2e2e2</li>
     <li><code>--font-color</code>: font color, default: #000000</li>
+    <li><code>--font-size</code>: font size, default: 1em</li>
+    <li><code>--icon-size</code>: icon size, default: 24px</li>
 </ul>
 
 
