@@ -86,6 +86,8 @@ describe('material-dropdown', () => {
     element.style.marginLeft = '3000px';
     document.body.appendChild(element);
 
+    element.setupMenu();
+
     setTimeout(() => {
       expect(element.menuContainer.style.right).to.eql('0px');
       done();
