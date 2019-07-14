@@ -127,6 +127,14 @@ export class MaterialDropdown extends HTMLElement {
     this.icon = this.iconSlot.assignedNodes()[0];
     this.options = this.shadowRoot.querySelector('slot[name="option"]').assignedNodes();
 
+    this.observer = new MutationObserver((mutations) => {
+      if([...mutations].some(mutation => mutation.addedNodes.length)) {
+        this.setupMenu();
+      }
+    });
+
+    this.observer.observe(this.menu, {childList: true});
+
     this.setupMenu();
 
     this.container.addEventListener('mousedown', this.handleClick.bind(this));
@@ -144,16 +152,18 @@ export class MaterialDropdown extends HTMLElement {
     }
   }
 
+  disconnectedCallback() {
+    this.observer.disconnect();
+  }
+
   setupMenu() {
-    setTimeout(() => {
-      const {width, height} = this.shadowRoot.querySelector('#dropdown-menu').getBoundingClientRect();
-      this.menuContainer.style.setProperty('--menu-height', `${height}px`);
-      this.menuContainer.style.setProperty('--menu-width', `${width}px`);
+    const {width, height} = this.shadowRoot.querySelector('#dropdown-menu').getBoundingClientRect();
+    this.menuContainer.style.setProperty('--menu-height', `${height}px`);
+    this.menuContainer.style.setProperty('--menu-width', `${width}px`);
 
-      const {x, width: w} = this.menu.getBoundingClientRect();
+    const {x, width: w} = this.menu.getBoundingClientRect();
 
-      x + w >= screen.width ? this.menuContainer.style.right = 0 : this.menuContainer.style.left = 0;
-    });
+    x + w >= screen.width ? this.menuContainer.style.right = 0 : this.menuContainer.style.left = 0;
   }
 
   setData(data, {value, label} = {value: 'value', label: 'label'}) {
