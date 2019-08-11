@@ -1,6 +1,6 @@
 {
   "name": "@dannymoerkerke/material-webcomponents",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "Material Design implemented in Custom elements",
   "author": "Danny Moerkerke <danny@dannymoerkerke.nl>",
   "license": "ISC",

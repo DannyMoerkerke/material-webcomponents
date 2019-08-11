@@ -130,6 +130,7 @@ export class MaterialDropdown extends HTMLElement {
     this.observer = new MutationObserver((mutations) => {
       if([...mutations].some(mutation => mutation.addedNodes.length)) {
         this.setupMenu();
+        this.options = this.shadowRoot.querySelector('slot[name="option"]').assignedNodes();
       }
     });
 
