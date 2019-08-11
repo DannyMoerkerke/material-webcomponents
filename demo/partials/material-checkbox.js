@@ -22,6 +22,23 @@ export const template = `<h1>material-checkbox</h1>
     to <code>false</code></li>
 </ul>
 
+<h3>Events</h3>
+<ul>
+    <li><code>change</code>: fired when the checkbox is clicked
+        <ul>
+            <li>Event detail:
+                <ul>
+                    <li><code>checked</code>: Bool, <code>true</code> when checked, <code>false</code> when unchecked</li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+</ul>
+
+<em>* Note that a <code>click</code> event handler can also be attached to check the <code>checked</code> property of the checkbox, 
+but when doing so, the code inside the event handler which checks this property must be wrapped inside a <code>setTimeout</code> since 
+there is a small delay before the property is set. Therefore it is preferred to use the <code>change</code> event.</em>
+
 <h3>Styling</h3>
 <ul>
     <li><code>--unchecked-color</code>: color of checkbox when not checked, default: #999999</li>

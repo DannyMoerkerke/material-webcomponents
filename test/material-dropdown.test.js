@@ -73,7 +73,6 @@ describe('material-dropdown', () => {
     expect(spy1.called).to.eql(true);
     expect(spy2.called).to.eql(false);
 
-    // spy1.restore();
     element.handleClick(event);
 
     expect(element.open).to.eql(false);

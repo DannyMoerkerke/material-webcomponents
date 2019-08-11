@@ -10,6 +10,8 @@ describe('material-checkbox', () => {
   });
 
   it('should toggle the "checked" attribute when clicked', () => {
+    const spy = sinon.spy(element, 'dispatchEvent');
+    
     const event = {
       stopPropagation() {
 
@@ -20,11 +22,15 @@ describe('material-checkbox', () => {
     element.handleClick(event);
 
     expect(element.hasAttribute('checked')).to.eql(true);
+    expect(spy.args[0][0].detail.checked).to.eql(true);
+
+    spy.resetHistory();
 
     element.input.checked = false;
     element.handleClick(event);
 
     expect(element.hasAttribute('checked')).to.eql(false);
+    expect(spy.args[0][0].detail.checked).to.eql(false);
   });
 
   it('should set the "name" and "value" attribute on the input', () => {
