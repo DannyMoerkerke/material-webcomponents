@@ -11,7 +11,7 @@ describe('material-checkbox', () => {
 
   it('should toggle the "checked" attribute when clicked', () => {
     const spy = sinon.spy(element, 'dispatchEvent');
-    
+
     const event = {
       stopPropagation() {
 
