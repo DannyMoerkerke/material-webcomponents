@@ -3,14 +3,11 @@ import '../src/material-button.js';
 describe('material-button', () => {
   let element;
 
-  beforeEach(done => {
+  beforeEach(() => {
     element = document.createElement('material-button');
     element.setAttribute('label', 'ok');
 
     document.body.appendChild(element);
-
-    customElements.whenDefined('material-button')
-      .then(() => done());
   });
 
   it('should display the label', () => {
