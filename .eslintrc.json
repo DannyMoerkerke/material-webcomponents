@@ -207,6 +207,9 @@
           "export": {
             "after": true
           },
+          "default": {
+            "after": true
+          },
           "from": {
             "before": true,
             "after": true
