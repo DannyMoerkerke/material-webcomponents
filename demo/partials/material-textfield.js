@@ -59,6 +59,8 @@ export const template = `<h1>material-textfield</h1>
 <ul>
     <li><code>--active-color</code>: color of the bottom bar and label when the field has focus, default: #337ab7</li>
     <li><code>--font-color</code>: font color, default: #000000</li>
+    <li><code>--error-color</code>: font color of error message, default: #ff0000</li>
+    <li><code>--margin</code>: margin of textfield, default: 2.25rem 0 2.25rem 0</li>
 </ul>
 
 <section class="demo">

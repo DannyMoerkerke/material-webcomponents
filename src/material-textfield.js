@@ -15,6 +15,7 @@ export class MaterialTextfield extends HTMLElement {
                     --active-color: #337ab7;
                     --font-color: #000000;
                     --error-color: #ff0000;
+                    --margin: 2.25rem 0 2.25rem 0;
                 }
                 :host([invalid]) {
                     --active-color: var(--error-color);
@@ -33,8 +34,7 @@ export class MaterialTextfield extends HTMLElement {
                     position: relative;
                     display: block;
                     background: transparent;
-                    margin-top: 2.25rem;
-                    margin-bottom: 2.25rem;
+                    margin:  var(--margin);
                 }
                 input {
                     width: 100%;

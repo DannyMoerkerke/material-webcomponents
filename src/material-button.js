@@ -12,21 +12,26 @@ export class MaterialButton extends HTMLElement {
     shadowRoot.innerHTML = `
             <style>
                 :host {
-                    --button-color: #e2e2e2;
+                    --button-color: transparent;
+                    --button-color-hover: #e2e2e2;
                     --font-color: #000000;
                     --font-size: 1em;
                     --icon-size: 24px;
+                    --button-padding: 0 8px 0 8px;
+                    --border-radius: 2px;
                     display: block;
+                }
+                :host([raised]) {
+                  --button-color: #e2e2e2;
                 }
                 button {
                     border: none;
-                    border-radius: 2px;
+                    border-radius: var(--border-radius);
                     min-height: 36px;
-                    padding-left: 8px;
-                    padding-right: 8px;
+                    padding: var(--button-padding);
                     font-size: var(--font-size);
                     color: var(--font-color);
-                    background-color: transparent;
+                    background-color: var(--button-color);
                     cursor: pointer;
                     outline: none;
                     display: flex;
@@ -40,7 +45,7 @@ export class MaterialButton extends HTMLElement {
                 }
                 button:hover {
                     transition: background-color 0.3s ease-out;
-                    background-color: var(--button-color);
+                    background-color: var(--button-color-hover);
                 }
                 :host([disabled]) button {
                     opacity: 0.5;
@@ -84,6 +89,12 @@ export class MaterialButton extends HTMLElement {
                     float: right;
                     font-size: var(--icon-size) !important;
                 }
+                ::slotted([slot="file-input"]) {
+                  position: absolute;
+                  top: 0;
+                  left: 0;
+                  opacity: 0;
+                }
                 
                 @keyframes ripple {
                     from {
@@ -101,6 +112,7 @@ export class MaterialButton extends HTMLElement {
             
             <button type="button">
                 <div class="ripple"></div>
+                <slot name="file-input"></slot>
                 <slot name="left-icon"></slot>
                 <span id="label"></span>
                 <slot name="right-icon"></slot>
@@ -113,12 +125,7 @@ export class MaterialButton extends HTMLElement {
   }
 
   connectedCallback() {
-    if(this.hasAttribute('label')) {
-      this.label.textContent = this.getAttribute('label');
-    }
-    else {
-      this.label.style.display = 'none';
-    }
+    this.hasAttribute('label') ? this.label.textContent = this.getAttribute('label') : this.label.style.display = 'none';
 
     this.button.addEventListener('click', () => {
       this.button.classList.add('active');

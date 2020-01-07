@@ -30,14 +30,18 @@ export const template = `<h1>material-button</h1>
 <ul>
     <li><code>left-icon</code>: icon appearing on the left side</li>
     <li><code>right-icon</code>: icon appearing on the right side</li>
+    <li><code>file-input</code>: file input field which will be hidden to make it appear as a button</li>
 </ul>
 
 <h3>Styling</h3>
 <ul>
-    <li><code>--button-color</code>: background color, default: #e2e2e2</li>
+    <li><code>--button-color</code>: background color, default: transparent</li>
+    <li><code>--button-color-hover</code>: background color on hover, default: #e2e2e2</li>
     <li><code>--font-color</code>: font color, default: #000000</li>
     <li><code>--font-size</code>: font size, default: 1em</li>
     <li><code>--icon-size</code>: icon size, default: 24px</li>
+    <li><code>--button-padding</code>: padding of button, default: 0px 8px 0px 8px</li>
+    <li><code>--border-radius</code>: button border radius, default: 2px</li>
 </ul>
 
 
