@@ -6,6 +6,7 @@ import {template as card} from './partials/material-card.js';
 import {template as checkBox} from './partials/material-checkbox.js';
 import {template as datePicker} from './partials/material-datepicker.js';
 import {template as dialog} from './partials/material-dialog.js';
+import {template as bottomSheet} from './partials/material-bottom-sheet.js';
 import {template as dropDown} from './partials/material-dropdown.js';
 import {template as progress} from './partials/material-progress.js';
 import {template as drawer} from './partials/material-drawer.js';
@@ -83,6 +84,16 @@ router(outlet, [
       document.querySelector('#close-standard').addEventListener('click', standardDialog.close.bind(standardDialog));
       document.querySelector('#open-modal').addEventListener('click', modalDialog.open.bind(modalDialog));
       document.querySelector('#close-modal').addEventListener('click', modalDialog.close.bind(modalDialog));
+    }
+  },
+  {
+    url: '/material-webcomponents/material-bottom-sheet',
+    template: bottomSheet,
+    controller() {
+      const standardDialog = document.querySelector('#standard-dialog');
+
+      document.querySelector('#open-standard').addEventListener('click', standardDialog.open.bind(standardDialog));
+      document.querySelector('#close-standard').addEventListener('click', standardDialog.close.bind(standardDialog));
     }
   },
   {

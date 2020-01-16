@@ -3,6 +3,7 @@ import './material-card.js';
 import './material-checkbox.js';
 import './material-datepicker.js';
 import './material-dialog.js';
+import './material-bottom-sheet.js';
 import './material-dropdown.js';
 import './material-radiobutton.js';
 import './material-radiobutton-group.js';
