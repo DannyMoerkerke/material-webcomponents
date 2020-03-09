@@ -200,7 +200,7 @@ export class MaterialBottomSheet extends HTMLElement {
       this.sheet.addEventListener('touchmove', this.handleTouchMove.bind(this), {passive: false});
 
       this.sheet.addEventListener('touchstart', this.handleTouchStart.bind(this), {passive: false});
-    }, 1000)
+    }, 1000);
   }
 
   // https://stackoverflow.com/questions/49500339/cant-prevent-touchmove-from-scrolling-window-on-ios
