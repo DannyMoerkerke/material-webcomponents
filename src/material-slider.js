@@ -196,6 +196,7 @@ export class MaterialSlider extends HTMLElement {
 
 
   set value(value) {
+    this.input.value = value;
     this.setAttribute('value', value);
   }
 

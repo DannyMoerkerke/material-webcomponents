@@ -18,8 +18,6 @@ export default class MaterialCheckbox extends HTMLElement {
                     
                     display: block;
                     box-sizing: border-box;
-                    width: 20px;
-                    height: 20px;
                 }
                 :host([invalid]) {
                     --unchecked-color: #ff0000;

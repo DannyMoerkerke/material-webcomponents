@@ -20,6 +20,7 @@ export class MaterialButton extends HTMLElement {
                     --button-padding: 0 8px 0 8px;
                     --border-radius: 2px;
                     display: block;
+                    width: fit-content;
                 }
                 :host([raised]) {
                   --button-color: #e2e2e2;
@@ -93,7 +94,10 @@ export class MaterialButton extends HTMLElement {
                   position: absolute;
                   top: 0;
                   left: 0;
+                  bottom: 0;
+                  right: 0;
                   opacity: 0;
+                  z-index: 9;
                 }
                 
                 @keyframes ripple {
@@ -134,6 +138,12 @@ export class MaterialButton extends HTMLElement {
     this.ripple.addEventListener('animationend', () => {
       this.button.classList.remove('active');
     });
+  }
+
+  attributeChangedCallback(attr) {
+    if(attr === 'label') {
+      this.hasAttribute('label') ? this.label.textContent = this.getAttribute('label') : this.label.style.display = 'none';
+    }
   }
 
   get disabled() {

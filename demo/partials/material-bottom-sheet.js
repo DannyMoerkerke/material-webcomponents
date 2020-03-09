@@ -49,9 +49,20 @@ export const template = `<h1>material-bottom-sheet</h1>
     <h3>Demo</h3>
     <material-bottom-sheet id="standard-dialog">
         <h1 slot="header">Dialog title</h1>
-        <p slot="body">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt dolorem et, eum excepturi
-            fugit iste maxime nisi, obcaecati officia omnis quas qui, quidem sequi. Accusamus deleniti earum quasi
-            ratione unde!</p>
+        <p slot="body">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus eaque earum error et explicabo fuga impedit in labore mollitia nihil non officia, quaerat, repellat sapiente sequi sit tenetur voluptates voluptatum.
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi error excepturi mollitia suscipit vel! Assumenda commodi eius impedit libero quam quas quia. Deserunt eum laborum nam necessitatibus odit saepe sint.
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. A alias distinctio dolorem, doloribus fuga ipsum iste laborum quo, quos sequi tempora voluptatem. Culpa dicta facere in labore similique veniam voluptas?    
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus eaque earum error et explicabo fuga impedit in labore mollitia nihil non officia, quaerat, repellat sapiente sequi sit tenetur voluptates voluptatum.
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi error excepturi mollitia suscipit vel! Assumenda commodi eius impedit libero quam quas quia. Deserunt eum laborum nam necessitatibus odit saepe sint.
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. A alias distinctio dolorem, doloribus fuga ipsum iste laborum quo, quos sequi tempora voluptatem. Culpa dicta facere in labore similique veniam voluptas?    
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus eaque earum error et explicabo fuga impedit in labore mollitia nihil non officia, quaerat, repellat sapiente sequi sit tenetur voluptates voluptatum.
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi error excepturi mollitia suscipit vel! Assumenda commodi eius impedit libero quam quas quia. Deserunt eum laborum nam necessitatibus odit saepe sint.
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. A alias distinctio dolorem, doloribus fuga ipsum iste laborum quo, quos sequi tempora voluptatem. Culpa dicta facere in labore similique veniam voluptas?    
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus eaque earum error et explicabo fuga impedit in labore mollitia nihil non officia, quaerat, repellat sapiente sequi sit tenetur voluptates voluptatum.
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi error excepturi mollitia suscipit vel! Assumenda commodi eius impedit libero quam quas quia. Deserunt eum laborum nam necessitatibus odit saepe sint.
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus eaque earum error et explicabo fuga impedit in labore mollitia nihil non officia, quaerat, repellat sapiente sequi sit tenetur voluptates voluptatum.
+        </p>
         <div slot="footer">
             <material-button id="close-standard" label="Close"></material-button>
         </div>
