@@ -73,7 +73,7 @@ export class MaterialLoader extends HTMLElement {
 
   attributeChangedCallback(attr, oldVal, newVal) {
     if(attr === 'size') {
-      this.svg.style.width = `${parseInt(newVal)}px`;
+      this.svg.style.width = `${parseInt(newVal, 10)}px`;
     }
   }
 }
