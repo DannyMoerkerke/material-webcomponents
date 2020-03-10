@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.5] - 2020-03-10
+### Added
+- added material-bottom-sheet
+- added material-loader
+
+### Fixed
+- github icon now shows on mobile
+- fixed issue where file input in material-button was not clickable
+- added width: fit-content to material-button.js to remove invisible clickable area
+- removed width from material-checkbox.js to keep correct width of label
+- setting value on material-slider.js now updates the position of the knob
+
 ## [1.2.3] - 2020-01-07
 ### Added
 - added css variables --button-color-hover, --button-padding and --border-radius to material-button
