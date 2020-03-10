@@ -18,6 +18,9 @@ export const template = `<h1>material-bottom-sheet</h1>
 <h3>Attributes</h3>
 <ul>
     <li><code>modal</code>: empty, when present the dialog will <b>not</b> close when the backdrop is clicked.</li>
+    <li><code>right</code>: empty, places the sheet on the bottom right side of the screen (default).</li>
+    <li><code>left</code>: empty, places the sheet on the bottom left side of the screen.</li>
+    <li><code>center</code>: empty, places the sheet centered at the bottom of the screen.</li>
 </ul>
 
 <h3>Methods</h3>
@@ -35,7 +38,14 @@ export const template = `<h1>material-bottom-sheet</h1>
 
 <h3>Styling</h3>
 <ul>
-    <li><code>--dialog-width</code>: width of dialog, default: 20%</li>
+    <li><code>--dialog-width</code>: width of dialog, defaults:
+        <ul>
+            <li>screen width until 767px: 100%</li>
+            <li>screen width from 768px: 70%</li>
+            <li>screen width from 1024px: 40%</li>
+            <li>screen width from 1200px: 30%</li>
+        </ul>
+    </li>
     <li><code>--dialog-height</code>: height of dialog, default: auto</li>
     <li><code>--backdrop-color</code>: backdrop color, should be in <code>rgba</code> format to allow opacity, default:
         rgba(128,128,128,0.5)

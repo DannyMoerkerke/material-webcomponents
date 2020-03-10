@@ -45,7 +45,6 @@ export class MaterialBottomSheet extends HTMLElement {
           width: 100%;
           height: 100%;
           background: var(--backdrop-color);
-          /*animation-name: fadein;*/
           animation-duration: var(--animation-duration);
           animation-fill-mode: forwards;
           animation-timing-function: ease-out;
@@ -56,7 +55,7 @@ export class MaterialBottomSheet extends HTMLElement {
           flex-direction: column;
           position: fixed;
           bottom: var(--slide-height);
-          left: 0%;
+          right: 0;
           width: var(--sheet-width);
           height: var(--sheet-height);
           max-height: var(--max-height);
@@ -65,6 +64,13 @@ export class MaterialBottomSheet extends HTMLElement {
           animation-duration: 0.25s;
           animation-fill-mode: forwards;
           animation-timing-function: cubic-bezier(0.0, 0.0, 0.2, 1);
+        }
+        :host([left]) #sheet {
+            left: 0;
+        }
+        :host([center]) #sheet {
+            left: 50%;
+            transform: translateX(-50%);
         }
         header {
           background: var(--header-background);
