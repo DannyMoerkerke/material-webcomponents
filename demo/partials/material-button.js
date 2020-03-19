@@ -16,6 +16,7 @@ export const template = `<h1>material-button</h1>
 <ul>
     <li><code>label</code>: String, label</li>
     <li><code>raised</code>: empty, adds shadow and background color to button to make it appear raised</li>
+    <li><code>circle</code>: empty, makes button circular, should be used with only an icon</li>
     <li><code>disabled</code>: empty, disables the button</li>
 </ul>
 
@@ -41,6 +42,7 @@ export const template = `<h1>material-button</h1>
     <li><code>--font-size</code>: font size, default: 1em</li>
     <li><code>--icon-size</code>: icon size, default: 24px</li>
     <li><code>--button-padding</code>: padding of button, default: 0px 8px 0px 8px</li>
+    <li><code>--button-padding-circle</code>: padding of circular button (when attribute <code>circle</code> is added), default: 8px</li>
     <li><code>--border-radius</code>: button border radius, default: 2px</li>
 </ul>
 

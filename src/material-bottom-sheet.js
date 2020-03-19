@@ -49,6 +49,7 @@ export class MaterialBottomSheet extends HTMLElement {
           animation-fill-mode: forwards;
           animation-timing-function: ease-out;
           z-index: 9999;
+          -webkit-overflow-scrolling: touch;
         }
         #sheet {
           display: flex;
@@ -74,9 +75,8 @@ export class MaterialBottomSheet extends HTMLElement {
         }
         header {
           background: var(--header-background);
-          display: flex;
           align-items: center;
-          padding: 10px;
+          padding: 0 10px;
           max-height: 50px;
           border-bottom: 1px solid #cccccc;
           border-radius: 4px 4px 0 0;
@@ -89,9 +89,8 @@ export class MaterialBottomSheet extends HTMLElement {
         }
         footer {
           background: var(--footer-background);
-          display: flex;
           align-items: center;
-          padding: 10px;
+          padding: 0 10px;
           max-height: 50px;
           border-top: 1px solid #cccccc;
         }

@@ -18,6 +18,7 @@ export class MaterialButton extends HTMLElement {
                     --font-size: 1em;
                     --icon-size: 24px;
                     --button-padding: 0 8px 0 8px;
+                    --button-padding-circle: 8px;
                     --border-radius: 2px;
                     display: block;
                     width: fit-content;
@@ -74,6 +75,10 @@ export class MaterialButton extends HTMLElement {
                     position: relative;
                     margin-right: 8px;
                     margin-left: 8px;
+                }
+                :host([circle]) button {
+                    border-radius: 50%;
+                    --button-padding: var(--button-padding-circle);
                 }
                 :host([raised]) button {
                     background-color: var(--button-color);
