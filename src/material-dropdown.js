@@ -60,7 +60,6 @@ export class MaterialDropdown extends HTMLElement {
         #dropdown-menu-container {
           position: absolute;
           top: 0;
-          /*left: 0;*/
           min-width: var(--menu-width);
           height: 0;
           opacity: 0;
