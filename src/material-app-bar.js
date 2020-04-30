@@ -91,9 +91,12 @@ export class MaterialAppBar extends HTMLElement {
     this.setupEventHandlers();
   }
 
-  handleIconClick({target}) {
+  handleIconClick(e) {
+    const target = e.composedPath().find(el => el.assignedSlot);
+    const slot = target ? target.assignedSlot.name : null;
+
     this.dispatchEvent(new CustomEvent('app-bar-click', {
-      detail: {target}
+      detail: {target, slot}
     }));
   }
 

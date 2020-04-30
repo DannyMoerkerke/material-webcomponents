@@ -24,6 +24,7 @@ export const template = `<h1>material-app-bar</h1>
             <li>Event detail:
                 <ul>
                     <li><code>target</code>: HTMLElement, the clicked icon</li>
+                    <li><code>slot</code>: String, the slot the icon was assigned to (either "left-content" or "right-content")</li>
                 </ul>
             </li>
         </ul>
