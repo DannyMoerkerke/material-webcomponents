@@ -15,6 +15,8 @@ export const template = `<h1>material-dialog</h1>
     &lt;/material-dialog&gt;
 </pre>
 
+<h3>Properties</h3>
+
 <h3>Attributes</h3>
 <ul>
     <li><code>modal</code>: empty, when present the dialog will <b>not</b> close when the backdrop is clicked.</li>
