@@ -134,6 +134,14 @@ export class MaterialSwitch extends HTMLElement {
   toggle() {
     this.hasAttribute('on') ? this.removeAttribute('on') : this.setAttribute('on', '');
     this.input.checked = this.hasAttribute('on');
+
+    this.dispatchEvent(new CustomEvent('change', {
+      detail: {
+        checked: this.input.checked
+      },
+      composed: true,
+      bubbles: false
+    }));
   }
 
   get value() {

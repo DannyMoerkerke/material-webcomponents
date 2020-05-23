@@ -19,6 +19,19 @@ export const template = `<h1>material-switch</h1>
     <li><code>value</code>: Boolean, <code>true</code> when the switch is on, <code>false</code> when the switch is off</li>
 </ul>
 
+<h3>Events</h3>
+<ul>
+    <li><code>change</code>: fired when the radiobutton is checked
+        <ul>
+            <li>Event detail:
+                <ul>
+                    <li><code>checked</code>: Boolean, <code>true</code> when switch is on, false when switch is off</li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+</ul>
+
 <h3>Methods</h3>
 <ul>
     <li><code>toggle</code>: toggles the switch on and off</li>

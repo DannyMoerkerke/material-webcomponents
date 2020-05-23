@@ -48,6 +48,14 @@ describe('material-switch', () => {
     expect(element.hasAttribute('on')).to.eql(false);
   });
 
+  it('should dispatch an event when the switch is toggled', () => {
+    const spy = sinon.spy(element, 'dispatchEvent');
+
+    element.toggle();
+
+    expect(spy.called).to.eql(true);
+  });
+
   it('should reflect to the "value" property whether the element has the "on" attribute', () => {
     element.setAttribute('on', '');
     expect(element.value).to.eql(true);
