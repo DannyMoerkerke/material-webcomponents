@@ -152,6 +152,9 @@ export class MaterialDialog extends HTMLElement {
 
     this.backdrop = this.shadowRoot.querySelector('#backdrop');
     this.modal = this.shadowRoot.querySelector('#modal');
+    this.headerSlot = this.shadowRoot.querySelector('slot[name="header"]');
+    this.bodySlot = this.shadowRoot.querySelector('slot[name="body"]');
+    this.footerSlot = this.shadowRoot.querySelector('slot[name="footer"]');
   }
 
   connectedCallback() {
@@ -180,6 +183,42 @@ export class MaterialDialog extends HTMLElement {
 
   close() {
     this.backdrop.classList.add('close');
+  }
+
+  get header() {
+    return this.headerSlot.assignedNodes()[0];
+  }
+
+  set header(html) {
+    const content = this.headerSlot.assignedNodes();
+
+    if(content.length) {
+      content[0].innerHTML = html;
+    }
+  }
+
+  get body() {
+    return this.bodySlot.assignedNodes()[0];
+  }
+
+  set body(html) {
+    const content = this.bodySlot.assignedNodes();
+
+    if(content.length) {
+      content[0].innerHTML = html;
+    }
+  }
+
+  get footer() {
+    return this.footerSlot.assignedNodes()[0];
+  }
+
+  set footer(html) {
+    const content = this.footerSlot.assignedNodes();
+
+    if(content.length) {
+      content[0].innerHTML = html;
+    }
   }
 }
 
