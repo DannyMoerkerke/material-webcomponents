@@ -5,17 +5,19 @@ describe('material-dialog', () => {
 
   beforeEach(() => {
     element = document.createElement('material-dialog');
-
-    document.body.appendChild(element);
   });
 
   it('should open the modal', () => {
+    document.body.appendChild(element);
+
     element.open();
 
     expect(element.style.display).to.eql('block');
   });
 
   it('should close when the backdrop is clicked', () => {
+    document.body.appendChild(element);
+
     const spy = sinon.spy(element, 'close');
 
     const event = {
@@ -30,6 +32,8 @@ describe('material-dialog', () => {
   });
 
   it('should NOT close when the "modal" attribute is set and the backdrop is clicked', () => {
+    document.body.appendChild(element);
+
     const spy = sinon.spy(element, 'close');
 
     const event = {
@@ -45,6 +49,8 @@ describe('material-dialog', () => {
   });
 
   it('should hide the modal only when the fadeout animation on the backdrop has ended', () => {
+    document.body.appendChild(element);
+
     element.handleAnimationEnd({animationName: 'fadeout'});
 
     expect(element.style.display).to.eql('none');
@@ -54,6 +60,33 @@ describe('material-dialog', () => {
     element.handleAnimationEnd({animationName: 'foo'});
 
     expect(element.style.display).to.not.eql('none');
+  });
+
+  it('should change the contents of the header through the "header" property', () => {
+    element.insertAdjacentHTML('beforeend', '<h1 slot="header"></h1>');
+    document.body.appendChild(element);
+
+    element.header = 'Dialog header';
+
+    expect(element.header.outerHTML).to.eql('<h1 slot="header">Dialog header</h1>');
+  });
+
+  it('should change the contents of the body through the "body" property', () => {
+    element.insertAdjacentHTML('beforeend', '<p slot="body"></p>');
+    document.body.appendChild(element);
+
+    element.body = 'Dialog body';
+
+    expect(element.body.outerHTML).to.eql('<p slot="body">Dialog body</p>');
+  });
+
+  it('should change the contents of the footer through the "footer" property', () => {
+    element.insertAdjacentHTML('beforeend', '<p slot="footer"></p>');
+    document.body.appendChild(element);
+
+    element.footer = 'Dialog footer';
+
+    expect(element.footer.outerHTML).to.eql('<p slot="footer">Dialog footer</p>');
   });
 
   afterEach(() => {
