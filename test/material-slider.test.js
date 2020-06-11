@@ -13,6 +13,8 @@ describe('material-slider', () => {
   });
 
   it('should dispatch an event when the value of the slider changes', () => {
+    document.body.appendChild(element);
+
     const spy = sinon.spy(element, 'dispatchEvent');
     const event = {
       target: {
@@ -31,6 +33,8 @@ describe('material-slider', () => {
   });
 
   it('should reflect the "value" property to the attribute', () => {
+    document.body.appendChild(element);
+
     element.value = 25;
 
     expect(element.getAttribute('value')).to.eql('25');

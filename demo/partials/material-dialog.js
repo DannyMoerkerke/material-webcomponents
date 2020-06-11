@@ -16,6 +16,19 @@ export const template = `<h1>material-dialog</h1>
 </pre>
 
 <h3>Properties</h3>
+<p>
+    These properties can be used to assign a string or HTML to set the content of the header, body or footer. It's 
+    required that there is already an element present to be assigned to the slot.
+</p>
+<p>
+    For example, when you want to set the contents of the <code>body</code>, there should already be an element with 
+    the attribute <code>slot="body"</code> present, e.g. <code>&lt;p slot="body"&gt;&lt;/p&gt;</code>
+</p>
+<ul>
+    <li><code>header</code>: to set content of the header</li>
+    <li><code>body</code>: to set content of the body</li>
+    <li><code>footer</code>: to set content of the footer</li>
+</ul>
 
 <h3>Attributes</h3>
 <ul>

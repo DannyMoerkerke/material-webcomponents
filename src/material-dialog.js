@@ -195,10 +195,6 @@ export class MaterialDialog extends HTMLElement {
     if(content.length) {
       content[0].innerHTML = html;
     }
-    else {
-      // this.headerSlot.innerHTML = html;
-      this.insertAdjacentHTML('afterbegin', html);
-    }
   }
 
   get body() {
@@ -222,9 +218,6 @@ export class MaterialDialog extends HTMLElement {
 
     if(content.length) {
       content[0].innerHTML = html;
-    }
-    else {
-      this.footerSlot.innerHTML = html;
     }
   }
 }

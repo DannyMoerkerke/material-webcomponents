@@ -29,10 +29,17 @@ describe('material-app-bar', () => {
 
   it('should dispatch an event when an icon is clicked', () => {
     const spy = sinon.spy(element, 'dispatchEvent');
-    const left = element.shadowRoot.querySelector('[name="left-content"]');
-    element.handleIconClick({target: left});
+    const slot = element.shadowRoot.querySelector('[name="left-content"]');
+    const target = slot.assignedNodes()[0];
 
-    expect(spy.args[0][0].detail.target).to.eql(left);
+    element.handleIconClick({
+      target,
+      composedPath() {
+        return [target];
+      }
+    });
+
+    expect(spy.args[0][0].detail.target).to.eql(target);
   });
 
   afterEach(() => {
