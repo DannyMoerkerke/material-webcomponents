@@ -49,12 +49,16 @@ describe('material-dropdown', () => {
     expect(element.menuContainer.classList.contains('open')).to.eql(true);
   });
 
-  it('should remove the correct attribute and class when the "closeMenu" method is called', () => {
+  it('should remove the correct attribute and class when the "closeMenu" method is called', done => {
     element.openMenu();
     element.closeMenu();
 
-    expect(element.hasAttribute('open')).to.eql(false);
-    expect(element.menuContainer.classList.contains('open')).to.eql(false);
+    setTimeout(() => {
+      expect(element.hasAttribute('open')).to.eql(false);
+      expect(element.menuContainer.classList.contains('open')).to.eql(false);
+
+      done();
+    }, 100);
   });
 
   it('should open and close the menu when the icon is clicked', () => {

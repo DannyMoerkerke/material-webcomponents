@@ -176,9 +176,11 @@ export class MaterialDropdown extends HTMLElement {
   }
 
   closeMenu() {
-    this.removeAttribute('open');
-    this.open = false;
-    this.menuContainer.classList.remove('open');
+    setTimeout(() => {
+      this.removeAttribute('open');
+      this.open = false;
+      this.menuContainer.classList.remove('open');
+    });
   }
 
   handleClick(e) {
