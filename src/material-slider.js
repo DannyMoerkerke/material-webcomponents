@@ -172,8 +172,8 @@ export class MaterialSlider extends HTMLElement {
     const matches = rgba.exec(thumbColor);
     const thumbColorLight =
       /^#([A-Fa-f0-9]{3}){1,2}$/.test(thumbColor) ? this.hexToRgbA(thumbColor) :
-        /rgb\((.+)\)/.test(thumbColor) ? thumbColor.replace(/rgb\((.+)\)/, 'rgba($1, 0.1)') :
-          rgba.test(thumbColor) ? `rgba(${matches[1]}, ${matches[2]}, ${matches[3]}, 0.1)` : null;
+      /rgb\((.+)\)/.test(thumbColor) ? thumbColor.replace(/rgb\((.+)\)/, 'rgba($1, 0.1)') :
+      rgba.test(thumbColor) ? `rgba(${matches[1]}, ${matches[2]}, ${matches[3]}, 0.1)` : null;
 
     if(thumbColorLight === null) {
       throw new Error(`invalid color specified for --thumb color: ${thumbColor}`);
