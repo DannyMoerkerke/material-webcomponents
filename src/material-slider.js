@@ -24,6 +24,7 @@ export class MaterialSlider extends HTMLElement {
                     margin: 0;
                     width: 100%;
                     z-index: 1;
+                    cursor: pointer;
                 }
                 input[type=range]:focus {
                     outline: none;
@@ -132,10 +133,17 @@ export class MaterialSlider extends HTMLElement {
                 #output {
                     position: absolute;
                 }
+                #input-container {
+                  display: flex;
+                  cursor: pointer;
+                  height: var(--thumb-size);
+                }
             </style>
             
             <div id="container">
-                <input type="range">
+                <div id="input-container">
+                  <input type="range">
+                </div>
                 <output id="output"></output>
             </div>
         `;
@@ -163,8 +171,8 @@ export class MaterialSlider extends HTMLElement {
 
     const matches = rgba.exec(thumbColor);
     const thumbColorLight =
-          /^#([A-Fa-f0-9]{3}){1,2}$/.test(thumbColor) ? this.hexToRgbA(thumbColor) :
-          /rgb\((.+)\)/.test(thumbColor) ? thumbColor.replace(/rgb\((.+)\)/, 'rgba($1, 0.1)') :
+      /^#([A-Fa-f0-9]{3}){1,2}$/.test(thumbColor) ? this.hexToRgbA(thumbColor) :
+        /rgb\((.+)\)/.test(thumbColor) ? thumbColor.replace(/rgb\((.+)\)/, 'rgba($1, 0.1)') :
           rgba.test(thumbColor) ? `rgba(${matches[1]}, ${matches[2]}, ${matches[3]}, 0.1)` : null;
 
     if(thumbColorLight === null) {
