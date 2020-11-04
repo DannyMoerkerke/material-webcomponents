@@ -13,14 +13,16 @@ export class MaterialSlider extends HTMLElement {
             <style>
                 :host {
                     display: block;
-                    --thumb-color: #00bcd4;
+                    --thumb-color: #cccccc;
                     --thumb-color-light: #ffffff;
                     --track-color: #cccccc;
                     --thumb-size: 16px;
                     --track-height: 4px;
+                    --margin: 5px;
                 }
                 input[type=range] {
                     -webkit-appearance: none;
+                    background-color: transparent;
                     margin: 0;
                     width: 100%;
                     z-index: 1;
@@ -126,7 +128,7 @@ export class MaterialSlider extends HTMLElement {
                 }
       
                 #container {
-                    margin: 20px;
+                    margin: var(--margin);
                     position: relative;
                     display: flex;
                 }

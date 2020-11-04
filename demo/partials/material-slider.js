@@ -36,10 +36,11 @@ export const template = `<h1>material-slider</h1>
 
 <h3>Styling</h3>
 <ul>
-  <li><code>--thumb-color</code>: color of the thumb, default: #00bcd4</li>
+  <li><code>--thumb-color</code>: color of the thumb, default: #cccccc</li>
   <li><code>--thumb-size</code>: size of the thumb, default: 16px</li>
   <li><code>--track-color</code>: color of the track, default: #cccccc</li>
   <li><code>--track-height</code>: height of the track, default: 4px</li>
+  <li><code>--margin</code>: margin of the slider, default: 5px</li>
 </ul>
 
 <section class="demo">

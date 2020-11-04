@@ -69,7 +69,7 @@ export const template = `<div class="intro">
     To install Material Web Components run:
   </p>
   <pre>
-    npm install material-webcomponents
+    npm install @dannymoerkerke/material-webcomponents
   </pre>
   <p>
     Then simply <code>import</code> the component you need in your script:

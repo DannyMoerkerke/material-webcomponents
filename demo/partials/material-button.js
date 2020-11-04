@@ -36,7 +36,7 @@ export const template = `<h1>material-button</h1>
 
 <h3>Styling</h3>
 <ul>
-    <li><code>--button-color</code>: background color, default: transparent</li>
+    <li><code>--button-color</code>: background color, default: transparent, when <code>raised</code> default: #e2e2e2</li>
     <li><code>--button-color-hover</code>: background color on hover, default: #e2e2e2</li>
     <li><code>--font-color</code>: font color, default: #000000</li>
     <li><code>--font-size</code>: font size, default: 1em</li>
