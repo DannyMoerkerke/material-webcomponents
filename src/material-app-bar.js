@@ -107,4 +107,6 @@ export class MaterialAppBar extends HTMLElement {
   }
 }
 
-customElements.define('material-app-bar', MaterialAppBar);
+if(!customElements.get('material-app-bar')) {
+  customElements.define('material-app-bar', MaterialAppBar);
+}

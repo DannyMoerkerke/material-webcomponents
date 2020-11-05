@@ -78,4 +78,6 @@ export class MaterialLoader extends HTMLElement {
   }
 }
 
-customElements.define('material-loader', MaterialLoader);
+if(!customElements.get('material-loader')) {
+  customElements.define('material-loader', MaterialLoader);
+}

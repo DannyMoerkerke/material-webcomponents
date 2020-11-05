@@ -149,4 +149,6 @@ export class MaterialSwitch extends HTMLElement {
   }
 }
 
-customElements.define('material-switch', MaterialSwitch);
+if(!customElements.get('material-switch')) {
+  customElements.define('material-switch', MaterialSwitch);
+}

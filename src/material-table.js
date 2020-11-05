@@ -349,4 +349,6 @@ export class MaterialTable extends HTMLElement {
   }
 }
 
-customElements.define('material-table', MaterialTable);
+if(!customElements.get('material-table')) {
+  customElements.define('material-table', MaterialTable);
+}

@@ -183,4 +183,6 @@ export default class MaterialCheckbox extends HTMLElement {
   }
 }
 
-customElements.define('material-checkbox', MaterialCheckbox);
+if(!customElements.get('material-checkbox')) {
+  customElements.define('material-checkbox', MaterialCheckbox);
+}

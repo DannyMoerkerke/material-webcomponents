@@ -218,4 +218,6 @@ export class MaterialProgress extends HTMLElement {
   }
 }
 
-customElements.define('material-progress', MaterialProgress);
+if(!customElements.get('material-progress')) {
+  customElements.define('material-progress', MaterialProgress);
+}

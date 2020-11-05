@@ -164,4 +164,6 @@ export class MaterialTabs extends HTMLElement {
   }
 }
 
-customElements.define('material-tabs', MaterialTabs);
+if(!customElements.get('material-tabs')) {
+  customElements.define('material-tabs', MaterialTabs);
+}

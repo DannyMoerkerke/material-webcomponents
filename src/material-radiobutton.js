@@ -183,4 +183,6 @@ export class MaterialRadiobutton extends HTMLElement {
   }
 }
 
-customElements.define('material-radiobutton', MaterialRadiobutton);
+if(!customElements.get('material-radiobutton')) {
+  customElements.define('material-radiobutton', MaterialRadiobutton);
+}

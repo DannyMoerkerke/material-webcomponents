@@ -167,4 +167,6 @@ export class MaterialButton extends HTMLElement {
   }
 }
 
-customElements.define('material-button', MaterialButton);
+if(!customElements.get('material-button')) {
+  customElements.define('material-button', MaterialButton);
+}

@@ -222,4 +222,6 @@ export class MaterialDialog extends HTMLElement {
   }
 }
 
-customElements.define('material-dialog', MaterialDialog);
+if(!customElements.get('material-dialog')) {
+  customElements.define('material-dialog', MaterialDialog);
+}

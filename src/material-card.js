@@ -73,4 +73,6 @@ export class MaterialCard extends HTMLElement {
   }
 }
 
-customElements.define('material-card', MaterialCard);
+if(!customElements.get('material-card')) {
+  customElements.define('material-card', MaterialCard);
+}

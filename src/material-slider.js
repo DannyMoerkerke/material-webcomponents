@@ -138,6 +138,7 @@ export class MaterialSlider extends HTMLElement {
                 #input-container {
                   display: flex;
                   cursor: pointer;
+                  width: 100%;
                   height: var(--thumb-size);
                 }
             </style>
@@ -215,4 +216,6 @@ export class MaterialSlider extends HTMLElement {
   }
 }
 
-customElements.define('material-slider', MaterialSlider);
+if(!customElements.get('material-slider')) {
+  customElements.define('material-slider', MaterialSlider);
+}

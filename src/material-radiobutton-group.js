@@ -44,4 +44,6 @@ export class MaterialRadiobuttonGroup extends HTMLElement {
   }
 }
 
-customElements.define('material-radiobutton-group', MaterialRadiobuttonGroup);
+if(!customElements.get('material-radiobutton-group')) {
+  customElements.define('material-radiobutton-group', MaterialRadiobuttonGroup);
+}

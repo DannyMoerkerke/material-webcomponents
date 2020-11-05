@@ -244,4 +244,6 @@ export class MaterialTextfield extends HTMLElement {
   }
 }
 
-customElements.define('material-textfield', MaterialTextfield);
+if(!customElements.get('material-textfield')) {
+  customElements.define('material-textfield', MaterialTextfield);
+}

@@ -147,4 +147,6 @@ export class MaterialDrawer extends HTMLElement {
   }
 }
 
-customElements.define('material-drawer', MaterialDrawer);
+if(!customElements.get('material-drawer')) {
+  customElements.define('material-drawer', MaterialDrawer);
+}

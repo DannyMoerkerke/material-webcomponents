@@ -215,4 +215,6 @@ export class MaterialDropdown extends HTMLElement {
   }
 }
 
-customElements.define('material-dropdown', MaterialDropdown);
+if(!customElements.get('material-dropdown')) {
+  customElements.define('material-dropdown', MaterialDropdown);
+}

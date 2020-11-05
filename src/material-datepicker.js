@@ -521,4 +521,6 @@ export class MaterialDatepicker extends HTMLElement {
   }
 }
 
-customElements.define('material-datepicker', MaterialDatepicker);
+if(!customElements.get('material-datepicker')) {
+  customElements.define('material-datepicker', MaterialDatepicker);
+}

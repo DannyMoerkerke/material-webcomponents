@@ -95,4 +95,6 @@ export class MaterialSlidemenu extends HTMLElement {
   }
 }
 
-customElements.define('material-slidemenu', MaterialSlidemenu);
+if(!customElements.get('material-slidemenu')) {
+  customElements.define('material-slidemenu', MaterialSlidemenu);
+}

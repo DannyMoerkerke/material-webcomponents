@@ -208,8 +208,6 @@ export class MaterialBottomSheet extends HTMLElement {
     }, 1000);
   }
 
-  // https://stackoverflow.com/questions/49500339/cant-prevent-touchmove-from-scrolling-window-on-ios
-
   handleTouchStart(e) {
     this.sheet.style.animationName = 'none';
 
@@ -274,4 +272,6 @@ export class MaterialBottomSheet extends HTMLElement {
   }
 }
 
-customElements.define('material-bottom-sheet', MaterialBottomSheet);
+if(!customElements.get('material-bottom-sheet')) {
+  customElements.define('material-bottom-sheet', MaterialBottomSheet);
+}
