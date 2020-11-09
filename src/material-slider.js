@@ -1,7 +1,7 @@
 export class MaterialSlider extends HTMLElement {
 
   static get observedAttributes() {
-    return ['value'];
+    return ['value', 'disabled'];
   }
 
   constructor() {
@@ -19,6 +19,9 @@ export class MaterialSlider extends HTMLElement {
                     --thumb-size: 16px;
                     --track-height: 4px;
                     --margin: 5px;
+                }
+                :host([disabled]) input {
+                    opacity: 0.5;
                 }
                 input[type=range] {
                     -webkit-appearance: none;
@@ -151,11 +154,11 @@ export class MaterialSlider extends HTMLElement {
             </div>
         `;
 
+    this.input = this.shadowRoot.querySelector('input[type=range]');
   }
 
   connectedCallback() {
     this.container = this.shadowRoot.querySelector('#container');
-    this.input = this.shadowRoot.querySelector('input[type=range]');
     this.host = this.input.getRootNode().host;
     this.min = this.hasAttribute('min') ? this.getAttribute('min') : 1;
     this.input.min = this.min;
@@ -165,6 +168,7 @@ export class MaterialSlider extends HTMLElement {
     this.input.step = this.step;
     this.input.value = this.hasAttribute('value') ? this.getAttribute('value') : this.input.value;
     this.value = this.input.value;
+    this.disabled = this.hasAttribute('disabled');
 
     this.input.addEventListener('input', this.handleInput.bind(this));
 
@@ -213,6 +217,26 @@ export class MaterialSlider extends HTMLElement {
 
   get value() {
     return this.getAttribute('value');
+  }
+
+  set disabled(isDisabled) {
+    this.input.disabled = isDisabled;
+
+    isDisabled ? this.setAttribute('disabled', '') : this.removeAttribute('disabled');
+  }
+
+  get disabled() {
+    return this.hasAttribute('disabled');
+  }
+
+  attributeChangedCallback(attr, oldVal, newVal) {
+    if(attr === 'value') {
+      this.input.value = newVal;
+    }
+
+    if(attr === 'disabled') {
+      this.input.disabled = this.hasAttribute('disabled');
+    }
   }
 }
 

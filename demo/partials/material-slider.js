@@ -19,6 +19,7 @@ export const template = `<h1>material-slider</h1>
 <h3>Properties</h3>
 <ul>
   <li><code>value</code>: Number, current value of the slider</li>
+  <li><code>disabled</code>: empty, disables the slider</li>
 </ul>
 
 <h3>Events</h3>

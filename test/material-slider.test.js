@@ -40,6 +40,24 @@ describe('material-slider', () => {
     expect(element.getAttribute('value')).to.eql('25');
   });
 
+  it('should pass the "value" property to the input', () => {
+    document.body.appendChild(element);
+
+    element.value = 25;
+
+    expect(element.input.value).to.eql('25');
+  });
+
+  it('should pass the "disabled" property to the input', () => {
+    document.body.appendChild(element);
+
+    expect(element.input.disabled).to.eql(false);
+
+    element.disabled = true;
+
+    expect(element.input.disabled).to.eql(true);
+  });
+
   it('should set the correct color of the box-shadow, from hex', () => {
     element.style.setProperty('--thumb-color', hex);
     document.body.appendChild(element);
