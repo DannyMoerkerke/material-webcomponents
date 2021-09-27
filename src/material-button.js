@@ -92,6 +92,16 @@ export class MaterialButton extends HTMLElement {
           --button-padding: var(--button-padding-circle);
         }
         
+        ::slotted([slot="left-icon"]) {
+            float: left;
+            font-size: var(--icon-size) !important;
+        }
+        
+        ::slotted([slot="right-icon"]) {
+            float: right;
+            font-size: var(--icon-size) !important;
+        }
+        
         ::slotted([slot="file-input"]) {
           position: absolute;
           top: 0;

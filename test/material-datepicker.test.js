@@ -25,6 +25,7 @@ describe('material-datepicker', () => {
       weekday: 'short',
       month: 'short'
     }).format(currentDate);
+
     expect(element.currentMonthContainer.textContent).to.eql(`${month} ${currentYear}`);
     expect(element.headerYear.textContent).to.eql(currentYear.toString());
     expect(element.headerDate.textContent).to.eql(`${localDate}`);
