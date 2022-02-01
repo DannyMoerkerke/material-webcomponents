@@ -97,6 +97,23 @@ export class MaterialButton extends HTMLElement {
             font-size: var(--icon-size) !important;
         }
         
+        ::slotted([slot="toggle-icon"]) {
+            float: left;
+            font-size: var(--icon-size) !important;
+        }
+        
+        slot[name="toggle-icon"] {
+            display: none;
+        }
+        
+        :host([toggled]) slot[name="left-icon"] {
+          display: none;
+        }
+        
+        :host([toggled]) slot[name="toggle-icon"] {
+          display: block;
+        }
+        
         ::slotted([slot="right-icon"]) {
             float: right;
             font-size: var(--icon-size) !important;
@@ -130,6 +147,7 @@ export class MaterialButton extends HTMLElement {
         <div class="ripple"></div>
         <slot name="file-input"></slot>
         <slot name="left-icon"></slot>
+        <slot name="toggle-icon"></slot>
         <span id="label"></span>
         <slot name="right-icon"></slot>
       </button>
@@ -143,8 +161,15 @@ export class MaterialButton extends HTMLElement {
   connectedCallback() {
     this.hasAttribute('label') ? this.label.textContent = this.getAttribute('label') : this.label.style.display = 'none';
 
+    const iconSlot = this.shadowRoot.querySelector('slot[name="left-icon"]');
+    const toggleIconSlot = this.shadowRoot.querySelector('slot[name="toggle-icon"]');
+
+    this.hasToggleIcon = iconSlot.assignedNodes().length && toggleIconSlot.assignedNodes().length;
+    this.toggled = false;
+
     this.button.addEventListener('click', () => {
       this.active = true;
+      this.toggled = !this.toggled;
     });
 
     this.ripple.addEventListener('animationend', () => {
@@ -155,6 +180,21 @@ export class MaterialButton extends HTMLElement {
   attributeChangedCallback(attr) {
     if(attr === 'label') {
       this.hasAttribute('label') ? this.label.textContent = this.getAttribute('label') : this.label.style.display = 'none';
+    }
+  }
+
+  get toggled() {
+    return this.hasAttribute('toggled');
+  }
+
+  set toggled(isToggled) {
+    if(this.hasToggleIcon) {
+      if(isToggled) {
+        this.setAttribute('toggled', '');
+      }
+      else {
+        this.removeAttribute('toggled');
+      }
     }
   }
 

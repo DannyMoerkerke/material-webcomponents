@@ -30,6 +30,8 @@ export const template = `<h1>material-button</h1>
 <h3>Slots</h3>
 <ul>
     <li><code>left-icon</code>: icon appearing on the left side</li>
+    <li><code>toggle-icon</code>: icon appearing on the left side when <code>toggled=true</code>,
+     will hide <code>left-icon</code> when <code>toggled=true</code></li>
     <li><code>right-icon</code>: icon appearing on the right side</li>
     <li><code>file-input</code>: file input field which will be hidden to make it appear as a button</li>
 </ul>
@@ -83,11 +85,20 @@ export const template = `<h1>material-button</h1>
             <i class="material-icons" slot="right-icon">close</i>
         </material-button>
     </div>
-
+    
     <div class="demo-option">
         <em>icon, no label</em>
         <material-button raised>
             <i class="material-icons" slot="left-icon">add</i>
         </material-button>
     </div>
+    
+    <div class="demo-option">
+        <em>toggle icon</em>
+        <material-button raised>
+            <i class="material-icons" slot="left-icon">videocam</i>
+            <i class="material-icons" slot="toggle-icon">videocam_off</i>
+        </material-button>
+    </div>
+
 </section>`;
