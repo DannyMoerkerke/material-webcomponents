@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.3.1] - 2022-08-18
+## Fixed
+- Fixed issue where menu was closed before url in option was opened
+- Added flag to prevent menu form being set to 0 width and height when it is 
+- initialized while hidden
+
+
 ## [1.3.0] - 2022-02-01
 ## Added
 - added `toggle-icon` slot to material-button to allow the icon to be toggled between `left-icon` and `toggle-icon`

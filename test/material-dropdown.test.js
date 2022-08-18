@@ -39,15 +39,28 @@ describe('material-dropdown', () => {
     expect(element.hasAttribute('open')).to.eql(false);
   });
 
-  it('should set the correct attribute and class when the "openMenu" method is called', () => {
+  it('should set the correct attribute when the "openMenu" method is called', () => {
     expect(element.hasAttribute('open')).to.eql(false);
     expect(element.menuContainer.classList.contains('open')).to.eql(false);
 
     element.openMenu();
 
     expect(element.hasAttribute('open')).to.eql(true);
-    expect(element.menuContainer.classList.contains('open')).to.eql(true);
   });
+
+  it('should call "setupMenu" when "menuInitialized" is false', () => {
+    const spy1 = sinon.spy(element, 'setupMenu');
+
+    element.menuInitialized = true;
+    element.openMenu();
+
+    expect(spy1.called).to.eql(false);
+
+    element.menuInitialized = false;
+    element.openMenu();
+
+    expect(spy1.called).to.eql(true);
+  })
 
   it('should remove the correct attribute and class when the "closeMenu" method is called', done => {
     element.openMenu();
@@ -97,7 +110,7 @@ describe('material-dropdown', () => {
     });
   });
 
-  it('should call the notifyChange and closeMenu methods when an option is clicked', () => {
+  it('should call the notifyChange and closeMenu methods when an option is clicked', (done) => {
     const spy1 = sinon.spy(element, 'notifyChange');
     const spy2 = sinon.spy(element, 'closeMenu');
 
@@ -112,7 +125,10 @@ describe('material-dropdown', () => {
     element.handleClick(event);
 
     expect(spy1.args[0][0]).to.eql(value);
-    expect(spy2.called).to.eql(true);
+    setTimeout(() => {
+      expect(spy2.called).to.eql(true);
+      done();
+    }, 100)
   });
 
   it('should set the "value" attribute and dispatch an event when notifyChange is called', () => {
