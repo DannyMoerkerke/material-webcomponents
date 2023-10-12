@@ -156,7 +156,7 @@ export class MaterialRadiobutton extends HTMLElement {
         value
       },
       composed: true,
-      bubbles: false
+      bubbles: true
     }));
   }
 
