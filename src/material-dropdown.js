@@ -134,7 +134,7 @@ export class MaterialDropdown extends HTMLElement {
     this.setupMenu();
 
     this.container.addEventListener('mousedown', this.handleClick.bind(this));
-    this.icon.addEventListener('blur',() => {
+    this.icon.addEventListener('blur', () => {
       setTimeout(() => this.closeMenu(), 100);
     });
   }
