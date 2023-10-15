@@ -43,7 +43,7 @@
     "sinon": "^11.1.2",
     "uglifyjs-webpack-plugin": "^1.0.0-beta.2",
     "webpack": "^4.29.6",
-    "webpack-cli": "^2.0.14"
+    "webpack-cli": "^5.0.1"
   },
   "dependencies": {
     "@webcomponents/webcomponentsjs": "^1.0.17"
